@@ -6,10 +6,9 @@ import {
   View,
 } from 'react-native';
 
-// 3rd party libraries
 import { AdMobBanner } from 'react-native-admob';
 
-import { config } from './config';
+import { config } from '../config';
 
 const styles = StyleSheet.create({
   container: {

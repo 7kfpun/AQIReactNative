@@ -6,7 +6,7 @@ const AQI = () => {
     .then((json) => {
       // console.log(json.query.results)
       console.log(json.query.results.table[0].tbody.tr.td.center.b.replace('Time: ', ''));
-      let result = {
+      const result = {
         time: json.query.results.table[0].tbody.tr.td.center.b.replace('Time: ', ''),
       };
       console.log('city', 'NO2', 'O3', 'SO2', 'CO', 'PM10', 'PM2.5', 'AQHI', 'AQI');
@@ -20,7 +20,7 @@ const AQI = () => {
           element.td[5].font.content,
           element.td[6].font.content,
           element.td[7].font.content,
-          element.td[8].font.content
+          element.td[8].font.content,
         );
         result[element.td[0]] = {
           NO2: element.td[1].font.content,
@@ -31,7 +31,7 @@ const AQI = () => {
           'PM2.5': element.td[6].font.content,
           AQHI: element.td[7].font.content,
           AQI: element.td[8].font.content,
-        }
+        };
       });
       return result;
     });
