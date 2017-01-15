@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Modal,
-  Platform,
   ScrollView,
   DeviceEventEmitter,
   StyleSheet,
@@ -22,7 +20,6 @@ import Marker from '../elements/marker';
 import AdMob from '../elements/admob';
 import aqi from '../utils/aqi';
 
-import { config } from '../config';
 import { locations } from '../utils/locations';
 
 const styles = StyleSheet.create({
@@ -34,6 +31,12 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
+  },
+  menu: {
+    position: 'absolute',
+    left: 15,
+    top: 25,
+    backgroundColor: 'transparent',
   },
   help: {
     position: 'absolute',
@@ -107,7 +110,6 @@ export default class MainView extends Component {
   componentDidMount() {
     this.prepareData();
 
-    AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
     timer.clearTimeout(this);
     timer.setTimeout(this, 'AdMobInterstitial', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
@@ -133,103 +135,6 @@ export default class MainView extends Component {
       <View style={styles.container}>
         <AdMob />
 
-        <Modal
-          animationType={'fade'}
-          transparent={false}
-          visible={this.state.modalVisible}
-        >
-          <TouchableOpacity style={{ flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center' }} onPress={() => this.setState({ modalVisible: false })} >
-            <View>
-              <View style={{ marginBottom: 20 }}>
-                <Text style={{ fontSize: 18, marginBottom: 20 }}>Air Quality Index (AQI)</Text>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#009866', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text>0-50</Text>
-                  </View>
-                  <Text>Good</Text>
-                </View>
-                <Text style={{ fontWeight: '100', marginBottom: 10 }}>Air pollution risk is low.</Text>
-
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#FEDE33', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text>51-100</Text>
-                  </View>
-                  <Text>Moderate</Text>
-                </View>
-                <Text style={{ fontWeight: '100', marginBottom: 10 }}>Air quality is acceptable.</Text>
-
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#FE9833', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text>101-150</Text>
-                  </View>
-                  <Text>Unhealthy for high-risk group</Text>
-                </View>
-                <Text style={{ fontWeight: '100', marginBottom: 10 }}>High-risk group may have health effects. General public is not affected.</Text>
-
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#CC0033', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text style={{ color: 'white' }}>151-200</Text>
-                  </View>
-                  <Text>Unhealthy</Text>
-                </View>
-                <Text style={{ fontWeight: '100', marginBottom: 10 }}>High-risk group may have more serious health effects. Some of the general public may have health effects.</Text>
-
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#660098', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text style={{ color: 'white' }}>201-300</Text>
-                  </View>
-                  <Text>Very Unhealthy</Text>
-                </View>
-                <Text style={{ fontWeight: '100', marginBottom: 10 }}>General public have health effects.</Text>
-
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#7E2200', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text style={{ color: 'white' }}>301-500</Text>
-                  </View>
-                  <Text>Hazardous</Text>
-                </View>
-                <Text style={{ fontWeight: '100', marginBottom: 10 }}>Some of the general public may have more serious health effects.</Text>
-              </View>
-
-              <View style={{ marginBottom: 20 }}>
-                <Text style={{ fontSize: 18, marginBottom: 20 }}>Air Quality Health Index (AQHI)</Text>
-
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#4DB748', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text style={{ color: 'white' }}>{'1-3'}</Text>
-                  </View>
-                  <Text>Low</Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#F9AB1A', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text style={{ color: 'white' }}>{'4-6'}</Text>
-                  </View>
-                  <Text>Moderate</Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#ED1B24', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text style={{ color: 'white' }}>{'7'}</Text>
-                  </View>
-                  <Text>High</Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#A04623', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text style={{ color: 'white' }}>{'8-10'}</Text>
-                  </View>
-                  <Text>Very high</Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: '#000000', paddingHorizontal: 10, width: 100, justifyContent: 'center', alignItems: 'center', marginRight: 30 }}>
-                    <Text style={{ color: 'white' }}>{'10+'}</Text>
-                  </View>
-                  <Text>Serious</Text>
-                </View>
-              </View>
-
-            </View>
-          </TouchableOpacity>
-        </Modal>
-
         <MapView
           style={styles.map}
           initialRegion={{
@@ -239,6 +144,10 @@ export default class MainView extends Component {
             longitudeDelta: this.state.gpsEnabled ? 0.1 : 0.221,
           }}
         >
+          <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
+            <Icon name="settings" size={30} color="#FFF" />
+          </TouchableOpacity>
+
           <TouchableOpacity style={styles.help} onPress={Actions.help} >
             <Icon name="help" size={30} color="#FFF" />
           </TouchableOpacity>
@@ -269,6 +178,7 @@ export default class MainView extends Component {
               <Text>Update on {this.state.aqiResult.time}</Text>
             </TouchableOpacity>
           </View>}
+
           <View style={styles.buttonContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
 
