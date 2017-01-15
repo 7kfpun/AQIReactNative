@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const styles = StyleSheet.create({
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
 
 export default class HelpView extends Component {
   render() {
+    GoogleAnalytics.trackScreenView('Help');
     return (
       <View style={styles.container}>
         <ScrollView>

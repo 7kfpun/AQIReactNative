@@ -11,6 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
 import { RNLocation as Location } from 'NativeModules';
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import timer from 'react-native-timer';
@@ -131,6 +132,7 @@ export default class MainView extends Component {
   }
 
   render() {
+    GoogleAnalytics.trackScreenView('Main');
     return (
       <View style={styles.container}>
         <AdMob />

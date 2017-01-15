@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import store from 'react-native-simple-store';
 
@@ -100,6 +101,7 @@ export default class SettingsView extends Component {
   }
 
   render() {
+    GoogleAnalytics.trackScreenView('Settings');
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.close} onPress={Actions.pop} >
