@@ -11,7 +11,6 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
 import { RNLocation as Location } from 'NativeModules';
-import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import timer from 'react-native-timer';
@@ -22,6 +21,7 @@ import AdMob from '../elements/admob';
 import aqi from '../utils/aqi';
 
 import { locations } from '../utils/locations';
+import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,13 +37,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 15,
     top: 25,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 42,
+    width: 42,
+    borderRadius: 21,
   },
   help: {
     position: 'absolute',
     right: 15,
     top: 25,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 42,
+    width: 42,
+    borderRadius: 21,
   },
   infomationContainer: {
     flexDirection: 'row',
@@ -114,7 +124,7 @@ export default class MainView extends Component {
     timer.clearTimeout(this);
     timer.setTimeout(this, 'AdMobInterstitial', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, 5000);
+    }, 10 * 1000);
   }
 
   componentWillUnmount() {
@@ -132,7 +142,7 @@ export default class MainView extends Component {
   }
 
   render() {
-    GoogleAnalytics.trackScreenView('Main');
+    tracker.trackScreenView('Main');
     return (
       <View style={styles.container}>
         <AdMob />
@@ -147,11 +157,11 @@ export default class MainView extends Component {
           }}
         >
           <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
-            <Icon name="settings" size={30} color="#FFF" />
+            <Icon name="settings" size={30} color="#616161" />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.help} onPress={Actions.help} >
-            <Icon name="help" size={30} color="#FFF" />
+            <Icon name="help-outline" size={30} color="#616161" />
           </TouchableOpacity>
           {this.state.aqiResult && this.state.markers.map(marker => (
             <MapView.Marker
@@ -174,7 +184,10 @@ export default class MainView extends Component {
 
           {this.state.aqiResult && <View style={styles.infomationContainer}>
             <TouchableOpacity
-              onPress={() => this.prepareData()}
+              onPress={() => {
+                this.prepareData();
+                tracker.trackEvent('user-action', 'fetch-latest-data');
+              }}
               style={styles.infomationBubble}
             >
               <Text>Update on {this.state.aqiResult.time}</Text>
@@ -187,7 +200,10 @@ export default class MainView extends Component {
               {['AQI', 'AQHI', 'NO2', 'O3', 'SO2', 'CO', 'PM10', 'PM2.5'].map(item => (
                 <TouchableOpacity
                   key={item}
-                  onPress={() => this.setState({ selectedIndex: item })}
+                  onPress={() => {
+                    this.setState({ selectedIndex: item });
+                    tracker.trackEvent('user-action', 'select-index', { label: item });
+                  }}
                   style={[styles.bubble, styles.button]}
                 >
                   <Text>{item}</Text>
