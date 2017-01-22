@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
+    marginBottom: 50,
   },
   menu: {
     position: 'absolute',
@@ -145,8 +146,6 @@ export default class MainView extends Component {
     tracker.trackScreenView('Main');
     return (
       <View style={styles.container}>
-        <AdMob />
-
         <MapView
           style={styles.map}
           initialRegion={{
@@ -156,9 +155,9 @@ export default class MainView extends Component {
             longitudeDelta: this.state.gpsEnabled ? 0.1 : 0.221,
           }}
         >
-          <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
+          {/* <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
             <Icon name="settings" size={30} color="#616161" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity style={styles.help} onPress={Actions.help} >
             <Icon name="help-outline" size={30} color="#616161" />
@@ -216,6 +215,8 @@ export default class MainView extends Component {
             position={Toast.positions.BOTTOM - 120}
           >{'Fetching...'}</Toast>
         </MapView>
+
+        <AdMob />
       </View>
     );
   }
