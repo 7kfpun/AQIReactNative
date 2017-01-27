@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
-  ScrollView,
+  ActivityIndicator,
   DeviceEventEmitter,
+  Dimensions,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,7 +16,6 @@ import { RNLocation as Location } from 'NativeModules';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import timer from 'react-native-timer';
-import Toast from 'react-native-root-toast';
 
 import Marker from '../elements/marker';
 import AdMob from '../elements/admob';
@@ -22,6 +23,17 @@ import aqi from '../utils/aqi';
 
 import { locations } from '../utils/locations';
 import tracker from '../utils/tracker';
+
+const { width, height } = Dimensions.get('window');
+
+const ASPECT_RATIO = width / height;
+const LATITUDE = 22.3218;
+const LONGITUDE = 114.1795;
+const LATITUDE_DELTA = 0.0032;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+const TEN_SECONDS = 10 * 1000;
+const TEN_MINUTES = 10 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -41,14 +53,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.7)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 42,
-    width: 42,
-    borderRadius: 21,
+    height: 36,
+    width: 36,
+    borderRadius: 18,
   },
   help: {
     position: 'absolute',
     right: 15,
     top: 25,
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 36,
+    width: 36,
+    borderRadius: 18,
+  },
+  currentLocation: {
+    position: 'absolute',
+    right: 15,
+    bottom: 100,
     backgroundColor: 'rgba(255,255,255,0.7)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -60,18 +83,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 12,
     backgroundColor: 'transparent',
   },
   infomationBubble: {
     backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  infomationBubbleBody: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  infomationBubbleText: {
+    fontSize: 12,
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: 6,
     backgroundColor: 'transparent',
   },
   bubble: {
@@ -94,13 +124,12 @@ export default class MainView extends Component {
 
     this.state = {
       location: {
-        latitude: 22.3218,
-        longitude: 114.1795,
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
       },
       markers: locations,
       selectedIndex: 'AQI',
-      toastVisible: false,
-      modalVisible: false,
+      isLoading: false,
       gpsEnabled: false,
     };
   }
@@ -123,21 +152,36 @@ export default class MainView extends Component {
     this.prepareData();
 
     timer.clearTimeout(this);
-    timer.setTimeout(this, 'AdMobInterstitial', () => {
+    timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, 10 * 1000);
+    }, TEN_SECONDS);
+    timer.setInterval(this, 'AdMobInterstitialInterval', () => {
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
+    }, TEN_MINUTES);
+
+    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), TEN_MINUTES);
   }
 
   componentWillUnmount() {
     timer.clearTimeout(this);
+    timer.clearInterval(this);
+  }
+
+  getCurrentLocation() {
+    return {
+      latitude: this.state.location.latitude,
+      longitude: this.state.location.longitude,
+      latitudeDelta: this.state.gpsEnabled ? 0.1 : LATITUDE_DELTA,
+      longitudeDelta: this.state.gpsEnabled ? 0.1 * ASPECT_RATIO : LONGITUDE_DELTA,
+    };
   }
 
   prepareData() {
-    this.setState({ toastVisible: true });
+    this.setState({ isLoading: true });
     aqi().then((result) => {
       this.setState({
         aqiResult: result,
-        toastVisible: false,
+        isLoading: false,
       });
     });
   }
@@ -148,19 +192,15 @@ export default class MainView extends Component {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          initialRegion={{
-            latitude: this.state.location.latitude,
-            longitude: this.state.location.longitude,
-            latitudeDelta: this.state.gpsEnabled ? 0.1 : 0.0032,
-            longitudeDelta: this.state.gpsEnabled ? 0.1 : 0.221,
-          }}
+          ref={(ref) => { this.map = ref; }}
+          initialRegion={this.getCurrentLocation()}
         >
           {/* <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
-            <Icon name="settings" size={30} color="#616161" />
+            <Icon name="settings" size={24} color="#616161" />
           </TouchableOpacity> */}
 
           <TouchableOpacity style={styles.help} onPress={Actions.help} >
-            <Icon name="help-outline" size={30} color="#616161" />
+            <Icon name="help-outline" size={24} color="#616161" />
           </TouchableOpacity>
           {this.state.aqiResult && this.state.markers.map(marker => (
             <MapView.Marker
@@ -170,9 +210,6 @@ export default class MainView extends Component {
               description={marker.description}
             >
               {this.state.aqiResult[marker.title]
-                // && this.state.aqiResult[marker.title][this.state.selectedIndex] !== '-*'
-                // && this.state.aqiResult[marker.title][this.state.selectedIndex] !== '/-'
-                // && this.state.aqiResult[marker.title][this.state.selectedIndex] !== '-/-'
                 && <Marker amount={this.state.aqiResult[marker.title][this.state.selectedIndex]} index={this.state.selectedIndex} />}
             </MapView.Marker>
           ))}
@@ -180,6 +217,16 @@ export default class MainView extends Component {
           {this.state.location && <MapView.Marker
             coordinate={this.state.location}
           />}
+
+          <TouchableOpacity
+            style={styles.currentLocation}
+            onPress={() => {
+              this.map.animateToRegion(this.getCurrentLocation());
+              tracker.trackEvent('user-action', 'move-to-current-location');
+            }}
+          >
+            <Icon name="near-me" size={26} color="#616161" />
+          </TouchableOpacity>
 
           {this.state.aqiResult && <View style={styles.infomationContainer}>
             <TouchableOpacity
@@ -189,13 +236,16 @@ export default class MainView extends Component {
               }}
               style={styles.infomationBubble}
             >
-              <Text>Update on {this.state.aqiResult.time}</Text>
+              <View style={styles.infomationBubbleBody}>
+                <Text style={styles.infomationBubbleText}>Last Updated On {this.state.aqiResult.time}</Text>
+                {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
+                {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
+              </View>
             </TouchableOpacity>
           </View>}
 
           <View style={styles.buttonContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-
               {['AQI', 'AQHI', 'NO2', 'O3', 'SO2', 'CO', 'PM10', 'PM2.5'].map(item => (
                 <TouchableOpacity
                   key={item}
@@ -210,10 +260,6 @@ export default class MainView extends Component {
               ))}
             </ScrollView>
           </View>
-          <Toast
-            visible={this.state.toastVisible}
-            position={Toast.positions.BOTTOM - 120}
-          >{'Fetching...'}</Toast>
         </MapView>
 
         <AdMob />

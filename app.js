@@ -28,66 +28,68 @@ const scenes = Actions.create(
 
 export default class App extends Component {
   componentDidMount() {
-    BackgroundFetch.configure({
-      stopOnTerminate: false,
-    }, () => {
-      console.log('[js] Received background-fetch event');
+    if (Platform.OS === 'ios') {
+      BackgroundFetch.configure({
+        stopOnTerminate: false,
+      }, () => {
+        console.log('[js] Received background-fetch event');
 
-      store.get('notificationIsEnabled')
-        .then((notificationIsEnabled) => {
-          if (notificationIsEnabled) {
-            store.get('notificationLocation')
-              .then((notificationLocation) => {
-                if (notificationLocation) {
-                  store.get('notificationTherhold')
-                    .then((notificationTherhold) => {
-                      if (notificationTherhold) {
-                        aqi().then((result) => {
-                          if (result
-                            && result[notificationLocation]
-                            && !isNaN(result[notificationLocation].AQI)
-                            && parseInt(result[notificationLocation].AQI) > notificationTherhold
-                          ) {
-                            const date = new Date(Date.now() + (1000));
-                            PushNotification.localNotificationSchedule({
-                              message: `AQI in ${notificationLocation} is high now: ${result[notificationLocation].AQI}`,
-                              date,
-                            });
-                            console.log('BackgroundFetch', notificationIsEnabled, notificationLocation, notificationTherhold);
-                          } else {
-                            console.log('BackgroundFetch does not match.');
-                          }
-                        });
-                      }
-                    });
-                }
-              });
-          }
-        });
+        store.get('notificationIsEnabled')
+          .then((notificationIsEnabled) => {
+            if (notificationIsEnabled) {
+              store.get('notificationLocation')
+                .then((notificationLocation) => {
+                  if (notificationLocation) {
+                    store.get('notificationTherhold')
+                      .then((notificationTherhold) => {
+                        if (notificationTherhold) {
+                          aqi().then((result) => {
+                            if (result
+                              && result[notificationLocation]
+                              && !isNaN(result[notificationLocation].AQI)
+                              && parseInt(result[notificationLocation].AQI) > notificationTherhold
+                            ) {
+                              const date = new Date(Date.now() + (1000));
+                              PushNotification.localNotificationSchedule({
+                                message: `AQI in ${notificationLocation} is high now: ${result[notificationLocation].AQI}`,
+                                date,
+                              });
+                              console.log('BackgroundFetch', notificationIsEnabled, notificationLocation, notificationTherhold);
+                            } else {
+                              console.log('BackgroundFetch does not match.');
+                            }
+                          });
+                        }
+                      });
+                  }
+                });
+            }
+          });
 
-      // To signal completion of your task to iOS, you must call #finish!
-      // If you fail to do this, iOS can kill your app.
-      BackgroundFetch.finish();
-    }, (error) => {
-      console.log('[js] RNBackgroundFetch failed to start', error);
-    });
+        // To signal completion of your task to iOS, you must call #finish!
+        // If you fail to do this, iOS can kill your app.
+        BackgroundFetch.finish();
+      }, (error) => {
+        console.log('[js] RNBackgroundFetch failed to start', error);
+      });
+    }
 
-    // Optional: Query the authorization status.
-    BackgroundFetch.status((status) => {
-      switch (status) {
-        case BackgroundFetch.STATUS_RESTRICTED:
-          console.log('BackgroundFetch restricted');
-          break;
-        case BackgroundFetch.STATUS_DENIED:
-          console.log('BackgroundFetch denied');
-          break;
-        case BackgroundFetch.STATUS_AVAILABLE:
-          console.log('BackgroundFetch is enabled');
-          break;
-        default:
-          break;
-      }
-    });
+    // // Optional: Query the authorization status.
+    // BackgroundFetch.status((status) => {
+    //   switch (status) {
+    //     case BackgroundFetch.STATUS_RESTRICTED:
+    //       console.log('BackgroundFetch restricted');
+    //       break;
+    //     case BackgroundFetch.STATUS_DENIED:
+    //       console.log('BackgroundFetch denied');
+    //       break;
+    //     case BackgroundFetch.STATUS_AVAILABLE:
+    //       console.log('BackgroundFetch is enabled');
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // });
   }
 
   render() {
