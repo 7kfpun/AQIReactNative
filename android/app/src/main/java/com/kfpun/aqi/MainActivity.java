@@ -1,4 +1,4 @@
-package com.aqi;
+package com.kfpun.aqi;
 
 import com.facebook.react.ReactActivity;
 

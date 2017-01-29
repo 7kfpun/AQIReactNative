@@ -51,7 +51,7 @@ export default class HelpView extends Component {
     tracker.trackScreenView('Help');
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView showsHorizontalScrollIndicator={false}>
           <View style={styles.block}>
             <Text style={styles.title}>Air Quality Index (AQI)</Text>
             <View style={styles.row}>

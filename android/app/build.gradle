@@ -87,11 +87,11 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.aqi"
+        applicationId "com.kfpun.aqi"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -104,10 +104,19 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file(AQI_RELEASE_STORE_FILE)
+            storePassword AQI_RELEASE_STORE_PASSWORD
+            keyAlias AQI_RELEASE_KEY_ALIAS
+            keyPassword AQI_RELEASE_KEY_PASSWORD
+        }
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -126,6 +135,17 @@ android {
 }
 
 dependencies {
+    compile(project(':react-native-maps')){
+       exclude group: 'com.google.android.gms', module: 'play-services-base'
+       exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+    compile 'com.google.android.gms:play-services-base:10.0.1'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile project(':react-native-device-info')
+    compile project(':react-native-admob')
+    compile project(':react-native-google-analytics-bridge')
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-android-location')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
