@@ -91,6 +91,7 @@ export default class SettingsView extends Component {
     store.save('notificationIsEnabled', value);
     this.setState({ notificationIsEnabled: value });
     if (value) {
+      tracker.trackEvent('user-action', 'set-notification', { label: 'notification-on' });
       PushNotification.configure({
         onRegister: (token) => {
           console.log('TOKEN:', token);
@@ -108,6 +109,8 @@ export default class SettingsView extends Component {
         popInitialNotification: true,
         requestPermissions: true,
       });
+    } else {
+      tracker.trackEvent('user-action', 'set-notification', { label: 'notification-off' });
     }
   }
 
