@@ -14,6 +14,8 @@ import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import store from 'react-native-simple-store';
 
+import PushNotification from 'react-native-push-notification';
+
 import { locations } from '../utils/locations';
 import tracker from '../utils/tracker';
 
@@ -88,6 +90,25 @@ export default class SettingsView extends Component {
   setNotification(value) {
     store.save('notificationIsEnabled', value);
     this.setState({ notificationIsEnabled: value });
+    if (value) {
+      PushNotification.configure({
+        onRegister: (token) => {
+          console.log('TOKEN:', token);
+        },
+
+        onNotification: (notification) => {
+          console.log('NOTIFICATION:', notification);
+        },
+        // IOS ONLY (optional): default: all - Permissions to register.
+        permissions: {
+          alert: true,
+          badge: true,
+          sound: true,
+        },
+        popInitialNotification: true,
+        requestPermissions: true,
+      });
+    }
   }
 
   setNotificationLocation(value) {

@@ -12,20 +12,20 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "15.3.1",
-    "react-native": "0.37.0",
-    "react-native-admob": "1.1.2",
+    "react": "15.4.2",
+    "react-native": "0.41.2",
+    "react-native-admob": "github:lucianomlima/react-native-admob#react-native_v0.40.0-fix",
     "react-native-android-location": "^1.0.2",
-    "react-native-background-fetch": "1.0.2",
+    "react-native-background-fetch": "^2.0.3",
     "react-native-device-info": "^0.9.7",
-    "react-native-google-analytics-bridge": "^4.0.0",
-    "react-native-location": "^0.27.0",
-    "react-native-maps": "^0.12.4",
-    "react-native-push-notification": "github:zo0r/react-native-push-notification",
+    "react-native-google-analytics-bridge": "^5.0.1",
+    "react-native-location": "github:timfpark/react-native-location#723d46382d8c370f6e6b795006276f98e80b2d84",
+    "react-native-maps": "github:airbnb/react-native-maps#1efb8efad50c2ed37a8c091cf7b28d8744eec0f3",
+    "react-native-push-notification": "^2.2.1",
     "react-native-router-flux": "^3.37.0",
     "react-native-simple-store": "^1.1.0",
     "react-native-timer": "^1.1.3",
-    "react-native-vector-icons": "^3.0.0"
+    "react-native-vector-icons": "^4.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

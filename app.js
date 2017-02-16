@@ -74,22 +74,22 @@ export default class App extends Component {
       });
     }
 
-    // // Optional: Query the authorization status.
-    // BackgroundFetch.status((status) => {
-    //   switch (status) {
-    //     case BackgroundFetch.STATUS_RESTRICTED:
-    //       console.log('BackgroundFetch restricted');
-    //       break;
-    //     case BackgroundFetch.STATUS_DENIED:
-    //       console.log('BackgroundFetch denied');
-    //       break;
-    //     case BackgroundFetch.STATUS_AVAILABLE:
-    //       console.log('BackgroundFetch is enabled');
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // });
+    // Optional: Query the authorization status.
+    BackgroundFetch.status((status) => {
+      switch (status) {
+        case BackgroundFetch.STATUS_RESTRICTED:
+          console.log('BackgroundFetch restricted');
+          break;
+        case BackgroundFetch.STATUS_DENIED:
+          console.log('BackgroundFetch denied');
+          break;
+        case BackgroundFetch.STATUS_AVAILABLE:
+          console.log('BackgroundFetch is enabled');
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   render() {

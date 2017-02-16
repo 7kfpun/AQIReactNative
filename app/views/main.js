@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    marginBottom: 50,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
-    marginBottom: 50,
   },
   menu: {
     position: 'absolute',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   currentLocation: {
     position: 'absolute',
     right: 15,
-    bottom: 160,
+    bottom: 100,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -192,8 +192,8 @@ export default class MainView extends Component {
     return {
       latitude: this.state.location.latitude,
       longitude: this.state.location.longitude,
-      latitudeDelta: this.state.gpsEnabled ? 0.1 : LATITUDE_DELTA,
-      longitudeDelta: this.state.gpsEnabled ? 0.1 * ASPECT_RATIO : LONGITUDE_DELTA,
+      latitudeDelta: this.state.gpsEnabled ? 0.15 : LATITUDE_DELTA,
+      longitudeDelta: this.state.gpsEnabled ? 0.15 * ASPECT_RATIO : LONGITUDE_DELTA,
     };
   }
 
@@ -210,81 +210,84 @@ export default class MainView extends Component {
   render() {
     tracker.trackScreenView('Main');
     return (
-      <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          ref={(ref) => { this.map = ref; }}
-          initialRegion={this.getCurrentLocation()}
-        >
-          {this.state.aqiResult && this.state.markers.map(marker => (
-            <MapView.Marker
-              key={marker.latlng.latitude}
-              coordinate={marker.latlng}
-              title={`${this.state.selectedIndex} is ${this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`}
-              description={marker.description}
-            >
-              {this.state.aqiResult[marker.title]
-                && <Marker amount={this.state.aqiResult[marker.title][this.state.selectedIndex]} index={this.state.selectedIndex} />}
-            </MapView.Marker>
-          ))}
-
-          {this.state.gpsEnabled && this.state.location && <MapView.Marker
-            coordinate={this.state.location}
-          />}
-        </MapView>
-
-        {/* <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
-          <Icon name="settings" size={24} color="#616161" />
-        </TouchableOpacity> */}
-
-        <TouchableOpacity style={styles.help} onPress={Actions.help} >
-          <Icon name="help-outline" size={24} color="#616161" />
-        </TouchableOpacity>
-
-        {this.state.gpsEnabled && <TouchableOpacity
-          style={styles.currentLocation}
-          onPress={() => {
-            this.map.animateToRegion(this.getCurrentLocation());
-            tracker.trackEvent('user-action', 'move-to-current-location');
-          }}
-        >
-          <Icon name="near-me" size={26} color="#616161" />
-        </TouchableOpacity>}
-
-        {this.state.aqiResult && <View style={styles.infomationContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              this.prepareData();
-              tracker.trackEvent('user-action', 'fetch-latest-data');
-            }}
-            style={styles.infomationBubble}
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <View style={styles.container}>
+          <MapView
+            style={styles.map}
+            ref={(ref) => { this.map = ref; }}
+            initialRegion={this.getCurrentLocation()}
           >
-            <View style={styles.infomationBubbleBody}>
-              <Text style={styles.infomationBubbleText}>Last Updated On {this.state.aqiResult.time}</Text>
-              {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
-              {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
-            </View>
-          </TouchableOpacity>
-        </View>}
-
-        <View style={styles.buttonContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {['AQI', 'AQHI', 'NO2', 'O3', 'SO2', 'CO', 'PM10', 'PM2.5'].map(item => (
-              <TouchableOpacity
-                key={item}
-                onPress={() => {
-                  this.setState({ selectedIndex: item });
-                  tracker.trackEvent('user-action', 'select-index', { label: item });
-                }}
-                style={[styles.bubble, styles.button]}
+            {this.state.aqiResult && this.state.markers.map(marker => (
+              <MapView.Marker
+                key={marker.latlng.latitude}
+                coordinate={marker.latlng}
+                title={`${this.state.selectedIndex} is ${this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`}
+                description={marker.description}
               >
-                <Text style={styles.text}>{item}</Text>
-              </TouchableOpacity>
+                {this.state.aqiResult[marker.title]
+                  && <Marker amount={this.state.aqiResult[marker.title][this.state.selectedIndex]} index={this.state.selectedIndex} />}
+              </MapView.Marker>
             ))}
-          </ScrollView>
+
+            {this.state.gpsEnabled && this.state.location && <MapView.Marker
+              coordinate={this.state.location}
+            />}
+          </MapView>
+
+          <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
+            <Icon name="settings" size={24} color="#616161" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.help} onPress={Actions.help} >
+            <Icon name="help-outline" size={24} color="#616161" />
+          </TouchableOpacity>
+
+          {this.state.gpsEnabled && <TouchableOpacity
+            style={styles.currentLocation}
+            onPress={() => {
+              this.map.animateToRegion(this.getCurrentLocation());
+              tracker.trackEvent('user-action', 'move-to-current-location');
+            }}
+          >
+            <Icon name="near-me" size={26} color="#616161" />
+          </TouchableOpacity>}
+
+          {this.state.aqiResult && <View style={styles.infomationContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                this.prepareData();
+                tracker.trackEvent('user-action', 'fetch-latest-data');
+              }}
+              style={styles.infomationBubble}
+            >
+              <View style={styles.infomationBubbleBody}>
+                <Text style={styles.infomationBubbleText}>Last Updated On {this.state.aqiResult.time}</Text>
+                {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
+                {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
+              </View>
+            </TouchableOpacity>
+          </View>}
+
+          <View style={styles.buttonContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {['AQI', 'AQHI', 'NO2', 'O3', 'SO2', 'CO', 'PM10', 'PM2.5'].map(item => (
+                <TouchableOpacity
+                  key={item}
+                  onPress={() => {
+                    this.setState({ selectedIndex: item });
+                    tracker.trackEvent('user-action', 'select-index', { label: item });
+                  }}
+                  style={[styles.bubble, styles.button]}
+                >
+                  <Text style={styles.text}>{item}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
         </View>
 
         <AdMob />
+
       </View>
     );
   }
