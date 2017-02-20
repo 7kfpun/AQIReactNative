@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Dimensions,
   Picker,
+  ScrollView,
   Slider,
   StyleSheet,
   Switch,
@@ -24,7 +25,6 @@ const window = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 100,
   },
   close: {
     position: 'absolute',
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   },
   switchBlock: {
     flexDirection: 'row',
+    paddingTop: 60,
     marginHorizontal: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingBottom: 30,
   },
 });
 
@@ -62,36 +64,57 @@ export default class SettingsView extends Component {
 
     this.state = {
       seconds: 5,
-      notificationIsEnabled: false,
-      notificationLocation: null,
-      notificationTherhold: 100,
+      notificationPollutionIsEnabled: false,
+      notificationPollutionLocation: null,
+      notificationPollutionTherhold: 100,
+      notificationCleanlinessIsEnabled: false,
+      notificationCleanlinessLocation: null,
+      notificationCleanlinessTherhold: 40,
     };
   }
 
   componentDidMount() {
     const that = this;
-    store.get('notificationIsEnabled').then(value => value && that.setState({ notificationIsEnabled: value }));
-    store.get('notificationLocation').then((value) => {
+    store.get('notificationPollutionIsEnabled').then(value => value && that.setState({ notificationPollutionIsEnabled: value }));
+    store.get('notificationPollutionLocation').then((value) => {
       if (value) {
-        that.setState({ notificationLocation: value });
+        that.setState({ notificationPollutionLocation: value });
       } else {
-        store.save('notificationLocation', 'Central/Western');
+        store.save('notificationPollutionLocation', 'Central/Western');
       }
     });
-    store.get('notificationTherhold').then((value) => {
+    store.get('notificationPollutionTherhold').then((value) => {
       if (value) {
-        that.setState({ notificationTherhold: value });
+        that.setState({ notificationPollutionTherhold: value });
       } else {
-        store.save('notificationTherhold', 100);
+        store.save('notificationPollutionTherhold', 100);
       }
     });
+
+    store.get('notificationCleanlinessIsEnabled').then(value => value && that.setState({ notificationCleanlinessIsEnabled: value }));
+    store.get('notificationCleanlinessLocation').then((value) => {
+      if (value) {
+        that.setState({ notificationCleanlinessLocation: value });
+      } else {
+        store.save('notificationCleanlinessLocation', 'Central/Western');
+      }
+    });
+    store.get('notificationCleanlinessTherhold').then((value) => {
+      if (value) {
+        that.setState({ notificationCleanlinessTherhold: value });
+      } else {
+        store.save('notificationCleanlinessTherhold', 100);
+      }
+    });
+
+    this.sendTags();
   }
 
-  setNotification(value) {
-    store.save('notificationIsEnabled', value);
-    this.setState({ notificationIsEnabled: value });
+  setNotificationPollution(value) {
+    store.save('notificationPollutionIsEnabled', value);
+    this.setState({ notificationPollutionIsEnabled: value });
     if (value) {
-      tracker.trackEvent('user-action', 'set-notification', { label: 'notification-on' });
+      tracker.trackEvent('user-action', 'set-notification-pollution', { label: 'notification-pollution-on' });
       permissions = {
         alert: true,
         badge: true,
@@ -99,77 +122,164 @@ export default class SettingsView extends Component {
       };
       OneSignal.requestPermissions(permissions);
       OneSignal.registerForPushNotifications();
-
-      this.sendTags();
     } else {
-      tracker.trackEvent('user-action', 'set-notification', { label: 'notification-off' });
+      tracker.trackEvent('user-action', 'set-notification-pollution', { label: 'notification-pollution-off' });
     }
   }
 
-  setNotificationLocation(value) {
-    store.save('notificationLocation', value);
-    this.setState({ notificationLocation: value });
+  setNotificationPollutionLocation(value) {
+    store.save('notificationPollutionLocation', value);
+    this.setState({ notificationPollutionLocation: value });
   }
 
-  setNotificationTherhold(value) {
-    store.save('notificationTherhold', value);
-    this.setState({ notificationTherhold: value });
+  setNotificationPollutionTherhold(value) {
+    store.save('notificationPollutionTherhold', value);
+    this.setState({ notificationPollutionTherhold: value });
+  }
+
+  setNotificationCleanliness(value) {
+    store.save('notificationCleanlinessIsEnabled', value);
+    this.setState({ notificationCleanlinessIsEnabled: value });
+    if (value) {
+      tracker.trackEvent('user-action', 'set-notification-cleanliness', { label: 'notification-cleanliness-on' });
+      permissions = {
+        alert: true,
+        badge: true,
+        sound: true,
+      };
+      OneSignal.requestPermissions(permissions);
+      OneSignal.registerForPushNotifications();
+    } else {
+      tracker.trackEvent('user-action', 'set-notification-cleanliness', { label: 'notification-cleanliness-off' });
+    }
+  }
+
+  setNotificationCleanlinessLocation(value) {
+    store.save('notificationCleanlinessLocation', value);
+    this.setState({ notificationCleanlinessLocation: value });
+  }
+
+  setNotificationCleanlinessTherhold(value) {
+    store.save('notificationCleanlinessTherhold', value);
+    this.setState({ notificationCleanlinessTherhold: value });
   }
 
   sendTags() {
-    OneSignal.sendTags({
-      location: this.state.notificationLocation,
-      therhold: this.state.notificationTherhold,
-    });
+    if (this.state.notificationPollutionIsEnabled) {
+      OneSignal.sendTags({
+        pollutionIsEnabled: 'true',
+        pollutionLocation: this.state.notificationPollutionLocation,
+        pollutionTherhold: this.state.notificationPollutionTherhold,
+      });
+    } else {
+      OneSignal.sendTags({
+        pollutionIsEnabled: 'false',
+      });
+    }
+
+    if (this.state.notificationCleanlinessIsEnabled) {
+      OneSignal.sendTags({
+        cleanlinessIsEnabled: 'true',
+        cleanlinessLocation: this.state.notificationCleanlinessLocation,
+        cleanlinessTherhold: this.state.notificationCleanlinessTherhold,
+      });
+    } else {
+      OneSignal.sendTags({
+        cleanlinessIsEnabled: 'false',
+      });
+    }
   }
 
   render() {
     tracker.trackScreenView('Settings');
     return (
       <View style={styles.container}>
+
+        <ScrollView>
+          <View style={styles.switchBlock}>
+            <View style={{ flex: 6 }}>
+              <Text style={styles.text}>{I18n.t('notify_pollution_title')}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Switch
+                onValueChange={value => this.setNotificationPollution(value)}
+                style={styles.switch}
+                value={this.state.notificationPollutionIsEnabled}
+              />
+            </View>
+          </View>
+
+          {this.state.notificationPollutionIsEnabled && <View>
+            <View style={styles.locationPickerTextBlock}>
+              <Text style={styles.text}>{I18n.t('notify_pollution_location')}:</Text>
+            </View>
+            <Picker
+              style={styles.picker}
+              selectedValue={this.state.notificationPollutionLocation}
+              onValueChange={value => this.setNotificationPollutionLocation(value)}
+            >
+              {locations.map((item, index) => <Picker.Item key={index} label={item.title} value={item.title} />)}
+            </Picker>
+
+            <View style={styles.locationPickerTextBlock}>
+              <Text style={styles.text}>{I18n.t('notify_pollution_therhold')}: {this.state.notificationPollutionTherhold}</Text>
+            </View>
+            <View style={styles.sliderBlock}>
+              <Slider
+                style={{ width: window.width - 60 }}
+                step={1}
+                value={this.state.notificationPollutionTherhold}
+                minimumValue={0}
+                maximumValue={500}
+                onValueChange={value => this.setNotificationPollutionTherhold(value)}
+              />
+            </View>
+          </View>}
+
+          <View style={styles.switchBlock}>
+            <View style={{ flex: 6 }}>
+              <Text style={styles.text}>{I18n.t('notify_cleanliness_title')}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Switch
+                onValueChange={value => this.setNotificationCleanliness(value)}
+                style={styles.switch}
+                value={this.state.notificationCleanlinessIsEnabled}
+              />
+            </View>
+          </View>
+
+          {this.state.notificationCleanlinessIsEnabled && <View>
+            <View style={styles.locationPickerTextBlock}>
+              <Text style={styles.text}>{I18n.t('notify_cleanliness_location')}:</Text>
+            </View>
+            <Picker
+              style={styles.picker}
+              selectedValue={this.state.notificationCleanlinessLocation}
+              onValueChange={value => this.setNotificationCleanlinessLocation(value)}
+            >
+              {locations.map((item, index) => <Picker.Item key={index} label={item.title} value={item.title} />)}
+            </Picker>
+
+            <View style={styles.locationPickerTextBlock}>
+              <Text style={styles.text}>{I18n.t('notify_cleanliness_therhold')}: {this.state.notificationCleanlinessTherhold}</Text>
+            </View>
+            <View style={styles.sliderBlock}>
+              <Slider
+                style={{ width: window.width - 60 }}
+                step={1}
+                value={this.state.notificationCleanlinessTherhold}
+                minimumValue={0}
+                maximumValue={500}
+                onValueChange={value => this.setNotificationCleanlinessTherhold(value)}
+              />
+            </View>
+          </View>}
+        </ScrollView>
+
         <TouchableOpacity style={styles.close} onPress={() => { Actions.pop(); this.sendTags(); }} >
           <Icon name="close" size={30} color="gray" />
         </TouchableOpacity>
-        <View style={styles.switchBlock}>
-          <View style={{ flex: 6 }}>
-            <Text style={styles.text}>{I18n.t('notify_title')}</Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Switch
-              onValueChange={value => this.setNotification(value)}
-              style={styles.switch}
-              value={this.state.notificationIsEnabled}
-            />
-          </View>
-        </View>
-
-        {this.state.notificationIsEnabled && <View>
-          <View style={styles.locationPickerTextBlock}>
-            <Text style={styles.text}>{I18n.t('notify_location')}:</Text>
-          </View>
-          <Picker
-            style={styles.picker}
-            selectedValue={this.state.notificationLocation}
-            onValueChange={value => this.setNotificationLocation(value)}
-          >
-            {locations.map((item, index) => <Picker.Item key={index} label={item.title} value={item.title} />)}
-          </Picker>
-
-          <View style={styles.locationPickerTextBlock}>
-            <Text style={styles.text}>{I18n.t('notify_therhold')}: {this.state.notificationTherhold}</Text>
-          </View>
-          <View style={styles.sliderBlock}>
-            <Slider
-              style={{ width: window.width - 60 }}
-              step={1}
-              value={this.state.notificationTherhold}
-              minimumValue={0}
-              maximumValue={500}
-              onValueChange={value => this.setNotificationTherhold(value)}
-            />
-          </View>
-        </View>}
-
       </View>
     );
   }
