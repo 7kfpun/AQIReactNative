@@ -5,16 +5,6 @@ import {
   Text,
 } from 'react-native';
 
-const propTypes = {
-  amount: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired,
-  fontSize: PropTypes.number,
-};
-
-const defaultProps = {
-  fontSize: 20,
-};
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -25,15 +15,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'flex-start',
     backgroundColor: '#FF5A5F',
-    paddingHorizontal: 6,
-    padding: 4,
-    borderRadius: 3,
+    padding: 3,
+    borderRadius: 5,
     borderColor: '#D23F44',
     borderWidth: 0.5,
   },
   amount: {
     color: '#FFFFFF',
-    fontSize: 16,
   },
   arrow: {
     backgroundColor: 'transparent',
@@ -53,7 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class PriceMarker extends React.Component {
+export default class AirMarker extends React.Component {
   render() {
     const { fontSize, amount, index } = this.props;
 
@@ -126,5 +114,11 @@ export default class PriceMarker extends React.Component {
   }
 }
 
-PriceMarker.propTypes = propTypes;
-PriceMarker.defaultProps = defaultProps;
+AirMarker.propTypes = {
+  amount: PropTypes.string.isRequired,
+  index: PropTypes.string.isRequired,
+  fontSize: PropTypes.number,
+};
+AirMarker.defaultProps = {
+  fontSize: 16,
+};

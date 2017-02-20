@@ -13,15 +13,16 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
-import { RNLocation as Location } from 'NativeModules';
+import { RNLocation as Location } from 'NativeModules';  // eslint-disable-line
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
 
-import Marker from '../elements/marker';
 import AdMob from '../elements/admob';
 import aqi from '../utils/aqi';
+import I18n from '../utils/i18n';
+import Marker from '../elements/marker';
 
 import { locations } from '../utils/locations';
 import tracker from '../utils/tracker';
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 15,
     top: 25,
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
     height: 40,
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 15,
     top: 25,
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
     height: 40,
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   infomationBubble: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     paddingHorizontal: 16,
     paddingVertical: 6,
     borderRadius: 16,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   bubble: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     paddingHorizontal: 2,
     paddingVertical: 12,
     borderRadius: 20,
@@ -261,7 +262,7 @@ export default class MainView extends Component {
               style={styles.infomationBubble}
             >
               <View style={styles.infomationBubbleBody}>
-                <Text style={styles.infomationBubbleText}>Last Updated On {this.state.aqiResult.time}</Text>
+                <Text style={styles.infomationBubbleText}>{I18n.t('last_update')} {this.state.aqiResult.time}</Text>
                 {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
                 {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
               </View>

@@ -18,6 +18,7 @@
     "react-native-android-location": "^1.0.2",
     "react-native-device-info": "^0.9.7",
     "react-native-google-analytics-bridge": "^5.0.1",
+    "react-native-i18n": "^1.0.0",
     "react-native-location": "github:timfpark/react-native-location#723d46382d8c370f6e6b795006276f98e80b2d84",
     "react-native-maps": "github:airbnb/react-native-maps#1efb8efad50c2ed37a8c091cf7b28d8744eec0f3",
     "react-native-onesignal": "github:geektimecoil/react-native-onesignal",

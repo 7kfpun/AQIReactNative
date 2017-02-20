@@ -16,6 +16,7 @@ import store from 'react-native-simple-store';
 import OneSignal from 'react-native-onesignal';
 
 import { locations } from '../utils/locations';
+import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const window = Dimensions.get('window');
@@ -108,15 +109,11 @@ export default class SettingsView extends Component {
   setNotificationLocation(value) {
     store.save('notificationLocation', value);
     this.setState({ notificationLocation: value });
-
-    this.sendTags();
   }
 
   setNotificationTherhold(value) {
     store.save('notificationTherhold', value);
     this.setState({ notificationTherhold: value });
-
-    this.sendTags();
   }
 
   sendTags() {
@@ -130,12 +127,12 @@ export default class SettingsView extends Component {
     tracker.trackScreenView('Settings');
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.close} onPress={Actions.pop} >
+        <TouchableOpacity style={styles.close} onPress={() => { Actions.pop(); this.sendTags(); }} >
           <Icon name="close" size={30} color="gray" />
         </TouchableOpacity>
         <View style={styles.switchBlock}>
           <View style={{ flex: 6 }}>
-            <Text style={styles.text}>Notify me when the air quality gets significantly worse</Text>
+            <Text style={styles.text}>{I18n.t('notify_title')}</Text>
           </View>
           <View style={{ flex: 1 }}>
             <Switch
@@ -148,7 +145,7 @@ export default class SettingsView extends Component {
 
         {this.state.notificationIsEnabled && <View>
           <View style={styles.locationPickerTextBlock}>
-            <Text style={styles.text}>Pick a location:</Text>
+            <Text style={styles.text}>{I18n.t('notify_location')}:</Text>
           </View>
           <Picker
             style={styles.picker}
@@ -159,7 +156,7 @@ export default class SettingsView extends Component {
           </Picker>
 
           <View style={styles.locationPickerTextBlock}>
-            <Text style={styles.text}>Notify me when AQI is above: {this.state.notificationTherhold}</Text>
+            <Text style={styles.text}>{I18n.t('notify_therhold')}: {this.state.notificationTherhold}</Text>
           </View>
           <View style={styles.sliderBlock}>
             <Slider
