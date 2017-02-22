@@ -35,8 +35,9 @@
   [self.window makeKeyAndVisible];
   
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-                                         appId:@"9f000112-ef3c-4303-913c-e86134fe7167"];
-  
+                                                         appId:@"9f000112-ef3c-4303-913c-e86134fe7167"
+                                                      settings:@{kOSSettingsKeyAutoPrompt: @false}];
+
   return YES;
 }
 
