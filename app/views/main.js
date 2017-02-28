@@ -11,13 +11,14 @@ import {
   View,
 } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';
-import { AdMobInterstitial } from 'react-native-admob';
-import { RNLocation as Location } from 'NativeModules';  // eslint-disable-line
+import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
+import { Actions } from 'react-native-router-flux';
+import { AdMobInterstitial } from 'react-native-admob';
+import { RNLocation as Location } from 'NativeModules';  // eslint-disable-line
 
 import AdMob from '../elements/admob';
 import aqi from '../utils/aqi';
@@ -236,7 +237,9 @@ export default class MainView extends Component {
           </MapView>
 
           <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
-            <Icon name="settings" size={24} color="#616161" />
+            <Animatable.View animation="tada" delay={2000} iterationCount={20}>
+              <Icon name="notifications-active" size={24} color="#616161" />
+            </Animatable.View>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.help} onPress={Actions.help} >

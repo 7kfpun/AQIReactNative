@@ -16,6 +16,7 @@
     "react-native": "0.41.2",
     "react-native-admob": "github:lucianomlima/react-native-admob#react-native_v0.40.0-fix",
     "react-native-android-location": "^1.0.2",
+    "react-native-animatable": "^1.1.0",
     "react-native-device-info": "^0.9.7",
     "react-native-google-analytics-bridge": "^5.0.1",
     "react-native-i18n": "^1.0.0",
