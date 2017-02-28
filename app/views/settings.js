@@ -65,10 +65,10 @@ export default class SettingsView extends Component {
     this.state = {
       seconds: 5,
       notificationPollutionIsEnabled: false,
-      notificationPollutionLocation: null,
+      notificationPollutionLocation: 'Central/Western',
       notificationPollutionTherhold: 100,
       notificationCleanlinessIsEnabled: false,
-      notificationCleanlinessLocation: null,
+      notificationCleanlinessLocation: 'Central/Western',
       notificationCleanlinessTherhold: 40,
     };
   }
