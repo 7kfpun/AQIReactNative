@@ -15,8 +15,8 @@
 
 ## React and React Native version
 
-* [react](https://github.com/facebook/react): 15.3.1
-* [react-native](https://github.com/facebook/react-native): 0.37.0
+* [react](https://github.com/facebook/react): 15.4.2
+* [react-native](https://github.com/facebook/react-native): 0.41.2
 
 ## Plugins used
 
@@ -43,6 +43,7 @@
 
 * Clone this repo `git clone git@github.com:7kfpun/AQIReactNative.git`
 * `cd AQIReactNative`
+* cp app/config.example.js app/config.js  // and config it
 * run `npm install` || run `yarn install`
 
 #### iOS

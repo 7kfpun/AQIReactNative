@@ -23,6 +23,7 @@
     "react-native-location": "github:timfpark/react-native-location#723d46382d8c370f6e6b795006276f98e80b2d84",
     "react-native-maps": "github:airbnb/react-native-maps#1efb8efad50c2ed37a8c091cf7b28d8744eec0f3",
     "react-native-onesignal": "github:geektimecoil/react-native-onesignal",
+    "react-native-root-toast": "^1.0.3",
     "react-native-router-flux": "^3.37.0",
     "react-native-simple-store": "^1.1.0",
     "react-native-timer": "^1.1.3",

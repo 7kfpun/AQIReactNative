@@ -13,6 +13,7 @@ I18n.translations = {
     aqi_full: 'Air Quality Index (AQI)',
     aqhi_full: 'Air Quality Health Index (AQHI)',
     last_update: 'Last Updated On',
+    permissions_required: 'Notification permissions required',
   },
   zh: {
     notify_pollution_title: '當空氣質量明顯惡化時通知我',
@@ -24,6 +25,7 @@ I18n.translations = {
     aqi_full: '空氣質素指數（AQI）',
     aqhi_full: '空氣質素健康指數（AQHI）',
     last_update: '更新時間',
+    permissions_required: '請允許通知',
   },
   'zh-CN': {
     notify_pollution_title: '当空气质量明显恶化时通知我',
@@ -35,6 +37,7 @@ I18n.translations = {
     aqi_full: '空气质素指数（AQI）',
     aqhi_full: '空气质素健康指数（AQHI）',
     last_update: '更新时间',
+    permissions_required: '请允许通知',
   },
 };
 

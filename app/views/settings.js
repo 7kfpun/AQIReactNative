@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Dimensions,
   Picker,
+  Platform,
   ScrollView,
   Slider,
   StyleSheet,
@@ -13,8 +14,9 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import store from 'react-native-simple-store';
 import OneSignal from 'react-native-onesignal';
+import store from 'react-native-simple-store';
+import Toast from 'react-native-root-toast';
 
 import { locations } from '../utils/locations';
 import I18n from '../utils/i18n';
@@ -190,11 +192,36 @@ export default class SettingsView extends Component {
     }
   }
 
+  popSettings() {
+    function toastShow() {
+      OneSignal.checkPermissions((permissions) => {
+        if (!permissions.alert && !permissions.badge && !permissions.sound) {
+          Toast.show(I18n.t('permissions_required'), { duration: Toast.durations.LONG, position: Toast.positions.BOTTOM - 40 });
+        }
+      });
+    }
+
+    Actions.pop();
+    this.sendTags();
+    if (Platform.OS === 'ios') {
+      store.get('notificationPollutionIsEnabled').then((notificationPollutionIsEnabled) => {
+        if (notificationPollutionIsEnabled) {
+          toastShow();
+        } else {
+          store.get('notificationCleanlinessIsEnabled').then((notificationCleanlinessIsEnabled) => {
+            if (notificationCleanlinessIsEnabled) {
+              toastShow();
+            }
+          });
+        }
+      });
+    }
+  }
+
   render() {
     tracker.trackScreenView('Settings');
     return (
       <View style={styles.container}>
-
         <ScrollView>
           <View style={styles.switchBlock}>
             <View style={{ flex: 6 }}>
@@ -277,7 +304,7 @@ export default class SettingsView extends Component {
           </View>}
         </ScrollView>
 
-        <TouchableOpacity style={styles.close} onPress={() => { Actions.pop(); this.sendTags(); }} >
+        <TouchableOpacity style={styles.close} onPress={() => this.popSettings()} >
           <Icon name="close" size={30} color="gray" />
         </TouchableOpacity>
       </View>

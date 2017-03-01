@@ -3381,6 +3381,10 @@ react-native-android-location@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-android-location/-/react-native-android-location-1.0.2.tgz#fe5715c4b99324c4f0d7014c3c27380ffba4d03d"
 
+react-native-animatable@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.1.0.tgz#1ca3e8a00e441979d5711805651ff62a2d3b245a"
+
 react-native-device-info@^0.9.7:
   version "0.9.9"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.9.9.tgz#42490719b8be2b8ffe689f3c74d56884ca05c0d7"
@@ -3417,6 +3421,16 @@ react-native-i18n@^1.0.0:
   resolved "https://codeload.github.com/geektimecoil/react-native-onesignal/tar.gz/09667aa7c0beaf458d518bb3456c706568e11860"
   dependencies:
     invariant "^2.2.2"
+
+react-native-root-siblings@^1.0.7:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-root-siblings/-/react-native-root-siblings-1.1.2.tgz#fc1e7310f4f9f8b080331ff5d173db840d6b9e1f"
+
+react-native-root-toast@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-root-toast/-/react-native-root-toast-1.0.3.tgz#3518043e5696d7f6f5ba42a2ba81c496cf0da11c"
+  dependencies:
+    react-native-root-siblings "^1.0.7"
 
 react-native-router-flux@^3.37.0:
   version "3.37.0"
