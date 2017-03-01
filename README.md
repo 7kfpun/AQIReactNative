@@ -22,16 +22,18 @@
 
 * [react-native-admob](https://github.com/sbugert/react-native-admob) - A react-native component for Google AdMob banners.
 * [react-native-android-location](https://github.com/syarul/react-native-android-location) - A React Native location acquisition through network or GPS without using Google Play Service.
-* [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch) - iOS Background Fetch API Implementation.
+* [react-native-animatable](https://github.com/oblador/react-native-animatable) - Standard set of easy to use animations and declarative transitions for React Native.
 * [react-native-device-info](https://github.com/rebeccahughes/react-native-device-info) - Device Information for React Native iOS and Android.
 * [react-native-google-analytics-bridge](https://github.com/idehub/react-native-google-analytics-bridge) - React Native bridge to the Google Analytics libraries on both iOS and Android.
+* [react-native-i18n](https://github.com/AlexanderZaytsev/react-native-i18n) - React Native + i18n.js.
 * [react-native-location](https://github.com/timfpark/react-native-location) - React Native plug-in that provides GPS location information.
 * [react-native-maps](https://github.com/airbnb/react-native-maps) - React Native Mapview component for iOS + Android.
-* [react-native-push-notification](https://github.com/zo0r/react-native-push-notification) - React Native Local and Remote Notifications.
+* [react-native-onesignal](https://github.com/geektimecoil/react-native-onesignal) - React Native Library for OneSignal Push Notifications Service.
+* [react-native-root-toast](https://github.com/magicismight/react-native-root-toast) - React native toast like component, pure javascript solution.
 * [react-native-router-flux](https://github.com/aksonov/react-native-router-flux) - React Native Router based on new React Native Navigation API.
 * [react-native-simple-store](https://github.com/jasonmerino/react-native-simple-store) - A minimalistic wrapper around React Native's AsyncStorage.
 * [react-native-timer](https://github.com/fractaltech/react-native-timer) - Manage timers in react-native.
-* [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons) - 3000 Customizable Icons for React Native with support for NavBar/TabBar/ToolbarAndroid, image source and full stying.
+* [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons) - 3000 Customizable Icons for React Native with support for NavBar/TabBar/ToolbarAndroid, image source and full styling.
 
 ## Additional
 
