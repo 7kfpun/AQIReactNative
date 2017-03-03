@@ -117,21 +117,27 @@ export default class SettingsView extends Component {
     this.setState({ notificationPollutionIsEnabled: value });
     if (value) {
       tracker.trackEvent('user-action', 'set-notification-pollution', { label: 'notification-pollution-on' });
-      permissions = {
-        alert: true,
-        badge: true,
-        sound: true,
-      };
-      OneSignal.requestPermissions(permissions);
-      OneSignal.registerForPushNotifications();
+      if (Platform.OS === 'ios') {
+        permissions = {
+          alert: true,
+          badge: true,
+          sound: true,
+        };
+        OneSignal.requestPermissions(permissions);
+        OneSignal.registerForPushNotifications();
+      }
     } else {
       tracker.trackEvent('user-action', 'set-notification-pollution', { label: 'notification-pollution-off' });
     }
+
+    this.sendTags();
   }
 
   setNotificationPollutionLocation(value) {
     store.save('notificationPollutionLocation', value);
     this.setState({ notificationPollutionLocation: value });
+
+    this.sendTags();
   }
 
   setNotificationPollutionTherhold(value) {
@@ -144,21 +150,27 @@ export default class SettingsView extends Component {
     this.setState({ notificationCleanlinessIsEnabled: value });
     if (value) {
       tracker.trackEvent('user-action', 'set-notification-cleanliness', { label: 'notification-cleanliness-on' });
-      permissions = {
-        alert: true,
-        badge: true,
-        sound: true,
-      };
-      OneSignal.requestPermissions(permissions);
-      OneSignal.registerForPushNotifications();
+      if (Platform.OS === 'ios') {
+        permissions = {
+          alert: true,
+          badge: true,
+          sound: true,
+        };
+        OneSignal.requestPermissions(permissions);
+        OneSignal.registerForPushNotifications();
+      }
     } else {
       tracker.trackEvent('user-action', 'set-notification-cleanliness', { label: 'notification-cleanliness-off' });
     }
+
+    this.sendTags();
   }
 
   setNotificationCleanlinessLocation(value) {
     store.save('notificationCleanlinessLocation', value);
     this.setState({ notificationCleanlinessLocation: value });
+
+    this.sendTags();
   }
 
   setNotificationCleanlinessTherhold(value) {

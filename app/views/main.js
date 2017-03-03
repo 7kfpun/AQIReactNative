@@ -36,8 +36,8 @@ const LONGITUDE = 114.1795;
 const LATITUDE_DELTA = 0.3;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const TEN_SECONDS = 10 * 1000;
-const TEN_MINUTES = 10 * 60 * 1000;
+const FIVE_SECONDS = 5 * 1000;
+const FIVE_MINUTES = 5 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -177,10 +177,10 @@ export default class MainView extends Component {
     timer.clearTimeout(this);
     timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, TEN_SECONDS);
+    }, FIVE_SECONDS);
     timer.setInterval(this, 'AdMobInterstitialInterval', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, TEN_MINUTES);
+    }, FIVE_MINUTES);
 
     timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), TEN_MINUTES);
   }
