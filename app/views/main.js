@@ -12,15 +12,14 @@ import {
 } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
+import { Actions } from 'react-native-router-flux';
+import { RNLocation as Location } from 'NativeModules';  // eslint-disable-line
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
-import { Actions } from 'react-native-router-flux';
-import { AdMobInterstitial } from 'react-native-admob';
-import { RNLocation as Location } from 'NativeModules';  // eslint-disable-line
 
-import AdMob from '../elements/admob';
+import AdBanner from '../elements/ad-banner';
 import aqi from '../utils/aqi';
 import I18n from '../utils/i18n';
 import Marker from '../elements/marker';
@@ -35,8 +34,6 @@ const LATITUDE = 22.3218;
 const LONGITUDE = 114.1795;
 const LATITUDE_DELTA = 0.3;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
-const FIVE_SECONDS = 5 * 1000;
 const FIVE_MINUTES = 5 * 60 * 1000;
 
 const styles = StyleSheet.create({
@@ -174,14 +171,6 @@ export default class MainView extends Component {
   componentDidMount() {
     this.prepareData();
 
-    timer.clearTimeout(this);
-    timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
-      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, FIVE_SECONDS);
-    timer.setInterval(this, 'AdMobInterstitialInterval', () => {
-      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, FIVE_MINUTES);
-
     timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
   }
 
@@ -289,9 +278,7 @@ export default class MainView extends Component {
             </ScrollView>
           </View>
         </View>
-
-        <AdMob />
-
+        <AdBanner />
       </View>
     );
   }

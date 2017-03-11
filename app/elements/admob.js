@@ -32,6 +32,7 @@ AdmobCell.propTypes = {
 AdmobCell.defaultProps = {
   margin: 0,
   bannerSize: 'smartBannerPortrait',
+  backgroundColor: 'white',
 };
 
 module.exports = AdmobCell;
