@@ -182,7 +182,7 @@ export default class MainView extends Component {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
     }, FIVE_MINUTES);
 
-    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), TEN_MINUTES);
+    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
   }
 
   componentWillUnmount() {

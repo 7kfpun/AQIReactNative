@@ -56,9 +56,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 30,
+  },
+  noticeTextBlock: {
+    paddingHorizontal: 30,
+  },
+  noticeText: {
+    fontSize: 12,
   },
 });
+
+function toastShow() {
+  OneSignal.checkPermissions((permissions) => {
+    if (!permissions.alert && !permissions.badge && !permissions.sound) {
+      Toast.show(I18n.t('permissions_required'), { duration: Toast.durations.LONG, position: Toast.positions.BOTTOM - 40 });
+    }
+  });
+}
 
 export default class SettingsView extends Component {
   constructor(props) {
@@ -76,6 +89,8 @@ export default class SettingsView extends Component {
   }
 
   componentDidMount() {
+    this.checkPermissions();
+
     const that = this;
     store.get('notificationPollutionIsEnabled').then(value => value && that.setState({ notificationPollutionIsEnabled: value }));
     store.get('notificationPollutionLocation').then((value) => {
@@ -178,6 +193,22 @@ export default class SettingsView extends Component {
     this.setState({ notificationCleanlinessTherhold: value });
   }
 
+  checkPermissions() {
+    if (Platform.OS === 'ios') {
+      store.get('notificationPollutionIsEnabled').then((notificationPollutionIsEnabled) => {
+        if (notificationPollutionIsEnabled) {
+          toastShow();
+        } else {
+          store.get('notificationCleanlinessIsEnabled').then((notificationCleanlinessIsEnabled) => {
+            if (notificationCleanlinessIsEnabled) {
+              toastShow();
+            }
+          });
+        }
+      });
+    }
+  }
+
   sendTags() {
     if (this.state.notificationPollutionIsEnabled) {
       OneSignal.sendTags({
@@ -205,29 +236,9 @@ export default class SettingsView extends Component {
   }
 
   popSettings() {
-    function toastShow() {
-      OneSignal.checkPermissions((permissions) => {
-        if (!permissions.alert && !permissions.badge && !permissions.sound) {
-          Toast.show(I18n.t('permissions_required'), { duration: Toast.durations.LONG, position: Toast.positions.BOTTOM - 40 });
-        }
-      });
-    }
-
     Actions.pop();
+    this.checkPermissions();
     this.sendTags();
-    if (Platform.OS === 'ios') {
-      store.get('notificationPollutionIsEnabled').then((notificationPollutionIsEnabled) => {
-        if (notificationPollutionIsEnabled) {
-          toastShow();
-        } else {
-          store.get('notificationCleanlinessIsEnabled').then((notificationCleanlinessIsEnabled) => {
-            if (notificationCleanlinessIsEnabled) {
-              toastShow();
-            }
-          });
-        }
-      });
-    }
   }
 
   render() {
@@ -257,7 +268,7 @@ export default class SettingsView extends Component {
               selectedValue={this.state.notificationPollutionLocation}
               onValueChange={value => this.setNotificationPollutionLocation(value)}
             >
-              {locations.map((item, index) => <Picker.Item key={index} label={item.title} value={item.title} />)}
+              {locations.map(item => <Picker.Item key={`0-${item.title}`} label={item.title} value={item.title} />)}
             </Picker>
 
             <View style={styles.locationPickerTextBlock}>
@@ -273,6 +284,9 @@ export default class SettingsView extends Component {
                 onValueChange={value => this.setNotificationPollutionTherhold(value)}
               />
             </View>
+            {this.state.notificationPollutionTherhold < 100 && <View style={styles.noticeTextBlock}>
+              <Text style={styles.noticeText}>{I18n.t('too_small_therhold')}</Text>
+            </View>}
           </View>}
 
           <View style={styles.switchBlock}>
@@ -288,7 +302,7 @@ export default class SettingsView extends Component {
             </View>
           </View>
 
-          {this.state.notificationCleanlinessIsEnabled && <View>
+          {this.state.notificationCleanlinessIsEnabled && <View style={{ marginBottom: 60 }}>
             <View style={styles.locationPickerTextBlock}>
               <Text style={styles.text}>{I18n.t('notify_cleanliness_location')}:</Text>
             </View>
@@ -297,7 +311,7 @@ export default class SettingsView extends Component {
               selectedValue={this.state.notificationCleanlinessLocation}
               onValueChange={value => this.setNotificationCleanlinessLocation(value)}
             >
-              {locations.map((item, index) => <Picker.Item key={index} label={item.title} value={item.title} />)}
+              {locations.map(item => <Picker.Item key={`1-${item.title}`} label={item.title} value={item.title} />)}
             </Picker>
 
             <View style={styles.locationPickerTextBlock}>
@@ -313,6 +327,9 @@ export default class SettingsView extends Component {
                 onValueChange={value => this.setNotificationCleanlinessTherhold(value)}
               />
             </View>
+            {this.state.notificationCleanlinessTherhold > 40 && <View style={styles.noticeTextBlock}>
+              <Text style={styles.noticeText}>{I18n.t('too_large_therhold')}</Text>
+            </View>}
           </View>}
         </ScrollView>
 
