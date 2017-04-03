@@ -31,7 +31,7 @@ I18n.translations = {
     too_small_therhold: '您所設定的值偏低，或會收到很多通知',
     too_large_therhold: '您所設定的值偏高，或會收到很多通知',
   },
-  'zh-CN': {
+  'zh-Hans': {
     notify_pollution_title: '当空气质量明显恶化时通知我',
     notify_pollution_location: '选择地区',
     notify_pollution_therhold: 'AQI 指数超过',
@@ -46,5 +46,9 @@ I18n.translations = {
     too_large_therhold: '您所设定的值偏高，或会收到很多通知',
   },
 };
+
+I18n.translations['zh-Hans-US'] = I18n.translations['zh-Hans'];
+I18n.translations['zh-Hans-HK'] = I18n.translations['zh-Hans'];
+I18n.translations['zh-Hans-MN'] = I18n.translations['zh-Hans'];
 
 export default I18n;

@@ -11,11 +11,12 @@ import {
   View,
 } from 'react-native';
 
-import * as Animatable from 'react-native-animatable';
 import { Actions } from 'react-native-router-flux';
 import { RNLocation as Location } from 'NativeModules';  // eslint-disable-line
+import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
+import ReactNativeI18n from 'react-native-i18n';
 import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
 
@@ -28,6 +29,7 @@ import { locations } from '../utils/locations';
 import tracker from '../utils/tracker';
 
 const { width, height } = Dimensions.get('window');
+const deviceLocale = ReactNativeI18n.locale
 
 const ASPECT_RATIO = width / height;
 const LATITUDE = 22.3218;
@@ -212,7 +214,14 @@ export default class MainView extends Component {
               <MapView.Marker
                 key={marker.latlng.latitude}
                 coordinate={marker.latlng}
-                title={`${this.state.selectedIndex} is ${this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`}
+                title={
+                  deviceLocale.startsWith('zh-Hans') ?
+                  `${marker.title} 地区 ${this.state.selectedIndex} 值为 ${this.state.aqiResult[marker.title][this.state.selectedIndex]}`
+                  : deviceLocale.startsWith('zh') ?
+                    `${marker.title} 地区 ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.title][this.state.selectedIndex]}`
+                    :
+                    `${this.state.selectedIndex} is ${this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`
+                }
                 description={marker.description}
               >
                 {this.state.aqiResult[marker.title]
