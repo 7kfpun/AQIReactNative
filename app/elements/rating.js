@@ -9,6 +9,7 @@ import {
 
 import * as Animatable from 'react-native-animatable';
 import * as StoreReview from 'react-native-store-review';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
 
@@ -33,6 +34,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 12,
   },
+  close: {
+    position: 'absolute',
+    top: 6,
+    right: 10,
+  },
 });
 
 const STARS_TO_APP_STORE = 4;
@@ -52,11 +58,11 @@ export default class Rating extends React.Component {
     this.state = {
       starCount: 0,
       isRatingGiven: false,
+      isRatingClose: false,
     };
   }
 
   componentDidMount() {
-    store.delete('isRatingGiven');
     const that = this;
     store.get('isRatingGiven').then((isRatingGiven) => {
       if (isRatingGiven) {
@@ -86,8 +92,12 @@ export default class Rating extends React.Component {
   }
 
   render() {
-    if (!this.state.isRatingGiven) {
-      return (<Animatable.View style={styles.container} animation="fadeIn" delay={50000}>
+    if (!this.state.isRatingGiven && !this.state.isRatingClose) {
+      return (<Animatable.View style={styles.container} animation="fadeIn" delay={500}>
+        <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
+          <Icon name="clear" size={16} color="#616161" />
+        </TouchableOpacity>
+        <Icon name="thumb-up" size={26} color="#616161" />
         <Text>{I18n.t('rating_description')}</Text>
         <StarRating
           disabled={false}
