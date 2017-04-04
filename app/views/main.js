@@ -24,12 +24,13 @@ import AdBanner from '../elements/ad-banner';
 import aqi from '../utils/aqi';
 import I18n from '../utils/i18n';
 import Marker from '../elements/marker';
+import Rating from '../elements/rating';
 
 import { locations } from '../utils/locations';
 import tracker from '../utils/tracker';
 
 const { width, height } = Dimensions.get('window');
-const deviceLocale = ReactNativeI18n.locale
+const deviceLocale = ReactNativeI18n.locale;
 
 const ASPECT_RATIO = width / height;
 const LATITUDE = 22.3218;
@@ -56,9 +57,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 40,
-    width: 40,
-    borderRadius: 20,
+    height: 44,
+    width: 44,
+    borderRadius: 22,
   },
   help: {
     position: 'absolute',
@@ -67,9 +68,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 40,
-    width: 40,
-    borderRadius: 20,
+    height: 44,
+    width: 44,
+    borderRadius: 22,
   },
   currentLocation: {
     position: 'absolute',
@@ -236,12 +237,12 @@ export default class MainView extends Component {
 
           <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
             <Animatable.View animation="tada" delay={2000} iterationCount={20}>
-              <Icon name="notifications-active" size={24} color="#616161" />
+              <Icon name="notifications-active" size={26} color="#616161" />
             </Animatable.View>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.help} onPress={Actions.help} >
-            <Icon name="help-outline" size={24} color="#616161" />
+            <Icon name="help-outline" size={26} color="#616161" />
           </TouchableOpacity>
 
           {this.state.gpsEnabled && <TouchableOpacity
@@ -253,6 +254,8 @@ export default class MainView extends Component {
           >
             <Icon name="near-me" size={26} color="#616161" />
           </TouchableOpacity>}
+
+          <Rating />
 
           {this.state.aqiResult && <View style={styles.infomationContainer}>
             <TouchableOpacity

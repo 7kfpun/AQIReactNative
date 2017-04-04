@@ -74,6 +74,22 @@ function toastShow() {
 }
 
 export default class SettingsView extends Component {
+  static checkPermissions() {
+    if (Platform.OS === 'ios') {
+      store.get('notificationPollutionIsEnabled').then((notificationPollutionIsEnabled) => {
+        if (notificationPollutionIsEnabled) {
+          toastShow();
+        } else {
+          store.get('notificationCleanlinessIsEnabled').then((notificationCleanlinessIsEnabled) => {
+            if (notificationCleanlinessIsEnabled) {
+              toastShow();
+            }
+          });
+        }
+      });
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -89,7 +105,7 @@ export default class SettingsView extends Component {
   }
 
   componentDidMount() {
-    this.checkPermissions();
+    SettingsView.checkPermissions();
 
     const that = this;
     store.get('notificationPollutionIsEnabled').then(value => value && that.setState({ notificationPollutionIsEnabled: value }));
@@ -193,22 +209,6 @@ export default class SettingsView extends Component {
     this.setState({ notificationCleanlinessTherhold: value });
   }
 
-  checkPermissions() {
-    if (Platform.OS === 'ios') {
-      store.get('notificationPollutionIsEnabled').then((notificationPollutionIsEnabled) => {
-        if (notificationPollutionIsEnabled) {
-          toastShow();
-        } else {
-          store.get('notificationCleanlinessIsEnabled').then((notificationCleanlinessIsEnabled) => {
-            if (notificationCleanlinessIsEnabled) {
-              toastShow();
-            }
-          });
-        }
-      });
-    }
-  }
-
   sendTags() {
     if (this.state.notificationPollutionIsEnabled) {
       OneSignal.sendTags({
@@ -237,7 +237,7 @@ export default class SettingsView extends Component {
 
   popSettings() {
     Actions.pop();
-    this.checkPermissions();
+    SettingsView.checkPermissions();
     this.sendTags();
   }
 

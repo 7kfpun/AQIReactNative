@@ -16,6 +16,8 @@ I18n.translations = {
     permissions_required: 'Notification permissions required',
     too_small_therhold: 'The value is too small, you would get lots of notifications',
     too_large_therhold: 'The value is too large, you would get lots of notifications',
+    rating_description: 'Enjoying HK AQI?',
+    feedback_description: 'Give us a feedback',
   },
   zh: {
     notify_pollution_title: '當空氣質量明顯惡化時通知我',
@@ -30,6 +32,8 @@ I18n.translations = {
     permissions_required: '請允許通知',
     too_small_therhold: '您所設定的值偏低，或會收到很多通知',
     too_large_therhold: '您所設定的值偏高，或會收到很多通知',
+    rating_description: '喜歡「HK AQI」嗎？',
+    feedback_description: '請給我們一些意見',
   },
   'zh-Hans': {
     notify_pollution_title: '当空气质量明显恶化时通知我',
@@ -44,6 +48,8 @@ I18n.translations = {
     permissions_required: '请允许通知',
     too_small_therhold: '您所设定的值偏低，或会收到很多通知',
     too_large_therhold: '您所设定的值偏高，或会收到很多通知',
+    rating_description: '喜欢「HK AQI」吗？',
+    feedback_description: '请给我们一些意见',
   },
 };
 

@@ -8,7 +8,8 @@ import DeviceInfo from 'react-native-device-info';
 
 import { config } from '../config';
 
-if (DeviceInfo.getDeviceName() === 'iPhone Simulator' || DeviceInfo.getDeviceName() === 'apple’s MacBook Pro' || DeviceInfo.getManufacturer() === 'Genymotion') {
+console.log('DeviceInfo.getDeviceName()', DeviceInfo.getDeviceName());
+if (DeviceInfo.getDeviceName() === 'iPhone Simulator' || DeviceInfo.getDeviceName().indexOf('MBP') !== -1 || DeviceInfo.getManufacturer() === 'Genymotion') {
   GoogleAnalyticsSettings.setDryRun(true);
 }
 

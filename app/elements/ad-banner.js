@@ -11,8 +11,8 @@ import Admob from './admob';
 
 import { config } from '../config';
 
-const FIVE_SECONDS = 5 * 1000;
-const FIVE_MINUTES = 5 * 60 * 1000;
+const TWO_SECONDS = 2 * 1000;
+const TEN_MINUTES = 10 * 60 * 1000;
 
 export default class AdBanner extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ export default class AdBanner extends React.Component {
           console.log('Facebook Interstitial Ad Failed', error);
           AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error1 => error1 && console.log(error1)));
         });
-    }, FIVE_SECONDS);
+    }, TWO_SECONDS);
 
     timer.setInterval(this, 'AdMobInterstitialInterval', () => {
       InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
@@ -43,7 +43,7 @@ export default class AdBanner extends React.Component {
           console.log('Facebook Interstitial Ad Failed', error);
           AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error1 => error1 && console.log(error1)));
         });
-    }, FIVE_MINUTES);
+    }, TEN_MINUTES);
   }
 
   render() {
