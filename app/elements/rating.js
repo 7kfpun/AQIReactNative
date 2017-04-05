@@ -12,9 +12,12 @@ import * as StoreReview from 'react-native-store-review';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
+import timer from 'react-native-timer';
 
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+
+const TEN_SECONDS = 10 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -89,33 +92,35 @@ export default class Rating extends React.Component {
     store.save('isRatingGiven', true);
 
     tracker.trackEvent('user-action', 'give-rating', { label: rating.toString() });
+
+    timer.setTimeout(this, 'RatingCloseTimeout', () => {
+      this.setState({ isRatingClose: true });
+    }, TEN_SECONDS);
   }
 
   render() {
-    if (!this.state.isRatingGiven && !this.state.isRatingClose) {
-      return (<Animatable.View style={styles.container} animation="fadeIn" delay={50000}>
-        <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
-          <Icon name="clear" size={16} color="#616161" />
-        </TouchableOpacity>
-        <Icon name="thumb-up" size={26} color="#616161" />
-        <Text>{I18n.t('rating_description')}</Text>
-        <StarRating
-          disabled={false}
-          maxStars={5}
-          starSize={28}
-          rating={this.state.starCount}
-          selectedStar={rating => this.onStarRatingPress(rating)}
-        />
-        {this.state.starCount > 0
-        && this.state.starCount < STARS_TO_APP_STORE
-        && <TouchableOpacity onPress={() => Rating.openFeedbackUrl()}>
-          <Animatable.View style={styles.button} animation="fadeIn">
-            <Text style={styles.text}>{I18n.t('feedback_description')}</Text>
-          </Animatable.View>
-        </TouchableOpacity>}
-      </Animatable.View>);
+    if (this.state.isRatingGiven || this.state.isRatingClose) {
+      return null;
     }
 
-    return null;
+    return (<Animatable.View style={styles.container} animation="fadeIn" delay={100000}>
+      <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
+        <Icon name="clear" size={16} color="#616161" />
+      </TouchableOpacity>
+      <Icon name="thumb-up" size={26} color="#616161" />
+      <Text>{I18n.t('rating_description')}</Text>
+      <StarRating
+        starSize={28}
+        rating={this.state.starCount}
+        selectedStar={rating => this.onStarRatingPress(rating)}
+      />
+      {this.state.starCount > 0
+      && this.state.starCount < STARS_TO_APP_STORE
+      && <TouchableOpacity onPress={() => Rating.openFeedbackUrl()}>
+        <Animatable.View style={styles.button} animation="fadeIn">
+          <Text style={styles.text}>{I18n.t('feedback_description')}</Text>
+        </Animatable.View>
+      </TouchableOpacity>}
+    </Animatable.View>);
   }
 }
