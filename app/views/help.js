@@ -7,6 +7,8 @@ import {
   View,
 } from 'react-native';
 
+import shortid from 'shortid';
+
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
@@ -138,7 +140,7 @@ export default class HelpView extends Component {
           <View style={styles.block}>
             <Text style={styles.title}>{I18n.t('aqi_full')}</Text>
 
-            {helpTexts.AQI.map((item, i) => <View key={i}>
+            {helpTexts.AQI.map(item => <View key={shortid.generate()}>
               <View style={styles.row}>
                 <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
                   <Text style={{ color: item.fontColor }}>{item.index}</Text>
@@ -152,7 +154,7 @@ export default class HelpView extends Component {
           <View style={styles.block}>
             <Text style={{ fontSize: 18, marginBottom: 20 }}>{I18n.t('aqhi_full')}</Text>
 
-            {helpTexts.AQHI.map((item, i) => <View key={i} style={styles.row}>
+            {helpTexts.AQHI.map(item => <View key={shortid.generate()} style={styles.row}>
               <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
                 <Text style={{ color: 'white' }}>{item.index}</Text>
               </View>
