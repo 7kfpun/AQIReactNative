@@ -17,7 +17,8 @@ import timer from 'react-native-timer';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
-const TEN_SECONDS = 10 * 1000;
+const TWENTY_SECONDS = 20 * 1000;
+const STARS_TO_APP_STORE = 4;
 
 const styles = StyleSheet.create({
   container: {
@@ -43,8 +44,6 @@ const styles = StyleSheet.create({
     right: 10,
   },
 });
-
-const STARS_TO_APP_STORE = 4;
 
 export default class Rating extends React.Component {
   static openFeedbackUrl() {
@@ -95,7 +94,7 @@ export default class Rating extends React.Component {
 
     timer.setTimeout(this, 'RatingCloseTimeout', () => {
       this.setState({ isRatingClose: true });
-    }, TEN_SECONDS);
+    }, TWENTY_SECONDS);
   }
 
   render() {

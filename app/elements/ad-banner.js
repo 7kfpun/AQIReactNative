@@ -15,47 +15,54 @@ const TWO_SECONDS = 2 * 1000;
 const TEN_MINUTES = 10 * 60 * 1000;
 
 export default class AdBanner extends React.Component {
+  static showInterstitial() {
+    if (Math.random() < 0.5) {
+      InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
+        .then((didClick) => {
+          console.log('Facebook Interstitial Ad', didClick);
+        })
+        .catch((error) => {
+          console.log('Facebook Interstitial Ad Failed', error);
+          AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+        });
+    } else {
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+    }
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {};
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.setState({ adType: Math.random() < 0.5 ? 'FBADS' : 'ADMOB' });
+
     timer.clearTimeout(this);
     timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
-      InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
-        .then((didClick) => {
-          console.log('Facebook Interstitial Ad', didClick);
-        })
-        .catch((error) => {
-          console.log('Facebook Interstitial Ad Failed', error);
-          AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error1 => error1 && console.log(error1)));
-        });
+      AdBanner.showInterstitial();
     }, TWO_SECONDS);
 
     timer.setInterval(this, 'AdMobInterstitialInterval', () => {
-      InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
-        .then((didClick) => {
-          console.log('Facebook Interstitial Ad', didClick);
-        })
-        .catch((error) => {
-          console.log('Facebook Interstitial Ad Failed', error);
-          AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error1 => error1 && console.log(error1)));
-        });
+      AdBanner.showInterstitial();
     }, TEN_MINUTES);
   }
 
   render() {
-    if (this.state.showAdMob) {
-      return <Admob />;
+    if (this.state.adType === 'FBADS') {
+      if (this.state.showAdMob) {
+        return <Admob />;
+      }
+
+      return (<BannerView
+        placementId={config.fbads[Platform.OS].banner}
+        type="standard"
+        onClick={() => console.log('click')}
+        onError={() => this.setState({ showAdMob: true })}
+      />);
     }
 
-    return (<BannerView
-      placementId={config.fbads[Platform.OS].banner}
-      type="standard"
-      onClick={() => console.log('click')}
-      onError={() => this.setState({ showAdMob: true })}
-    />);
+    return <Admob />;
   }
 }

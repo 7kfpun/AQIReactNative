@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Platform,
 } from 'react-native';
@@ -22,8 +22,10 @@ const scenes = Actions.create(
   </Scene>,
 );
 
-export default class App extends Component {
-  render() {
-    return <Router scenes={scenes} />;
-  }
+function App() {
+  return (
+    <Router scenes={scenes} />
+  );
 }
+
+module.exports = App;
