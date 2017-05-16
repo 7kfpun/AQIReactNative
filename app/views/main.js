@@ -22,7 +22,6 @@ import timer from 'react-native-timer';
 
 import AdBanner from '../elements/ad-banner';
 import aqi from '../utils/aqi';
-import I18n from '../utils/i18n';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
@@ -31,11 +30,12 @@ import tracker from '../utils/tracker';
 
 const { width, height } = Dimensions.get('window');
 const deviceLocale = ReactNativeI18n.locale;
+console.log('deviceLocale', deviceLocale);
 
 const ASPECT_RATIO = width / height;
-const LATITUDE = 22.3218;
-const LONGITUDE = 114.1795;
-const LATITUDE_DELTA = 0.3;
+const LATITUDE = 22.32;
+const LONGITUDE = 114.15;
+const LATITUDE_DELTA = 0.75;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const FIVE_MINUTES = 5 * 60 * 1000;
 
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   },
   currentLocation: {
     position: 'absolute',
-    right: 15,
-    bottom: 100,
+    right: 14,
+    bottom: 70,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -84,14 +84,14 @@ const styles = StyleSheet.create({
     borderRadius: 23,
   },
   infomationContainer: {
-    flexDirection: 'row',
+    position: 'absolute',
+    top: 28,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
     backgroundColor: 'transparent',
   },
   infomationBubble: {
-    backgroundColor: 'rgba(255,255,255,0.9)',
     paddingHorizontal: 16,
     paddingVertical: 6,
     borderRadius: 16,
@@ -126,6 +126,25 @@ const styles = StyleSheet.create({
 });
 
 export default class MainView extends Component {
+  static isOutOfBound(latitude, longitude) {
+    const distance = ((latitude - LATITUDE) ** 2) + ((longitude - LONGITUDE) ** 2);
+    console.log('Distance', distance);
+    return distance > 0.2;
+  }
+
+  static renderDotIndicator() {
+    return <PagerDotIndicator pageCount={3} />;
+  }
+
+  static getHongKongLocation() {
+    return {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    };
+  }
+
   constructor(props) {
     super(props);
 
@@ -141,7 +160,7 @@ export default class MainView extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (Platform.OS === 'ios') {
       Location.requestWhenInUseAuthorization();
       // Location.requestAlwaysAuthorization();
@@ -153,6 +172,12 @@ export default class MainView extends Component {
           location: location.coords,
           gpsEnabled: true,
         });
+
+        if (MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
+          timer.setTimeout(this, 'MoveToHongKong', () => {
+            this.map.animateToRegion(MainView.getHongKongLocation());
+          }, 1000);
+        }
       });
     } else {
       DeviceEventEmitter.addListener('updateLocation', (location) => {
@@ -169,9 +194,7 @@ export default class MainView extends Component {
       // Initialize RNALocation
       RNALocation.getLocation();
     }
-  }
 
-  componentDidMount() {
     this.prepareData();
 
     timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
@@ -180,6 +203,11 @@ export default class MainView extends Component {
   componentWillUnmount() {
     timer.clearTimeout(this);
     timer.clearInterval(this);
+  }
+
+  onRegionChange(region) {
+    console.log(region);
+    this.setState({ region, selectedLocation: null });
   }
 
   getCurrentLocation() {
@@ -210,25 +238,29 @@ export default class MainView extends Component {
             style={styles.map}
             ref={(ref) => { this.map = ref; }}
             initialRegion={this.getCurrentLocation()}
+            onRegionChange={region => this.onRegionChange(region)}
           >
-            {this.state.aqiResult && this.state.markers.map(marker => (
-              <MapView.Marker
+            {this.state.aqiResult && this.state.markers.map((marker) => {
+              let title;
+              if (deviceLocale.startsWith('zh-Hans')) {
+                title = `${marker.title} 地区 ${this.state.selectedIndex} 值为 ${this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
+              } else if (deviceLocale.startsWith('zh')) {
+                title = `${marker.title} 地区 ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
+              } else {
+                title = `${this.state.selectedIndex} is ${this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`;
+              }
+
+              return (<MapView.Marker
                 key={marker.latlng.latitude}
                 coordinate={marker.latlng}
-                title={
-                  deviceLocale.startsWith('zh-Hans') ?
-                  `${marker.title} 地区 ${this.state.selectedIndex} 值为 ${this.state.aqiResult[marker.title][this.state.selectedIndex]}`
-                  : deviceLocale.startsWith('zh') ?
-                    `${marker.title} 地区 ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.title][this.state.selectedIndex]}`
-                    :
-                    `${this.state.selectedIndex} is ${this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`
-                }
+                title={title}
                 description={marker.description}
+                onPress={() => this.setState({ selectedLocation: marker.title })}
               >
                 {this.state.aqiResult[marker.title]
                   && <Marker amount={this.state.aqiResult[marker.title][this.state.selectedIndex]} index={this.state.selectedIndex} />}
-              </MapView.Marker>
-            ))}
+              </MapView.Marker>);
+            })}
 
             {this.state.gpsEnabled && this.state.location && <MapView.Marker
               coordinate={this.state.location}
@@ -240,6 +272,22 @@ export default class MainView extends Component {
               <Icon name="notifications-active" size={26} color="#616161" />
             </Animatable.View>
           </TouchableOpacity>
+
+          {this.state.aqiResult && <View style={styles.infomationContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                this.prepareData();
+                tracker.trackEvent('user-action', 'fetch-latest-data');
+              }}
+              style={styles.infomationBubble}
+            >
+              <View style={styles.infomationBubbleBody}>
+                <Text style={styles.infomationBubbleText}>{this.state.aqiResult.time}</Text>
+                {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
+                {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
+              </View>
+            </TouchableOpacity>
+          </View>}
 
           <TouchableOpacity style={styles.help} onPress={Actions.help} >
             <Icon name="help-outline" size={26} color="#616161" />
@@ -256,22 +304,6 @@ export default class MainView extends Component {
           </TouchableOpacity>}
 
           <Rating />
-
-          {this.state.aqiResult && <View style={styles.infomationContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                this.prepareData();
-                tracker.trackEvent('user-action', 'fetch-latest-data');
-              }}
-              style={styles.infomationBubble}
-            >
-              <View style={styles.infomationBubbleBody}>
-                <Text style={styles.infomationBubbleText}>{I18n.t('last_update')} {this.state.aqiResult.time}</Text>
-                {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
-                {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
-              </View>
-            </TouchableOpacity>
-          </View>}
 
           <View style={styles.buttonContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>

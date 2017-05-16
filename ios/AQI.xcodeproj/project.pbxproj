@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -51,6 +52,7 @@
 		87F6F06BB163477EA613C0C1 /* libjschelpers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AEB833A7A9D4E28A15019F6 /* libjschelpers.a */; };
 		8BBEB767E6024F00A47ED8B9 /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2CAFC0E1FB4F43A12E03CB /* libcxxreact.a */; };
 		9C10F3B43A5045C1995492B9 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C16F1104534443AAAC88879 /* MaterialCommunityIcons.ttf */; };
+		9E5B0F581ECB33FE00E72570 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7242B31EC849B900E37D35 /* libRNI18n.a */; };
 		9E7242C11EC84A7B00E37D35 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7242C01EC84A7B00E37D35 /* CoreData.framework */; };
 		9E7242C31EC84A8500E37D35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7242C21EC84A8500E37D35 /* SystemConfiguration.framework */; };
 		9E7242C51EC84A8C00E37D35 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7242C41EC84A8C00E37D35 /* libz.tbd */; };
@@ -383,6 +385,8 @@
 		920CEF7B97034D858C32A9BC /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		9A2CAFC0E1FB4F43A12E03CB /* libcxxreact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libcxxreact.a; sourceTree = "<group>"; };
 		9E301C6402C64424BFAC1798 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		9E5B0F311ECB319400E72570 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		9E5B0F561ECB319800E72570 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9E7242C01EC84A7B00E37D35 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9E7242C21EC84A8500E37D35 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9E7242C41EC84A8C00E37D35 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -418,6 +422,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E5B0F581ECB33FE00E72570 /* libRNI18n.a in Frameworks */,
 				9E7242C71EC84A9300E37D35 /* libsqlite3.0.tbd in Frameworks */,
 				9E7242C51EC84A8C00E37D35 /* libz.tbd in Frameworks */,
 				9E7242CF1EC84BBD00E37D35 /* GoogleMobileAds.framework in Frameworks */,
@@ -1371,6 +1376,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				13B07FB21A68108700A75B9A /* Base */,
+				9E5B0F311ECB319400E72570 /* zh-Hans */,
+				9E5B0F561ECB319800E72570 /* zh-Hant */,
 			);
 			name = LaunchScreen.xib;
 			path = AQI;
@@ -1671,6 +1678,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1716,6 +1724,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
