@@ -9,7 +9,6 @@ import {
 
 import shortid from 'shortid';
 
-import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
@@ -149,7 +148,13 @@ const helpTexts = {
 };
 
 export default class HelpView extends Component {
+  static navigationOptions = {
+    header: null,
+    title: 'Help',
+  };
+
   render() {
+    const { goBack } = this.props.navigation;
     tracker.trackScreenView('Help');
     return (
       <View style={styles.container}>
@@ -205,7 +210,7 @@ export default class HelpView extends Component {
           </View>
         </ScrollView>
 
-        <TouchableOpacity style={styles.close} onPress={Actions.pop} >
+        <TouchableOpacity style={styles.close} onPress={() => goBack()} >
           <Icon name="close" size={30} color="gray" />
         </TouchableOpacity>
       </View>

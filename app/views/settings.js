@@ -12,7 +12,6 @@ import {
   View,
 } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
@@ -74,6 +73,11 @@ function toastShow() {
 }
 
 export default class SettingsView extends Component {
+  static navigationOptions = {
+    header: null,
+    title: 'Settings',
+  };
+
   static checkPermissions() {
     if (Platform.OS === 'ios') {
       store.get('notificationPollutionIsEnabled').then((notificationPollutionIsEnabled) => {
@@ -236,12 +240,12 @@ export default class SettingsView extends Component {
   }
 
   popSettings() {
-    Actions.pop();
     SettingsView.checkPermissions();
     this.sendTags();
   }
 
   render() {
+    const { goBack } = this.props.navigation;
     tracker.trackScreenView('Settings');
     return (
       <View style={styles.container}>
@@ -333,7 +337,7 @@ export default class SettingsView extends Component {
           </View>}
         </ScrollView>
 
-        <TouchableOpacity style={styles.close} onPress={() => this.popSettings()} >
+        <TouchableOpacity style={styles.close} onPress={() => { this.popSettings(); goBack() }} >
           <Icon name="close" size={30} color="gray" />
         </TouchableOpacity>
       </View>

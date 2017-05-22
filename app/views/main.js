@@ -11,13 +11,12 @@ import {
   View,
 } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';
 import { RNLocation as Location } from 'NativeModules';  // eslint-disable-line
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import ReactNativeI18n from 'react-native-i18n';
-import RNALocation from 'react-native-android-location';
+// import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
 
 import AdBanner from '../elements/ad-banner';
@@ -75,13 +74,24 @@ const styles = StyleSheet.create({
   currentLocation: {
     position: 'absolute',
     right: 14,
-    bottom: 70,
+    bottom: 60,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 46,
-    width: 46,
-    borderRadius: 23,
+    height: 44,
+    width: 44,
+    borderRadius: 22,
+  },
+  forecastHealthRiskButton: {
+    position: 'absolute',
+    right: 14,
+    bottom: 60,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 44,
+    width: 44,
+    borderRadius: 22,
   },
   infomationContainer: {
     position: 'absolute',
@@ -126,15 +136,20 @@ const styles = StyleSheet.create({
 });
 
 export default class MainView extends Component {
+  static navigationOptions = {
+    header: null,
+    title: 'Main',
+  };
+
   static isOutOfBound(latitude, longitude) {
-    const distance = ((latitude - LATITUDE) ** 2) + ((longitude - LONGITUDE) ** 2);
+    const distance = ((latitude - LATITUDE) * (latitude - LATITUDE)) + ((longitude - LONGITUDE) * (longitude - LONGITUDE));
     console.log('Distance', distance);
     return distance > 0.2;
   }
 
-  static renderDotIndicator() {
-    return <PagerDotIndicator pageCount={3} />;
-  }
+  // static renderDotIndicator() {
+  //   return <PagerDotIndicator pageCount={3} />;
+  // }
 
   static getHongKongLocation() {
     return {
@@ -230,6 +245,7 @@ export default class MainView extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     tracker.trackScreenView('Main');
     return (
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
@@ -267,7 +283,7 @@ export default class MainView extends Component {
             />}
           </MapView>
 
-          <TouchableOpacity style={styles.menu} onPress={Actions.settings}>
+          <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
             <Animatable.View animation="tada" delay={2000} iterationCount={20}>
               <Icon name="notifications-active" size={26} color="#616161" />
             </Animatable.View>
@@ -289,7 +305,7 @@ export default class MainView extends Component {
             </TouchableOpacity>
           </View>}
 
-          <TouchableOpacity style={styles.help} onPress={Actions.help} >
+          <TouchableOpacity style={styles.help} onPress={() => navigate('Help')} >
             <Icon name="help-outline" size={26} color="#616161" />
           </TouchableOpacity>
 
@@ -322,6 +338,7 @@ export default class MainView extends Component {
             </ScrollView>
           </View>
         </View>
+
         <AdBanner />
       </View>
     );
