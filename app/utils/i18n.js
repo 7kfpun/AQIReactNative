@@ -21,8 +21,8 @@ I18n.translations = {
     forecast_of_health_risk: 'FORECAST of Health Risk',
     general_stations: 'General Stations',
     roadside_stations: 'Roadside Stations',
-    tomorrow_am: 'Tomorrow A.M.',
-    tomorrow_pm: 'Tomorrow P.M.',
+    tomorrow_am: 'A.M.',
+    tomorrow_pm: 'P.M.',
   },
   zh: {
     notify_pollution_title: '當空氣質量明顯惡化時通知我',
@@ -42,8 +42,8 @@ I18n.translations = {
     forecast_of_health_risk: '預測 - 健康風險',
     general_stations: '一般監測站',
     roadside_stations: '路邊監測站',
-    tomorrow_am: '明天 上午',
-    tomorrow_pm: '明天 下午',
+    tomorrow_am: '上午',
+    tomorrow_pm: '下午',
   },
   'zh-Hans': {
     notify_pollution_title: '当空气质量明显恶化时通知我',
@@ -63,8 +63,8 @@ I18n.translations = {
     forecast_of_health_risk: '预测 - 健康风险',
     general_stations: '一般监测站',
     roadside_stations: '路边监测站',
-    tomorrow_am: '明天 上午',
-    tomorrow_pm: '明天 下午',
+    tomorrow_am: '上午',
+    tomorrow_pm: '下午',
   },
 };
 

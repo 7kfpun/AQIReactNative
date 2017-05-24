@@ -68,10 +68,16 @@ export default class ForecastModal extends Component {
     }
 
     if (deviceLocale.startsWith('zh')) {
-      return text.replace('to', '至').replace('Low', '低').replace('Moderate', '中').replace('High', '高').replace('明天 ', '');
+      return text
+        .replace('to', '至')
+        .replace('Low', '低')
+        .replace('Moderate', '中')
+        .replace('High', '高')
+        .replace('Very High', '很高')
+        .replace('Serious', '嚴重');
     }
 
-    return text.replace('Tomorrow ', '');
+    return text;
   }
 
   componentDidMount() {

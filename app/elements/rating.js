@@ -63,7 +63,6 @@ export default class Rating extends React.Component {
   }
 
   componentDidMount() {
-    store.save('isRatingGiven', false);
     const that = this;
     store.get('isRatingGiven').then((isRatingGiven) => {
       if (isRatingGiven) {
