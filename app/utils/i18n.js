@@ -18,6 +18,11 @@ I18n.translations = {
     too_large_therhold: 'The value is too large, you would get lots of notifications',
     rating_description: 'Enjoying HK AQI?',
     feedback_description: 'Give us a feedback',
+    forecast_of_health_risk: 'FORECAST of Health Risk',
+    general_stations: 'General Stations',
+    roadside_stations: 'Roadside Stations',
+    tomorrow_am: 'Tomorrow A.M.',
+    tomorrow_pm: 'Tomorrow P.M.',
   },
   zh: {
     notify_pollution_title: '當空氣質量明顯惡化時通知我',
@@ -34,6 +39,11 @@ I18n.translations = {
     too_large_therhold: '您所設定的值偏高，或會收到很多通知',
     rating_description: '喜歡「HK AQI」嗎？',
     feedback_description: '請給我們一些意見',
+    forecast_of_health_risk: '預測 - 健康風險',
+    general_stations: '一般監測站',
+    roadside_stations: '路邊監測站',
+    tomorrow_am: '明天 上午',
+    tomorrow_pm: '明天 下午',
   },
   'zh-Hans': {
     notify_pollution_title: '当空气质量明显恶化时通知我',
@@ -50,6 +60,11 @@ I18n.translations = {
     too_large_therhold: '您所设定的值偏高，或会收到很多通知',
     rating_description: '喜欢「HK AQI」吗？',
     feedback_description: '请给我们一些意见',
+    forecast_of_health_risk: '预测 - 健康风险',
+    general_stations: '一般监测站',
+    roadside_stations: '路边监测站',
+    tomorrow_am: '明天 上午',
+    tomorrow_pm: '明天 下午',
   },
 };
 

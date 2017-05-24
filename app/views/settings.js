@@ -140,7 +140,7 @@ export default class SettingsView extends Component {
       if (value) {
         that.setState({ notificationCleanlinessTherhold: value });
       } else {
-        store.save('notificationCleanlinessTherhold', 100);
+        store.save('notificationCleanlinessTherhold', 40);
       }
     });
 

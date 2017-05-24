@@ -9,9 +9,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  NativeModules,
 } from 'react-native';
 
-import { RNLocation as Location } from 'NativeModules';  // eslint-disable-line
+const { RNLocation } = NativeModules;
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
@@ -20,11 +21,12 @@ import ReactNativeI18n from 'react-native-i18n';
 import timer from 'react-native-timer';
 
 import AdBanner from '../elements/ad-banner';
-import aqi from '../utils/aqi';
+import ForecastModal from '../elements/forecast-modal';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
 import { locations } from '../utils/locations';
+import aqi from '../utils/aqi';
 import tracker from '../utils/tracker';
 
 const { width, height } = Dimensions.get('window');
@@ -74,18 +76,7 @@ const styles = StyleSheet.create({
   currentLocation: {
     position: 'absolute',
     right: 14,
-    bottom: 60,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 44,
-    width: 44,
-    borderRadius: 22,
-  },
-  forecastHealthRiskButton: {
-    position: 'absolute',
-    right: 14,
-    bottom: 60,
+    bottom: 120,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -177,10 +168,10 @@ export default class MainView extends Component {
 
   componentDidMount() {
     if (Platform.OS === 'ios') {
-      Location.requestWhenInUseAuthorization();
-      // Location.requestAlwaysAuthorization();
-      Location.startUpdatingLocation();
-      Location.setDistanceFilter(5.0);
+      RNLocation.requestWhenInUseAuthorization();
+      // RNLocation.requestAlwaysAuthorization();
+      RNLocation.startUpdatingLocation();
+      RNLocation.setDistanceFilter(5.0);
       DeviceEventEmitter.addListener('locationUpdated', (location) => {
         console.log('Location updated', location);
         this.setState({
@@ -318,6 +309,8 @@ export default class MainView extends Component {
           >
             <Icon name="near-me" size={26} color="#616161" />
           </TouchableOpacity>}
+
+          <ForecastModal />
 
           <Rating />
 
