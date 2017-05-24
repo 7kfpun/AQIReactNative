@@ -12,18 +12,16 @@ import * as StoreReview from 'react-native-store-review';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
-import timer from 'react-native-timer';
 
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
-const TWENTY_SECONDS = 20 * 1000;
 const STARS_TO_APP_STORE = 4;
 
 const styles = StyleSheet.create({
   container: {
     margin: 15,
-    padding: 10,
+    padding: 15,
     alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.9)',
     borderRadius: 10,
@@ -36,7 +34,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 14,
   },
   close: {
     position: 'absolute',
@@ -65,6 +63,7 @@ export default class Rating extends React.Component {
   }
 
   componentDidMount() {
+    store.save('isRatingGiven', false);
     const that = this;
     store.get('isRatingGiven').then((isRatingGiven) => {
       if (isRatingGiven) {
@@ -91,10 +90,6 @@ export default class Rating extends React.Component {
     store.save('isRatingGiven', true);
 
     tracker.trackEvent('user-action', 'give-rating', { label: rating.toString() });
-
-    timer.setTimeout(this, 'RatingCloseTimeout', () => {
-      this.setState({ isRatingClose: true });
-    }, TWENTY_SECONDS);
   }
 
   render() {
@@ -102,14 +97,14 @@ export default class Rating extends React.Component {
       return null;
     }
 
-    return (<Animatable.View style={styles.container} animation="fadeIn" delay={100000}>
+    return (<Animatable.View style={styles.container} animation="fadeIn" delay={60 * 1000}>
       <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
-        <Icon name="clear" size={16} color="#616161" />
+        <Icon name="clear" size={18} color="#616161" />
       </TouchableOpacity>
-      <Icon name="thumb-up" size={26} color="#616161" />
-      <Text>{I18n.t('rating_description')}</Text>
+      <Icon name="thumb-up" size={28} color="#616161" />
+      <Text style={{ fontSize: 14, lineHeight: 40 }}>{I18n.t('rating_description')}</Text>
       <StarRating
-        starSize={28}
+        starSize={32}
         rating={this.state.starCount}
         selectedStar={rating => this.onStarRatingPress(rating)}
       />
