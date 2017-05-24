@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {
+  ScrollView,
   StyleSheet,
   Modal,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 100,
     marginBottom: 180,
-    marginHorizontal: 60,
-    padding: 30,
+    marginHorizontal: 40,
+    padding: 20,
     borderRadius: 18,
     backgroundColor: '#F5F5F5',
   },
@@ -45,14 +45,14 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: 'black',
-    fontSize: 16,
-    lineHeight: 40,
+    fontSize: 14,
+    lineHeight: 35,
   },
   text: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '300',
-    lineHeight: 35,
+    lineHeight: 30,
   },
 });
 
@@ -60,6 +60,18 @@ export default class ForecastModal extends Component {
   state = {
     isModalShow: false,
     data: {},
+  }
+
+  static translate(text) {
+    if (!text) {
+      return;
+    }
+
+    if (deviceLocale.startsWith('zh')) {
+      return text.replace('to', '至').replace('Low', '低').replace('Moderate', '中').replace('High', '高').replace('明天 ', '');
+    }
+
+    return text.replace('Tomorrow ', '');
   }
 
   componentDidMount() {
@@ -74,19 +86,12 @@ export default class ForecastModal extends Component {
     });
   }
 
-  static translate(text) {
-    if (deviceLocale.startsWith('zh')) {
-      return text.replace('to', '至').replace('Low', '低').replace('Moderate', '中').replace('High', '高');
-    }
-    return text
-  }
-
   render() {
     return (
       <View style={styles.forecastHealthRiskButton}>
         <TouchableOpacity
           onPress={() => {
-            this.setState({ isModalShow: !this.state.isModalShow })
+            this.setState({ isModalShow: !this.state.isModalShow });
             tracker.trackEvent('user-action', 'check-forecast');
           }}
         >
@@ -94,47 +99,49 @@ export default class ForecastModal extends Component {
         </TouchableOpacity>
 
         {this.state.isModalShow && <Modal
-          animationType={"slide"}
+          animationType={'slide'}
           transparent={true}
           visible={this.state.modalVisible}
-          onRequestClose={() => {alert("Modal has been closed.")}}
+          onRequestClose={() => { this.setState({ isModalShow: false }); }}
         >
           <View style={styles.container}>
-            <Text style={styles.titleText}>{I18n.t('forecast_of_health_risk')}</Text>
-            <Text style={styles.titleText}>{this.state.data.date}</Text>
+            <ScrollView>
+              <Text style={styles.titleText}>{I18n.t('forecast_of_health_risk')}</Text>
+              <Text style={styles.titleText}>{this.state.data.date}</Text>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Text style={styles.text}>{I18n.t('general_stations')}</Text>
-            </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                <Text style={styles.text}>{I18n.t('general_stations')}</Text>
+              </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
-              <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.am)}</Text>
-            </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
+                <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.am)}</Text>
+              </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
-              <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.pm)}</Text>
-            </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
+                <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.pm)}</Text>
+              </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Text style={styles.text}>{I18n.t('roadside_stations')}</Text>
-            </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                <Text style={styles.text}>{I18n.t('roadside_stations')}</Text>
+              </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
-              <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.am)}</Text>
-            </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
+                <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.am)}</Text>
+              </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
-              <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.pm)}</Text>
-            </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
+                <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.pm)}</Text>
+              </View>
+            </ScrollView>
 
             <TouchableOpacity
               style={styles.closeButton}
               onPress={() => {
-                this.setState({ isModalShow: !this.state.isModalShow })
+                this.setState({ isModalShow: !this.state.isModalShow });
                 tracker.trackEvent('user-action', 'check-forecast');
               }}
             >
