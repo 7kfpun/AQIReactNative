@@ -33,12 +33,12 @@ export default class AdBanner extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      adType: Math.random() < 0.5 ? 'FBADS' : 'ADMOB',
+    };
   }
 
   componentDidMount() {
-    this.setState({ adType: Math.random() < 0.5 ? 'FBADS' : 'ADMOB' });
-
     timer.clearTimeout(this);
     timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
       AdBanner.showInterstitial();
@@ -50,19 +50,15 @@ export default class AdBanner extends React.Component {
   }
 
   render() {
-    if (this.state.adType === 'FBADS') {
-      if (this.state.showAdMob) {
-        return <Admob />;
-      }
-
-      return (<BannerView
-        placementId={config.fbads[Platform.OS].banner}
-        type="standard"
-        onClick={() => console.log('click')}
-        onError={() => this.setState({ showAdMob: true })}
-      />);
+    if (this.state.adType === 'ADMOB') {
+      return <Admob />;
     }
 
-    return <Admob />;
+    return (<BannerView
+      placementId={config.fbads[Platform.OS].banner}
+      type="standard"
+      onClick={() => console.log('click')}
+      onError={() => this.setState({ adType: 'ADMOB' })}
+    />);
   }
 }
