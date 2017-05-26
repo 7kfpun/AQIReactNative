@@ -12,7 +12,6 @@ import {
   NativeModules,
 } from 'react-native';
 
-const { RNLocation } = NativeModules;
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
@@ -28,6 +27,8 @@ import Rating from '../elements/rating';
 import { locations } from '../utils/locations';
 import aqi from '../utils/aqi';
 import tracker from '../utils/tracker';
+
+const { RNLocation } = NativeModules;
 
 const { width, height } = Dimensions.get('window');
 const deviceLocale = ReactNativeI18n.locale;
@@ -337,3 +338,7 @@ export default class MainView extends Component {
     );
   }
 }
+
+MainView.propTypes = {
+  navigation: React.PropTypes.isRequired,
+};

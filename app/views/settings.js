@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 
+import Fabric from 'react-native-fabric';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
@@ -20,6 +21,8 @@ import Toast from 'react-native-root-toast';
 import { locations } from '../utils/locations';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+
+const { Answers } = Fabric;
 
 const window = Dimensions.get('window');
 
@@ -152,6 +155,8 @@ export default class SettingsView extends Component {
     this.setState({ notificationPollutionIsEnabled: value });
     if (value) {
       tracker.trackEvent('user-action', 'set-notification-pollution', { label: 'notification-pollution-on' });
+      Answers.logCustom('set-notification-pollution', { event: 'notification-pollution-on' });
+
       if (Platform.OS === 'ios') {
         permissions = {
           alert: true,
@@ -163,6 +168,7 @@ export default class SettingsView extends Component {
       }
     } else {
       tracker.trackEvent('user-action', 'set-notification-pollution', { label: 'notification-pollution-off' });
+      Answers.logCustom('set-notification-pollution', { event: 'notification-pollution-off' });
     }
 
     this.sendTags();
@@ -185,6 +191,7 @@ export default class SettingsView extends Component {
     this.setState({ notificationCleanlinessIsEnabled: value });
     if (value) {
       tracker.trackEvent('user-action', 'set-notification-cleanliness', { label: 'notification-cleanliness-on' });
+      Answers.logCustom('set-notification-cleanliness', { event: 'notification-cleanliness-on' });
       if (Platform.OS === 'ios') {
         permissions = {
           alert: true,
@@ -196,6 +203,7 @@ export default class SettingsView extends Component {
       }
     } else {
       tracker.trackEvent('user-action', 'set-notification-cleanliness', { label: 'notification-cleanliness-off' });
+      Answers.logCustom('set-notification-cleanliness', { event: 'notification-cleanliness-off' });
     }
 
     this.sendTags();
@@ -337,10 +345,14 @@ export default class SettingsView extends Component {
           </View>}
         </ScrollView>
 
-        <TouchableOpacity style={styles.close} onPress={() => { this.popSettings(); goBack() }} >
+        <TouchableOpacity style={styles.close} onPress={() => { this.popSettings(); goBack(); }} >
           <Icon name="close" size={30} color="gray" />
         </TouchableOpacity>
       </View>
     );
   }
 }
+
+SettingsView.propTypes = {
+  navigation: React.PropTypes.isRequired,
+};

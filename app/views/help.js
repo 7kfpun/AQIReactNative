@@ -217,3 +217,7 @@ export default class HelpView extends Component {
     );
   }
 }
+
+HelpView.propTypes = {
+  navigation: React.PropTypes.isRequired,
+};
