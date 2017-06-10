@@ -21,4 +21,9 @@ const App = StackNavigator({
   mode: 'modal',
 });
 
+console.ignoredYellowBox = [
+  '[xmldom warning]',
+  'Warning: setState(...): Can only update a mounted or mounting component.',
+];
+
 module.exports = App;

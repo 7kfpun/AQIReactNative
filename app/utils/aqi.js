@@ -5,11 +5,13 @@ const AQI = () => {
   return fetch(AQIURL)
     .then(res => res.text())
     .then((html) => {
-      const result = {};
+      console.log('AQI');
 
       const doc = new DOMParser().parseFromString(html, 'text/html');
 
-      result.time = doc.querySelect('b') && doc.querySelect('b')[0].textContent.replace('Time: ', '');
+      const result = {
+        time: doc.querySelect('b') && doc.querySelect('b')[0].textContent.replace('Time: ', ''),
+      };
       console.log('AQI updated Time', result.time);
 
       const table = doc.querySelect('table > table > table')[2];
@@ -38,7 +40,7 @@ const AQI = () => {
                 info.PM10 = tdItem.textContent;
                 break;
               case 6:
-                info.PM2_5 = tdItem.textContent;
+                info['PM2.5'] = tdItem.textContent;
                 break;
               case 7:
                 info.AQHI = tdItem.textContent;
