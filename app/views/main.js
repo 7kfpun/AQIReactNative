@@ -251,11 +251,11 @@ export default class MainView extends Component {
             {this.state.aqiResult && this.state.markers.map((marker) => {
               let title;
               if (deviceLocale.startsWith('zh-Hans')) {
-                title = `${marker.title} 地区 ${this.state.selectedIndex} 值为 ${this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
+                title = `${marker.title} 地区 ${this.state.selectedIndex} 值为 ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
               } else if (deviceLocale.startsWith('zh')) {
-                title = `${marker.title} 地区 ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
+                title = `${marker.title} 地区 ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
               } else {
-                title = `${this.state.selectedIndex} is ${this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`;
+                title = `${this.state.selectedIndex} is ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`;
               }
 
               return (<MapView.Marker
@@ -340,5 +340,7 @@ export default class MainView extends Component {
 }
 
 MainView.propTypes = {
-  navigation: React.PropTypes.isRequired,
+  navigation: React.PropTypes.shape({
+    navigate: React.PropTypes.func.isRequired,
+  }).isRequired,
 };

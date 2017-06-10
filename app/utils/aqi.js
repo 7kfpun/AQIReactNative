@@ -1,38 +1,61 @@
-const AQI = () => {
-  const AQIURL = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fwww.weather.org.hk%2Fenglish%2Faqi.html%3Fr%3D${Math.random()}%22%20and%20xpath%3D%22%2F%2Ftable%2F%2Ftable%2F%2Ftable%22&format=json&diagnostics=true&callback=`;
+import { DOMParser } from 'react-native-html-parser';
 
+const AQI = () => {
+  const AQIURL = `http://www.weather.org.hk/english/aqi.html?${Math.random()}`;
   return fetch(AQIURL)
-    .then(res => res.json())
-    .then((json) => {
-      // console.log(json.query.results)
-      console.log(json.query.results.table[0].tbody.tr.td.center.b.replace('Time: ', ''));
-      const result = {
-        time: json.query.results.table[0].tbody.tr.td.center.b.replace('Time: ', ''),
-      };
-      console.log('city', 'NO2', 'O3', 'SO2', 'CO', 'PM10', 'PM2.5', 'AQHI', 'AQI');
-      json.query.results.table[1].tbody.tr.slice(2).forEach((element) => {
-        console.log(
-          element.td[0],
-          element.td[1].font.content,
-          element.td[2].font.content,
-          element.td[3].font.content,
-          element.td[4].font.content,
-          element.td[5].font.content,
-          element.td[6].font.content,
-          element.td[7].font.content,
-          element.td[8].font.content,
-        );
-        result[element.td[0]] = {
-          NO2: element.td[1].font.content,
-          O3: element.td[2].font.content,
-          SO2: element.td[3].font.content,
-          CO: element.td[4].font.content,
-          PM10: element.td[5].font.content,
-          'PM2.5': element.td[6].font.content,
-          AQHI: element.td[7].font.content,
-          AQI: element.td[8].font.content,
-        };
+    .then(res => res.text())
+    .then((html) => {
+      const result = {};
+
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+
+      result.time = doc.querySelect('b') && doc.querySelect('b')[0].textContent.replace('Time: ', '');
+      console.log('AQI updated Time', result.time);
+
+      const table = doc.querySelect('table > table > table')[2];
+      table.querySelect('tr').forEach((item, i) => {
+        if (i > 2 && i < 18) {
+          let distinct;
+          const info = {};
+          item.querySelect('td').forEach((tdItem, j) => {
+            switch (j) {
+              case 0:
+                distinct = tdItem.textContent.replace('/', '_');
+                break;
+              case 1:
+                info.NO2 = tdItem.textContent;
+                break;
+              case 2:
+                info.O3 = tdItem.textContent;
+                break;
+              case 3:
+                info.SO2 = tdItem.textContent;
+                break;
+              case 4:
+                info.CO = tdItem.textContent;
+                break;
+              case 5:
+                info.PM10 = tdItem.textContent;
+                break;
+              case 6:
+                info.PM2_5 = tdItem.textContent;
+                break;
+              case 7:
+                info.AQHI = tdItem.textContent;
+                break;
+              case 8:
+                info.AQI = tdItem.textContent;
+                break;
+              default:
+                break;
+            }
+          });
+
+          result[distinct] = info;
+        }
       });
+
+      console.log(result);
       return result;
     });
 };
