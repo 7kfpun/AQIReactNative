@@ -53,14 +53,11 @@ export default class Rating extends React.Component {
     });
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      starCount: 0,
-      isRatingGiven: false,
-      isRatingClose: false,
-    };
-  }
+  state = {
+    starCount: 0,
+    isRatingGiven: false,
+    isRatingClose: false,
+  };
 
   componentDidMount() {
     const that = this;

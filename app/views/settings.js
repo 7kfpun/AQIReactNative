@@ -97,19 +97,15 @@ export default class SettingsView extends Component {
     }
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      seconds: 5,
-      notificationPollutionIsEnabled: false,
-      notificationPollutionLocation: 'Central/Western',
-      notificationPollutionTherhold: 100,
-      notificationCleanlinessIsEnabled: false,
-      notificationCleanlinessLocation: 'Central/Western',
-      notificationCleanlinessTherhold: 40,
-    };
-  }
+  state = {
+    seconds: 5,
+    notificationPollutionIsEnabled: false,
+    notificationPollutionLocation: 'Central/Western',
+    notificationPollutionTherhold: 100,
+    notificationCleanlinessIsEnabled: false,
+    notificationCleanlinessLocation: 'Central/Western',
+    notificationCleanlinessTherhold: 40,
+  };
 
   componentDidMount() {
     SettingsView.checkPermissions();
@@ -354,5 +350,7 @@ export default class SettingsView extends Component {
 }
 
 SettingsView.propTypes = {
-  navigation: React.PropTypes.isRequired,
+  navigation: React.PropTypes.shape({
+    goBack: React.PropTypes.func.isRequired,
+  }).isRequired,
 };

@@ -152,20 +152,16 @@ export default class MainView extends Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      location: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-      },
-      markers: locations,
-      selectedIndex: 'AQI',
-      isLoading: false,
-      gpsEnabled: false,
-    };
-  }
+  state = {
+    location: {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+    },
+    markers: locations,
+    selectedIndex: 'AQI',
+    isLoading: false,
+    gpsEnabled: false,
+  };
 
   componentDidMount() {
     if (Platform.OS === 'ios') {

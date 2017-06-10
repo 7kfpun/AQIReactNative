@@ -57,11 +57,6 @@ const styles = StyleSheet.create({
 });
 
 export default class ForecastModal extends Component {
-  state = {
-    isModalShow: false,
-    data: {},
-  }
-
   static translate(text) {
     if (!text) {
       return;
@@ -78,6 +73,11 @@ export default class ForecastModal extends Component {
     }
 
     return text;
+  }
+
+  state = {
+    isModalShow: false,
+    data: {},
   }
 
   componentDidMount() {

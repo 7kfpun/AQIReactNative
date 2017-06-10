@@ -16,13 +16,13 @@ const AQI = () => {
 
       const table = doc.querySelect('table > table > table')[2];
       table.querySelect('tr').forEach((item, i) => {
-        if (i > 2 && i < 18) {
+        if (i > 1 && i < 18) {
           let distinct;
           const info = {};
           item.querySelect('td').forEach((tdItem, j) => {
             switch (j) {
               case 0:
-                distinct = tdItem.textContent.replace('/', '_');
+                distinct = tdItem.textContent;
                 break;
               case 1:
                 info.NO2 = tdItem.textContent;

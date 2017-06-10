@@ -219,5 +219,7 @@ export default class HelpView extends Component {
 }
 
 HelpView.propTypes = {
-  navigation: React.PropTypes.isRequired,
+  navigation: React.PropTypes.shape({
+    goBack: React.PropTypes.func.isRequired,
+  }).isRequired,
 };

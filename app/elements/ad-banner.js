@@ -30,13 +30,9 @@ export default class AdBanner extends React.Component {
     }
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      adType: Math.random() < 0.5 ? 'FBADS' : 'ADMOB',
-    };
-  }
+  state = {
+    adType: Math.random() < 0.5 ? 'FBADS' : 'ADMOB',
+  };
 
   componentDidMount() {
     timer.clearTimeout(this);
