@@ -22,7 +22,9 @@
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:theme="@style/AppTheme">
-      <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDdHcUCbrc0VY_2dhw-uElJdYVaaA2oYj0"/>
+      <meta-data android:name="io.fabric.ApiKey" android:value="ba90a9cfaac47e081b32f911ff611a6722de57c8"/>
+      <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+      <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_geo_api_key"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

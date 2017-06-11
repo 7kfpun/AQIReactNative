@@ -16,7 +16,7 @@ import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import ReactNativeI18n from 'react-native-i18n';
-// import RNALocation from 'react-native-android-location';
+import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
 
 import AdBanner from '../elements/ad-banner';
@@ -187,11 +187,17 @@ export default class MainView extends Component {
         console.log('Location updated', location);
         this.setState({
           location: {
-            longitude: location.Longitude,
             latitude: location.Latitude,
+            longitude: location.Longitude,
           },
           gpsEnabled: true,
         });
+
+        if (MainView.isOutOfBound(location.Latitude, location.Longitude)) {
+          timer.setTimeout(this, 'MoveToHongKong', () => {
+            this.map.animateToRegion(MainView.getHongKongLocation());
+          }, 1000);
+        }
       });
 
       // Initialize RNALocation

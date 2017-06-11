@@ -4,6 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.i18n.reactnativei18n.ReactNativeI18n;
+import io.callstack.react.fbads.FBAdsPackage;
+import com.smixx.fabric.FabricPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -17,6 +20,10 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import io.fabric.sdk.android.Fabric;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +40,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-          new ReactNativeOneSignalPackage(),
           new MapsPackage(),
+          new ReactNativeI18n(),
+          new FBAdsPackage(),
+          new FabricPackage(),
+          new ReactNativeOneSignalPackage(),
           new RNDeviceInfo(),
           new RNAdMobPackage(),
           new GoogleAnalyticsBridgePackage(),
@@ -53,5 +63,7 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+
+    Fabric.with(this, new Crashlytics(), new Answers());
   }
 }

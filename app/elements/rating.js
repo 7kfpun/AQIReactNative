@@ -93,7 +93,7 @@ export default class Rating extends React.Component {
       return null;
     }
 
-    return (<Animatable.View style={styles.container} animation="fadeIn" delay={60 * 1000}>
+    return (<Animatable.View style={styles.container} animation="fadeIn" delay={10 * 60 * 1000}>
       <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
         <Icon name="clear" size={18} color="#616161" />
       </TouchableOpacity>
