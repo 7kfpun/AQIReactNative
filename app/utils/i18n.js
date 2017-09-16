@@ -4,12 +4,13 @@ I18n.fallbacks = true;
 
 I18n.translations = {
   en: {
-    notify_pollution_title: 'Notify me when the air quality gets significantly worse',
+    notify_title: 'Settings',
+    notify_pollution_title: 'Notice me when the air quality gets significantly worse',
     notify_pollution_location: 'Pick a location',
-    notify_pollution_therhold: 'Notify me when AQI is above',
-    notify_cleanliness_title: 'Notify me when the air gets clean',
+    notify_pollution_therhold: 'Notice me when AQI is above',
+    notify_cleanliness_title: 'Notice me when the air gets clean',
     notify_cleanliness_location: 'Pick a location',
-    notify_cleanliness_therhold: 'Notify me when AQI is below',
+    notify_cleanliness_therhold: 'Notice me when AQI is below',
     aqi_full: 'Air Quality Index (AQI)',
     aqhi_full: 'Air Quality Health Index (AQHI)',
     last_update: 'Last Updated On',
@@ -25,6 +26,7 @@ I18n.translations = {
     tomorrow_pm: 'P.M.',
   },
   zh: {
+    notify_title: '空氣質量通知',
     notify_pollution_title: '當空氣質量明顯惡化時通知我',
     notify_pollution_location: '選擇地區',
     notify_pollution_therhold: 'AQI 指數超過',
@@ -46,6 +48,7 @@ I18n.translations = {
     tomorrow_pm: '下午',
   },
   'zh-Hans': {
+    notify_title: '空气质量通知',
     notify_pollution_title: '当空气质量明显恶化时通知我',
     notify_pollution_location: '选择地区',
     notify_pollution_therhold: 'AQI 指数超过',

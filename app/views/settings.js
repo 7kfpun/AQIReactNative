@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import {
-  Dimensions,
-  Picker,
+  FlatList,
   Platform,
   ScrollView,
-  Slider,
   StyleSheet,
-  Switch,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 
-import Fabric from 'react-native-fabric';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
@@ -21,10 +17,7 @@ import Toast from 'react-native-root-toast';
 import { locations } from '../utils/locations';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
-
-const { Answers } = Fabric;
-
-const window = Dimensions.get('window');
+import SettingsItem from '../elements/settings-item';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,38 +30,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   text: {
-    fontSize: 16,
-  },
-  locationPickerTextBlock: {
-    paddingHorizontal: 30,
-    paddingTop: 30,
-  },
-  switchBlock: {
-    flexDirection: 'row',
-    paddingTop: 60,
-    marginHorizontal: 30,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  picker: {
-    width: 400,
-  },
-  sliderBlock: {
-    flexDirection: 'row',
-    paddingHorizontal: 30,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  noticeTextBlock: {
-    paddingHorizontal: 30,
-  },
-  noticeText: {
-    fontSize: 12,
+    fontSize: 24,
   },
 });
 
 function toastShow() {
   OneSignal.checkPermissions((permissions) => {
+    console.log('OneSignal permissions', permissions);
     if (!permissions.alert && !permissions.badge && !permissions.sound) {
       Toast.show(I18n.t('permissions_required'), { duration: Toast.durations.LONG, position: Toast.positions.BOTTOM - 40 });
     }
@@ -97,155 +65,49 @@ export default class SettingsView extends Component {
     }
   }
 
-  state = {
-    seconds: 5,
-    notificationPollutionIsEnabled: false,
-    notificationPollutionLocation: 'Central/Western',
-    notificationPollutionTherhold: 100,
-    notificationCleanlinessIsEnabled: false,
-    notificationCleanlinessLocation: 'Central/Western',
-    notificationCleanlinessTherhold: 40,
-  };
+  state = {};
 
   componentDidMount() {
     SettingsView.checkPermissions();
 
-    const that = this;
-    store.get('notificationPollutionIsEnabled').then(value => value && that.setState({ notificationPollutionIsEnabled: value }));
-    store.get('notificationPollutionLocation').then((value) => {
-      if (value) {
-        that.setState({ notificationPollutionLocation: value });
-      } else {
-        store.save('notificationPollutionLocation', 'Central/Western');
+    OneSignal.getTags((receivedTags) => {
+      console.log('OneSignal tags', receivedTags);
+      const {
+        pollutionIsEnabled,
+        pollutionLocation,
+        pollutionTherhold,
+        cleanlinessIsEnabled,
+        cleanlinessLocation,
+        cleanlinessTherhold,
+      } = receivedTags;
+
+      const tags = {};
+
+      if (pollutionIsEnabled === 'true' && pollutionLocation) {
+        const valueLocation = pollutionLocation.replace('/', '_').replace(' ', '_').toLowerCase();
+        tags[valueLocation] = true;
+        tags[`${valueLocation}_pollution_therhold`] = pollutionTherhold || 100;
       }
+
+      if (cleanlinessIsEnabled === 'true' && cleanlinessLocation) {
+        const valueLocation = cleanlinessLocation.replace('/', '_').replace(' ', '_').toLowerCase();
+        tags[valueLocation] = true;
+        tags[`${valueLocation}_pollution_therhold`] = cleanlinessTherhold || 40;
+      }
+
+      console.log('Send tags', tags);
+      OneSignal.sendTags(tags);
+      OneSignal.deleteTag('pollutionIsEnabled');
+      OneSignal.deleteTag('pollutionLocation');
+      OneSignal.deleteTag('pollutionTherhold');
+      OneSignal.deleteTag('cleanlinessIsEnabled');
+      OneSignal.deleteTag('cleanlinessLocation');
+      OneSignal.deleteTag('cleanlinessTherhold');
     });
-    store.get('notificationPollutionTherhold').then((value) => {
-      if (value) {
-        that.setState({ notificationPollutionTherhold: value });
-      } else {
-        store.save('notificationPollutionTherhold', 100);
-      }
-    });
-
-    store.get('notificationCleanlinessIsEnabled').then(value => value && that.setState({ notificationCleanlinessIsEnabled: value }));
-    store.get('notificationCleanlinessLocation').then((value) => {
-      if (value) {
-        that.setState({ notificationCleanlinessLocation: value });
-      } else {
-        store.save('notificationCleanlinessLocation', 'Central/Western');
-      }
-    });
-    store.get('notificationCleanlinessTherhold').then((value) => {
-      if (value) {
-        that.setState({ notificationCleanlinessTherhold: value });
-      } else {
-        store.save('notificationCleanlinessTherhold', 40);
-      }
-    });
-
-    this.sendTags();
-  }
-
-  setNotificationPollution(value) {
-    store.save('notificationPollutionIsEnabled', value);
-    this.setState({ notificationPollutionIsEnabled: value });
-    if (value) {
-      tracker.trackEvent('user-action', 'set-notification-pollution', { label: 'notification-pollution-on' });
-      Answers.logCustom('set-notification-pollution', { event: 'notification-pollution-on' });
-
-      if (Platform.OS === 'ios') {
-        permissions = {
-          alert: true,
-          badge: true,
-          sound: true,
-        };
-        OneSignal.requestPermissions(permissions);
-        OneSignal.registerForPushNotifications();
-      }
-    } else {
-      tracker.trackEvent('user-action', 'set-notification-pollution', { label: 'notification-pollution-off' });
-      Answers.logCustom('set-notification-pollution', { event: 'notification-pollution-off' });
-    }
-
-    this.sendTags();
-  }
-
-  setNotificationPollutionLocation(value) {
-    store.save('notificationPollutionLocation', value);
-    this.setState({ notificationPollutionLocation: value });
-
-    this.sendTags();
-  }
-
-  setNotificationPollutionTherhold(value) {
-    store.save('notificationPollutionTherhold', value);
-    this.setState({ notificationPollutionTherhold: value });
-  }
-
-  setNotificationCleanliness(value) {
-    store.save('notificationCleanlinessIsEnabled', value);
-    this.setState({ notificationCleanlinessIsEnabled: value });
-    if (value) {
-      tracker.trackEvent('user-action', 'set-notification-cleanliness', { label: 'notification-cleanliness-on' });
-      Answers.logCustom('set-notification-cleanliness', { event: 'notification-cleanliness-on' });
-      if (Platform.OS === 'ios') {
-        permissions = {
-          alert: true,
-          badge: true,
-          sound: true,
-        };
-        OneSignal.requestPermissions(permissions);
-        OneSignal.registerForPushNotifications();
-      }
-    } else {
-      tracker.trackEvent('user-action', 'set-notification-cleanliness', { label: 'notification-cleanliness-off' });
-      Answers.logCustom('set-notification-cleanliness', { event: 'notification-cleanliness-off' });
-    }
-
-    this.sendTags();
-  }
-
-  setNotificationCleanlinessLocation(value) {
-    store.save('notificationCleanlinessLocation', value);
-    this.setState({ notificationCleanlinessLocation: value });
-
-    this.sendTags();
-  }
-
-  setNotificationCleanlinessTherhold(value) {
-    store.save('notificationCleanlinessTherhold', value);
-    this.setState({ notificationCleanlinessTherhold: value });
-  }
-
-  sendTags() {
-    if (this.state.notificationPollutionIsEnabled) {
-      OneSignal.sendTags({
-        pollutionIsEnabled: 'true',
-        pollutionLocation: this.state.notificationPollutionLocation,
-        pollutionTherhold: this.state.notificationPollutionTherhold,
-      });
-    } else {
-      OneSignal.sendTags({
-        pollutionIsEnabled: 'false',
-      });
-    }
-
-    if (this.state.notificationCleanlinessIsEnabled) {
-      OneSignal.sendTags({
-        cleanlinessIsEnabled: 'true',
-        cleanlinessLocation: this.state.notificationCleanlinessLocation,
-        cleanlinessTherhold: this.state.notificationCleanlinessTherhold,
-      });
-    } else {
-      OneSignal.sendTags({
-        cleanlinessIsEnabled: 'false',
-      });
-    }
   }
 
   popSettings() {
     SettingsView.checkPermissions();
-    this.sendTags();
   }
 
   render() {
@@ -254,7 +116,17 @@ export default class SettingsView extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <View style={styles.switchBlock}>
+          <View style={{ paddingTop: 60, paddingLeft: 10 }}>
+            <Text style={styles.text}>{I18n.t('notify_title')}</Text>
+          </View>
+          <FlatList
+            style={{ paddingVertical: 30 }}
+            data={locations}
+            keyExtractor={(item, index) => `${index}-${item.key}`}
+            renderItem={({ item }) => <SettingsItem item={item} />}
+          />
+
+          {/* <View style={styles.switchBlock}>
             <View style={{ flex: 6 }}>
               <Text style={styles.text}>{I18n.t('notify_pollution_title')}</Text>
             </View>
@@ -338,7 +210,7 @@ export default class SettingsView extends Component {
             {this.state.notificationCleanlinessTherhold > 40 && <View style={styles.noticeTextBlock}>
               <Text style={styles.noticeText}>{I18n.t('too_large_therhold')}</Text>
             </View>}
-          </View>}
+          </View>} */}
         </ScrollView>
 
         <TouchableOpacity style={styles.close} onPress={() => { this.popSettings(); goBack(); }} >
