@@ -139,10 +139,6 @@ export default class MainView extends Component {
     return distance > 0.2;
   }
 
-  // static renderDotIndicator() {
-  //   return <PagerDotIndicator pageCount={3} />;
-  // }
-
   static getHongKongLocation() {
     return {
       latitude: LATITUDE,

@@ -19,7 +19,7 @@
     "react-native-animatable": "^1.2.0",
     "react-native-device-info": "^0.10.2",
     "react-native-fabric": "^0.4.1",
-    "react-native-fbads": "^4.1.1",
+    "react-native-fbads": "4.2.2",
     "react-native-google-analytics-bridge": "^5.0.1",
     "react-native-html-parser": "^0.0.4",
     "react-native-i18n": "^1.0.0",

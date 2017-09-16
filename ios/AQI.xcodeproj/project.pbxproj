@@ -54,12 +54,12 @@
 		9E262F5B1ED1DBF500B94208 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E262F5A1ED1DBF500B94208 /* libz.tbd */; };
 		9E262F5D1ED1DBFB00B94208 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E262F5C1ED1DBFB00B94208 /* libsqlite3.0.tbd */; };
 		9E2630BC1ED315E400B94208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2630BB1ED315E400B94208 /* GoogleMobileAds.framework */; };
-		9E26311D1ED3174800B94208 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E26311A1ED3174800B94208 /* Bolts.framework */; };
-		9E26311E1ED3174800B94208 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E26311B1ED3174800B94208 /* FBAudienceNetwork.framework */; };
-		9E26311F1ED3174800B94208 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E26311C1ED3174800B94208 /* FBSDKCoreKit.framework */; };
 		9E26315F1ED31AE200B94208 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E262F171ED1DB9500B94208 /* libRNI18n.a */; };
 		9EEEA66B1ED7D92B0064BC3A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA6691ED7D92B0064BC3A /* Crashlytics.framework */; };
 		9EEEA66C1ED7D92B0064BC3A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA66A1ED7D92B0064BC3A /* Fabric.framework */; };
+		9EFB7C751F6D0DC200FF6B11 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFB7C721F6D0DC200FF6B11 /* FBAudienceNetwork.framework */; };
+		9EFB7C791F6D0E6900FF6B11 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFB7C771F6D0E6900FF6B11 /* Bolts.framework */; };
+		9EFB7C7A1F6D0E6900FF6B11 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFB7C781F6D0E6900FF6B11 /* FBSDKCoreKit.framework */; };
 		A115565751204327B2BB9306 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AF9A8EC1E3642E3B7B25ECF /* MaterialCommunityIcons.ttf */; };
 		A7D50FE3801C4C588854EAF1 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F260DFAD19BA4A158B27D541 /* libAirMaps.a */; };
 		A94DD0CEFA624234B6910FFD /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2A75360D10D4B3F98565604 /* Zocial.ttf */; };
@@ -401,13 +401,13 @@
 		9E262F5C1ED1DBFB00B94208 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		9E262F931ED1DEF300B94208 /* AQI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = AQI.entitlements; path = AQI/AQI.entitlements; sourceTree = "<group>"; };
 		9E2630BB1ED315E400B94208 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
-		9E26311A1ED3174800B94208 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		9E26311B1ED3174800B94208 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
-		9E26311C1ED3174800B94208 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		9E26315D1ED31AAF00B94208 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9E26315E1ED31AB300B94208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9EEEA6691ED7D92B0064BC3A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		9EEEA66A1ED7D92B0064BC3A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		9EFB7C721F6D0DC200FF6B11 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		9EFB7C771F6D0E6900FF6B11 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		9EFB7C781F6D0E6900FF6B11 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A433FEC01DCD429F8D32663D /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		AA2B53AEC5F14E3292195437 /* libSMXCrashlytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSMXCrashlytics.a; sourceTree = "<group>"; };
 		ACBD30A9FF2B4505858D5C3E /* libcxxreact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libcxxreact.a; sourceTree = "<group>"; };
@@ -445,20 +445,20 @@
 				9E262F591ED1DBEE00B94208 /* SystemConfiguration.framework in Frameworks */,
 				9E262F571ED1DBE600B94208 /* CoreData.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				9EFB7C7A1F6D0E6900FF6B11 /* FBSDKCoreKit.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
-				9E26311E1ED3174800B94208 /* FBAudienceNetwork.framework in Frameworks */,
 				9EEEA66B1ED7D92B0064BC3A /* Crashlytics.framework in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				9E262EC11ED1D78C00B94208 /* GoogleMobileAds.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
-				9E26311F1ED3174800B94208 /* FBSDKCoreKit.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
+				9EFB7C791F6D0E6900FF6B11 /* Bolts.framework in Frameworks */,
+				9EFB7C751F6D0DC200FF6B11 /* FBAudienceNetwork.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
-				9E26311D1ED3174800B94208 /* Bolts.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				4811DC35F4F549C5B636240A /* libRNAdMobManager.a in Frameworks */,
 				3C14E29AD15A4CD6B104109A /* libReact.a in Frameworks */,
@@ -754,11 +754,11 @@
 		9E262F551ED1DBE600B94208 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9EFB7C771F6D0E6900FF6B11 /* Bolts.framework */,
+				9EFB7C781F6D0E6900FF6B11 /* FBSDKCoreKit.framework */,
+				9EFB7C721F6D0DC200FF6B11 /* FBAudienceNetwork.framework */,
 				9EEEA6691ED7D92B0064BC3A /* Crashlytics.framework */,
 				9EEEA66A1ED7D92B0064BC3A /* Fabric.framework */,
-				9E26311A1ED3174800B94208 /* Bolts.framework */,
-				9E26311B1ED3174800B94208 /* FBAudienceNetwork.framework */,
-				9E26311C1ED3174800B94208 /* FBSDKCoreKit.framework */,
 				9E2630BB1ED315E400B94208 /* GoogleMobileAds.framework */,
 				9E262F5C1ED1DBFB00B94208 /* libsqlite3.0.tbd */,
 				9E262F5A1ED1DBF500B94208 /* libz.tbd */,
