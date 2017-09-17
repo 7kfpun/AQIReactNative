@@ -62,14 +62,22 @@ export default class ForecastModal extends Component {
       return;
     }
 
-    if (deviceLocale.startsWith('zh')) {
+    if (deviceLocale.startsWith('zh-Hans')) {
       return text
         .replace('to', '至')
-        .replace('Low', '低')
-        .replace('Moderate', '中')
-        .replace('High', '高')
+        .replace('Serious', '严重')
         .replace('Very High', '很高')
-        .replace('Serious', '嚴重');
+        .replace('High', '高')
+        .replace('Moderate', '中')
+        .replace('Low', '低');
+    } else if (deviceLocale.startsWith('zh')) {
+      return text
+        .replace('to', '至')
+        .replace('Serious', '嚴重')
+        .replace('Very High', '很高')
+        .replace('High', '高')
+        .replace('Moderate', '中')
+        .replace('Low', '低');
     }
 
     return text;
