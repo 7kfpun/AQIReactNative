@@ -15,7 +15,7 @@ import ReactNativeI18n from 'react-native-i18n';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
-const deviceLocale = ReactNativeI18n.locale
+const deviceLocale = ReactNativeI18n.locale;
 
 const styles = StyleSheet.create({
   container: {
@@ -125,10 +125,10 @@ export default class SettingsItem extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.switchBlock}>
-          <View style={{ flex: 3, flexDirection: 'row', justifyContent: 'flex-start' }}>
+          <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
             <Text style={styles.text}>{itemTitle}</Text>
           </View>
-          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Switch
               onValueChange={value => this.setNotification(value)}
               value={this.state.isEnabled}

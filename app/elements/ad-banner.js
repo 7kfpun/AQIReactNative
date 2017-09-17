@@ -11,7 +11,7 @@ import Admob from './admob';
 
 import { config } from '../config';
 
-const TWO_SECONDS = 2 * 1000;
+const FIVE_SECONDS = 5 * 1000;
 const TEN_MINUTES = 10 * 60 * 1000;
 
 export default class AdBanner extends React.Component {
@@ -38,7 +38,7 @@ export default class AdBanner extends React.Component {
     timer.clearTimeout(this);
     timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
       AdBanner.showInterstitial();
-    }, TWO_SECONDS);
+    }, FIVE_SECONDS);
 
     timer.setInterval(this, 'AdMobInterstitialInterval', () => {
       AdBanner.showInterstitial();

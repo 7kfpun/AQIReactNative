@@ -249,9 +249,9 @@ export default class MainView extends Component {
             {this.state.aqiResult && this.state.markers.map((marker) => {
               let title;
               if (deviceLocale.startsWith('zh-Hans')) {
-                title = `${marker.title} 地区 ${this.state.selectedIndex} 值为 ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
+                title = `${marker.title_hans} ${this.state.selectedIndex} 值为 ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
               } else if (deviceLocale.startsWith('zh')) {
-                title = `${marker.title} 地区 ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
+                title = `${marker.title_hant} ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
               } else {
                 title = `${this.state.selectedIndex} is ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`;
               }
@@ -274,7 +274,7 @@ export default class MainView extends Component {
           </MapView>
 
           <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
-            <Animatable.View animation="tada" delay={2000} iterationCount={20}>
+            <Animatable.View animation="tada" delay={2000} iterationCount={40}>
               <Icon name="notifications-active" size={26} color="#616161" />
             </Animatable.View>
           </TouchableOpacity>
