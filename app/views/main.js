@@ -12,7 +12,6 @@ import {
   NativeModules,
 } from 'react-native';
 
-import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import ReactNativeI18n from 'react-native-i18n';
@@ -20,7 +19,7 @@ import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
 
 import AdBanner from '../elements/ad-banner';
-import ForecastModal from '../elements/forecast-modal';
+// import ForecastModal from '../elements/forecast-modal';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
@@ -78,13 +77,13 @@ const styles = StyleSheet.create({
   currentLocation: {
     position: 'absolute',
     right: 14,
-    bottom: 120,
+    bottom: 70,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 44,
-    width: 44,
-    borderRadius: 22,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
   },
   infomationContainer: {
     position: 'absolute',
@@ -319,7 +318,7 @@ export default class MainView extends Component {
             <Icon name="near-me" size={26} color="#616161" />
           </TouchableOpacity>}
 
-          <ForecastModal />
+          {/* <ForecastModal /> */}
 
           <Rating />
 

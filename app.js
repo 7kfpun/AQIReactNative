@@ -5,8 +5,9 @@ import {
 import { AdMobInterstitial } from 'react-native-admob';
 import { TabNavigator } from 'react-navigation';
 
-import Main from './app/views/main';
+import Forecast from './app/views/forecast';
 import Help from './app/views/help';
+import Main from './app/views/main';
 import Settings from './app/views/settings';
 
 import { config } from './app/config';
@@ -19,6 +20,7 @@ AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
 
 const App = TabNavigator({
   Main: { screen: Main },
+  Forecast: { screen: Forecast },
   Settings: { screen: Settings },
   Help: { screen: Help },
 }, {

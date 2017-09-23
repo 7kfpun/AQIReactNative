@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  titleBlock: {
+    paddingTop: 60,
+    paddingLeft: 10,
+    paddingBottom: 10,
+  },
   text: {
     fontSize: 24,
   },
@@ -112,7 +117,7 @@ export default class SettingsView extends Component {
     tracker.trackScreenView('Settings');
     return (
       <View style={styles.container}>
-        <View style={{ paddingTop: 60, paddingLeft: 10, paddingBottom: 10 }}>
+        <View style={styles.titleBlock}>
           <Text style={styles.text}>{I18n.t('notify_title')}</Text>
         </View>
         <ScrollView>
