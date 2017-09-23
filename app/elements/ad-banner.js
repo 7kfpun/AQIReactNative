@@ -16,6 +16,10 @@ const TEN_MINUTES = 10 * 60 * 1000;
 
 export default class AdBanner extends React.Component {
   static showInterstitial() {
+    if (__DEV__) {
+      return;
+    }
+
     if (Math.random() < 0.5) {
       InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
         .then((didClick) => {

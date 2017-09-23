@@ -4,6 +4,9 @@ I18n.fallbacks = true;
 
 I18n.translations = {
   en: {
+    main: 'Map',
+    settings: 'Notification',
+    help: 'Help',
     notify_title: 'Settings',
     notify_pollution_title: 'Notice me when the air quality gets significantly worse',
     notify_pollution_location: 'Pick a location',
@@ -26,6 +29,9 @@ I18n.translations = {
     tomorrow_pm: 'P.M.',
   },
   zh: {
+    main: '地圖',
+    settings: '通知設定',
+    help: '幫助',
     notify_title: '空氣質量通知',
     notify_pollution_title: '當空氣質量明顯惡化時通知我',
     notify_pollution_location: '選擇地區',
@@ -48,6 +54,9 @@ I18n.translations = {
     tomorrow_pm: '下午',
   },
   'zh-Hans': {
+    main: '地图',
+    settings: '通知设定',
+    help: '帮助',
     notify_title: '空气质量通知',
     notify_pollution_title: '当空气质量明显恶化时通知我',
     notify_pollution_location: '选择地区',

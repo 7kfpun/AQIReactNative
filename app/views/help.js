@@ -3,7 +3,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -20,20 +19,16 @@ const deviceLocale = ReactNativeI18n.locale;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-  },
-  close: {
-    position: 'absolute',
-    right: 15,
-    top: 25,
-    backgroundColor: 'transparent',
+    paddingTop: 20,
+    backgroundColor: 'white',
   },
   block: {
+    padding: 10,
     marginVertical: 30,
   },
   title: {
-    fontSize: 18,
-    marginBottom: 20,
+    fontSize: 24,
+    marginBottom: 30,
   },
   row: {
     flexDirection: 'row',
@@ -151,10 +146,13 @@ export default class HelpView extends Component {
   static navigationOptions = {
     header: null,
     title: 'Help',
+    tabBarLabel: I18n.t('help'),
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="info-outline" size={21} color={tintColor || 'gray'} />
+    ),
   };
 
   render() {
-    const { goBack } = this.props.navigation;
     tracker.trackScreenView('Help');
     return (
       <View style={styles.container}>
@@ -188,7 +186,7 @@ export default class HelpView extends Component {
           </View>
 
           <View style={styles.block}>
-            <Text style={{ fontSize: 18, marginBottom: 20 }}>{I18n.t('aqhi_full')}</Text>
+            <Text style={styles.title}>{I18n.t('aqhi_full')}</Text>
 
             {helpTexts.AQHI.map((item) => {
               let itemHealthRisk;
@@ -209,17 +207,7 @@ export default class HelpView extends Component {
             })}
           </View>
         </ScrollView>
-
-        <TouchableOpacity style={styles.close} onPress={() => goBack()} >
-          <Icon name="close" size={30} color="gray" />
-        </TouchableOpacity>
       </View>
     );
   }
 }
-
-HelpView.propTypes = {
-  navigation: React.PropTypes.shape({
-    goBack: React.PropTypes.func.isRequired,
-  }).isRequired,
-};

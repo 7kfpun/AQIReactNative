@@ -26,6 +26,7 @@ import Rating from '../elements/rating';
 
 import { locations } from '../utils/locations';
 import aqi from '../utils/aqi';
+import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const { RNLocation } = NativeModules;
@@ -111,10 +112,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   bubble: {
-    backgroundColor: 'rgba(255,255,255,0.9)',
+    borderWidth: 2,
+    borderColor: 'white',
+    backgroundColor: 'white',
     paddingHorizontal: 2,
     paddingVertical: 12,
     borderRadius: 20,
+  },
+  selectedBubble: {
+    borderColor: '#29B6F6',
   },
   button: {
     width: 56,
@@ -131,6 +137,10 @@ export default class MainView extends Component {
   static navigationOptions = {
     header: null,
     title: 'Main',
+    tabBarLabel: I18n.t('main'),
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="place" size={20} color={tintColor || 'gray'} />
+    ),
   };
 
   static isOutOfBound(latitude, longitude) {
@@ -257,7 +267,7 @@ export default class MainView extends Component {
               }
 
               return (<MapView.Marker
-                key={marker.latlng.latitude}
+                key={`${marker.latlng.latitude}${this.state.selectedIndex}`}
                 coordinate={marker.latlng}
                 title={title}
                 description={marker.description}
@@ -273,11 +283,11 @@ export default class MainView extends Component {
             />}
           </MapView>
 
-          <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
+          {/* <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
             <Animatable.View animation="tada" delay={2000} iterationCount={40}>
               <Icon name="notifications-active" size={26} color="#616161" />
             </Animatable.View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           {this.state.aqiResult && <View style={styles.infomationContainer}>
             <TouchableOpacity
@@ -295,9 +305,9 @@ export default class MainView extends Component {
             </TouchableOpacity>
           </View>}
 
-          <TouchableOpacity style={styles.help} onPress={() => navigate('Help')} >
+          {/* <TouchableOpacity style={styles.help} onPress={() => navigate('Help')} >
             <Icon name="help-outline" size={26} color="#616161" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           {this.state.gpsEnabled && <TouchableOpacity
             style={styles.currentLocation}
@@ -322,7 +332,7 @@ export default class MainView extends Component {
                     this.setState({ selectedIndex: item });
                     tracker.trackEvent('user-action', 'select-index', { label: item });
                   }}
-                  style={[styles.bubble, styles.button]}
+                  style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
                 >
                   <Text style={styles.text}>{item}</Text>
                 </TouchableOpacity>
