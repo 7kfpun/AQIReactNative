@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   FlatList,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,8 +9,6 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
-import store from 'react-native-simple-store';
-import Toast from 'react-native-root-toast';
 
 import { locations } from '../utils/locations';
 import I18n from '../utils/i18n';
@@ -28,16 +25,31 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 10,
   },
-  text: {
+  titleText: {
     fontSize: 24,
+  },
+  permissionReminderBlock: {
+    backgroundColor: '#3949AB',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 1,
+  },
+  permissionReminderText: {
+    fontSize: 12,
+    color: 'white',
+  },
+  list: {
+    paddingVertical: 20,
   },
 });
 
-function toastShow() {
-  OneSignal.checkPermissions((permissions) => {
-    console.log('OneSignal permissions', permissions);
-    if (!permissions.alert && !permissions.badge && !permissions.sound) {
-      Toast.show(I18n.t('permissions_required'), { duration: Toast.durations.LONG, position: Toast.positions.BOTTOM - 40 });
+
+function OneSignalGetTags() {
+  return new Promise((resolve, reject) => {
+    try {
+      OneSignal.getTags(tags => resolve(tags));
+    } catch (err) {
+      reject(err);
     }
   });
 }
@@ -52,65 +64,54 @@ export default class SettingsView extends Component {
     ),
   };
 
-  static checkPermissions() {
-    if (Platform.OS === 'ios') {
-      store.get('notificationPollutionIsEnabled').then((notificationPollutionIsEnabled) => {
-        if (notificationPollutionIsEnabled) {
-          toastShow();
-        } else {
-          store.get('notificationCleanlinessIsEnabled').then((notificationCleanlinessIsEnabled) => {
-            if (notificationCleanlinessIsEnabled) {
-              toastShow();
-            }
-          });
-        }
-      });
+  static migrateOldSettings(receivedTags) {
+    const {
+      pollutionIsEnabled,
+      pollutionLocation,
+      pollutionTherhold,
+      cleanlinessIsEnabled,
+      cleanlinessLocation,
+      cleanlinessTherhold,
+    } = receivedTags || {};
+
+    const tags = {};
+
+    if (pollutionIsEnabled === 'true' && pollutionLocation) {
+      const valueLocation = pollutionLocation.replace('/', '_').replace(' ', '_').toLowerCase();
+      tags[valueLocation] = true;
+      tags[`${valueLocation}_pollution_therhold`] = pollutionTherhold || 100;
     }
+
+    if (cleanlinessIsEnabled === 'true' && cleanlinessLocation) {
+      const valueLocation = cleanlinessLocation.replace('/', '_').replace(' ', '_').toLowerCase();
+      tags[valueLocation] = true;
+      tags[`${valueLocation}_pollution_therhold`] = cleanlinessTherhold || 40;
+    }
+
+    console.log('Send tags', tags);
+    OneSignal.sendTags(tags);
+    OneSignal.deleteTag('pollutionIsEnabled');
+    OneSignal.deleteTag('pollutionLocation');
+    OneSignal.deleteTag('pollutionTherhold');
+    OneSignal.deleteTag('cleanlinessIsEnabled');
+    OneSignal.deleteTag('cleanlinessLocation');
+    OneSignal.deleteTag('cleanlinessTherhold');
   }
 
-  state = {};
+  state = {
+    isShowPermissionReminderBlock: false,
+  };
 
-  componentDidMount() {
-    SettingsView.checkPermissions();
-
-    OneSignal.getTags((receivedTags) => {
-      console.log('OneSignal tags', receivedTags);
-      const {
-        pollutionIsEnabled,
-        pollutionLocation,
-        pollutionTherhold,
-        cleanlinessIsEnabled,
-        cleanlinessLocation,
-        cleanlinessTherhold,
-      } = receivedTags;
-
-      const tags = {};
-
-      if (pollutionIsEnabled === 'true' && pollutionLocation) {
-        const valueLocation = pollutionLocation.replace('/', '_').replace(' ', '_').toLowerCase();
-        tags[valueLocation] = true;
-        tags[`${valueLocation}_pollution_therhold`] = pollutionTherhold || 100;
-      }
-
-      if (cleanlinessIsEnabled === 'true' && cleanlinessLocation) {
-        const valueLocation = cleanlinessLocation.replace('/', '_').replace(' ', '_').toLowerCase();
-        tags[valueLocation] = true;
-        tags[`${valueLocation}_pollution_therhold`] = cleanlinessTherhold || 40;
-      }
-
-      console.log('Send tags', tags);
-      OneSignal.sendTags(tags);
-      OneSignal.deleteTag('pollutionIsEnabled');
-      OneSignal.deleteTag('pollutionLocation');
-      OneSignal.deleteTag('pollutionTherhold');
-      OneSignal.deleteTag('cleanlinessIsEnabled');
-      OneSignal.deleteTag('cleanlinessLocation');
-      OneSignal.deleteTag('cleanlinessTherhold');
-    });
+  async componentDidMount() {
+    const tags = await OneSignalGetTags();
+    this.checkPermissions(tags);
+    SettingsView.migrateOldSettings(tags);
   }
 
-  popSettings() {
-    SettingsView.checkPermissions();
+  checkPermissions(tags) {
+    if (tags && Object.values(tags).indexOf('true') !== -1) {
+      this.setState({ isShowPermissionReminderBlock: true });
+    }
   }
 
   render() {
@@ -118,11 +119,14 @@ export default class SettingsView extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
-          <Text style={styles.text}>{I18n.t('notify_title')}</Text>
+          <Text style={styles.titleText}>{I18n.t('notify_title')}</Text>
         </View>
+        {this.state.isShowPermissionReminderBlock && <View style={styles.permissionReminderBlock}>
+          <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
+        </View>}
         <ScrollView>
           <FlatList
-            style={{ paddingVertical: 20 }}
+            style={styles.list}
             data={locations}
             keyExtractor={(item, index) => `${index}-${item.key}`}
             renderItem={({ item }) => <SettingsItem item={item} />}
