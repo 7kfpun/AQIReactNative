@@ -29,9 +29,13 @@ const App = TabNavigator({
   animationEnabled: true,
   tabBarOptions: {
     activeTintColor: '#29B6F6',
+    inactiveTintColor: 'gray',
+    // showIcon and pressColor are for Android
+    showIcon: true,
+    pressColor: '#E0E0E0',
     labelStyle: {
-      fontSize: 12,
-      paddingBottom: 3,
+      fontSize: Platform.OS === 'ios' ? 12 : 8,
+      paddingBottom: Platform.OS === 'ios' ? 4 : 0,
     },
     style: {
       backgroundColor: 'white',
@@ -42,6 +46,7 @@ const App = TabNavigator({
 console.ignoredYellowBox = [
   '[xmldom warning]',
   'Warning: setState(...): Can only update a mounted or mounting component.',
+  'Setting a timer for a long period of time',
 ];
 
 module.exports = App;

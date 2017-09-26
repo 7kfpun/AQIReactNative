@@ -47,12 +47,13 @@ export default class SettingsItem extends Component {
     const that = this;
     OneSignal.getTags((receivedTags) => {
       console.log(receivedTags);
+      const tags = receivedTags || {};
       const item = this.props.item;
 
       that.setState({
-        isEnabled: receivedTags[item.key] === 'true',
-        pollutionTherhold: receivedTags[`${item.key}_pollution_therhold`] ? parseInt(receivedTags[`${item.key}_pollution_therhold`], 10) : 120,
-        cleanlinessTherhold: receivedTags[`${item.key}_cleanliness_therhold`] ? parseInt(receivedTags[`${item.key}_cleanliness_therhold`], 10) : 40,
+        isEnabled: tags[item.key] === 'true',
+        pollutionTherhold: tags[`${item.key}_pollution_therhold`] ? parseInt(tags[`${item.key}_pollution_therhold`], 10) : 120,
+        cleanlinessTherhold: tags[`${item.key}_cleanliness_therhold`] ? parseInt(tags[`${item.key}_cleanliness_therhold`], 10) : 40,
       });
     });
   }

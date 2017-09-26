@@ -19,7 +19,6 @@ import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
 
 import AdBanner from '../elements/ad-banner';
-// import ForecastModal from '../elements/forecast-modal';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
