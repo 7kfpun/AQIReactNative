@@ -694,6 +694,7 @@
 				9E262EA61ED1D6DA00B94208 /* Framework */,
 				2716ACA0A574403FB2C2A205 /* Resources */,
 				9E262F551ED1DBE600B94208 /* Frameworks */,
+				9E31DB8D1F76254800EF6751 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -814,6 +815,27 @@
 				9E2631551ED3187800B94208 /* librn-fbads.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9E31DB8D1F76254800EF6751 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				D546F371BE7C410CABA0F520 /* libRNAdMobManager.a */,
+				61282075F0F14953B602AF4A /* libReact.a */,
+				CC5023C8268A48238EB9BED4 /* libyoga.a */,
+				ACBD30A9FF2B4505858D5C3E /* libcxxreact.a */,
+				26FDEB06BF664EC280C74E4A /* libjschelpers.a */,
+				589C6F56220C4C4B9DD7A005 /* libRNVectorIcons.a */,
+				69F12C5CB6D540D2B509D431 /* libRNDeviceInfo.a */,
+				0653ADE2FC994BC784976D53 /* libRCTOneSignal.a */,
+				F260DFAD19BA4A158B27D541 /* libAirMaps.a */,
+				DDB1AB5D18C54FBE84EE51D3 /* libRNStoreReview.a */,
+				8FE0BE8AA1DF43F1808ABEF8 /* libRNLocation.a */,
+				08B2398366A64CFCADF461F4 /* libRCTGoogleAnalyticsBridge.a */,
+				95E19703D5DD4AF9865E8A23 /* librn-fbads.a */,
+				AA2B53AEC5F14E3292195437 /* libSMXCrashlytics.a */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		9EEEA6031ED7D6860064BC3A /* Products */ = {

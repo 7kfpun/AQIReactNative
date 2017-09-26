@@ -227,8 +227,8 @@ export default class MainView extends Component {
     return {
       latitude: this.state.location.latitude,
       longitude: this.state.location.longitude,
-      latitudeDelta: this.state.gpsEnabled ? 0.15 : LATITUDE_DELTA,
-      longitudeDelta: this.state.gpsEnabled ? 0.15 * ASPECT_RATIO : LONGITUDE_DELTA,
+      latitudeDelta: this.state.gpsEnabled ? 0.25 : LATITUDE_DELTA,
+      longitudeDelta: this.state.gpsEnabled ? 0.25 * ASPECT_RATIO : LONGITUDE_DELTA,
     };
   }
 
