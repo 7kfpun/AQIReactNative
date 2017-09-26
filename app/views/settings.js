@@ -115,7 +115,7 @@ export default class SettingsView extends Component {
   }
 
   render() {
-    tracker.trackScreenView('Settings');
+    tracker.view('Settings');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>

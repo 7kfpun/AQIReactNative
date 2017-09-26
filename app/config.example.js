@@ -25,4 +25,5 @@ exports.config = {
     ios: '',
     android: '',
   },
+  segment: '',
 };

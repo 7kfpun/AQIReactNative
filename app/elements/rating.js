@@ -85,7 +85,7 @@ export default class Rating extends React.Component {
 
     store.save('isRatingGiven', true);
 
-    tracker.trackEvent('user-action', 'give-rating', { label: rating.toString() });
+    tracker.logEvent('give-rating', { label: rating.toString() });
   }
 
   render() {

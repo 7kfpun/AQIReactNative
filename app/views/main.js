@@ -244,8 +244,7 @@ export default class MainView extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
-    tracker.trackScreenView('Main');
+    tracker.view('Main');
     return (
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <View style={styles.container}>
@@ -292,7 +291,7 @@ export default class MainView extends Component {
             <TouchableOpacity
               onPress={() => {
                 this.prepareData();
-                tracker.trackEvent('user-action', 'fetch-latest-data');
+                tracker.logEvent('fetch-latest-data');
               }}
               style={styles.infomationBubble}
             >
@@ -311,8 +310,9 @@ export default class MainView extends Component {
           {this.state.gpsEnabled && <TouchableOpacity
             style={styles.currentLocation}
             onPress={() => {
-              this.map.animateToRegion(this.getCurrentLocation());
-              tracker.trackEvent('user-action', 'move-to-current-location');
+              const currentLocation = this.getCurrentLocation();
+              this.map.animateToRegion(currentLocation);
+              tracker.logEvent('move-to-current-location', currentLocation);
             }}
           >
             <Icon name="near-me" size={26} color="#616161" />
@@ -329,7 +329,7 @@ export default class MainView extends Component {
                   key={item}
                   onPress={() => {
                     this.setState({ selectedIndex: item });
-                    tracker.trackEvent('user-action', 'select-index', { label: item });
+                    tracker.logEvent('select-index', { label: item });
                   }}
                   style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
                 >

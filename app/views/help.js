@@ -153,7 +153,7 @@ export default class HelpView extends Component {
   };
 
   render() {
-    tracker.trackScreenView('Help');
+    tracker.view('Help');
     return (
       <View style={styles.container}>
         <ScrollView showsHorizontalScrollIndicator={false}>

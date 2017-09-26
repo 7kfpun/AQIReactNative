@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
   Platform,
   Slider,
@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 
-import { Answers } from 'react-native-fabric';
 import OneSignal from 'react-native-onesignal';
 import ReactNativeI18n from 'react-native-i18n';
 
@@ -74,14 +73,8 @@ export default class SettingsItem extends Component {
     }
 
     const item = this.props.item;
-    tracker.trackEvent('user-action', 'set-notification-pollution', {
+    tracker.logEvent('set-notification-pollution', {
       label: value ? 'notification-pollution-on' : 'notification-pollution-off',
-      location: item.key,
-      pollution_therhold: this.state.pollutionTherhold,
-      cleanliness_therhold: this.state.cleanlinessTherhold,
-    });
-    Answers.logCustom('set-notification-pollution', {
-      event: value ? 'notification-pollution-on' : 'notification-pollution-off',
       location: item.key,
       pollution_therhold: this.state.pollutionTherhold,
       cleanliness_therhold: this.state.cleanlinessTherhold,

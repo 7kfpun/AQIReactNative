@@ -94,7 +94,7 @@ export default class ForecastModal extends Component {
   }
 
   render() {
-    tracker.trackScreenView('Forecast');
+    tracker.view('Forecast');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
