@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   FlatList,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -109,8 +110,13 @@ export default class SettingsView extends Component {
   }
 
   checkPermissions(tags) {
-    if (tags && Object.values(tags).indexOf('true') !== -1) {
-      this.setState({ isShowPermissionReminderBlock: true });
+    if (Platform.OS === 'ios' && tags && Object.values(tags).indexOf('true') !== -1) {
+      OneSignal.checkPermissions((permissions) => {
+        console.log('checkPermissions', permissions);
+        if (!permissions || (permissions && !permissions.alert)) {
+          this.setState({ isShowPermissionReminderBlock: true });
+        }
+      });
     }
   }
 

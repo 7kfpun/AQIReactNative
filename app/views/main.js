@@ -168,6 +168,7 @@ export default class MainView extends Component {
   };
 
   componentDidMount() {
+    let first = true;
     if (Platform.OS === 'ios') {
       RNLocation.requestWhenInUseAuthorization();
       // RNLocation.requestAlwaysAuthorization();
@@ -175,32 +176,38 @@ export default class MainView extends Component {
       RNLocation.setDistanceFilter(5.0);
       DeviceEventEmitter.addListener('locationUpdated', (location) => {
         console.log('Location updated', location);
-        this.setState({
-          location: location.coords,
-          gpsEnabled: true,
-        });
+        if (location && location.coords && location.coords.latitude && location.coords.longitude) {
+          this.setState({
+            location: location.coords,
+            gpsEnabled: true,
+          });
 
-        if (MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
-          timer.setTimeout(this, 'MoveToHongKong', () => {
-            this.map.animateToRegion(MainView.getHongKongLocation());
-          }, 1000);
+          if (first && MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
+            first = false;
+            timer.setTimeout(this, 'MoveToHongKong', () => {
+              this.map.animateToRegion(MainView.getHongKongLocation());
+            }, 1000);
+          }
         }
       });
     } else {
       DeviceEventEmitter.addListener('updateLocation', (location) => {
         console.log('Location updated', location);
-        this.setState({
-          location: {
-            latitude: location.Latitude,
-            longitude: location.Longitude,
-          },
-          gpsEnabled: true,
-        });
+        if (location && location.Latitude && location.Longitude) {
+          this.setState({
+            location: {
+              latitude: location.Latitude,
+              longitude: location.Longitude,
+            },
+            gpsEnabled: true,
+          });
 
-        if (MainView.isOutOfBound(location.Latitude, location.Longitude)) {
-          timer.setTimeout(this, 'MoveToHongKong', () => {
-            this.map.animateToRegion(MainView.getHongKongLocation());
-          }, 1000);
+          if (first && MainView.isOutOfBound(location.Latitude, location.Longitude)) {
+            first = false;
+            timer.setTimeout(this, 'MoveToHongKong', () => {
+              this.map.animateToRegion(MainView.getHongKongLocation());
+            }, 1000);
+          }
         }
       });
 
@@ -310,8 +317,10 @@ export default class MainView extends Component {
             style={styles.currentLocation}
             onPress={() => {
               const currentLocation = this.getCurrentLocation();
-              this.map.animateToRegion(currentLocation);
-              tracker.logEvent('move-to-current-location', currentLocation);
+              if (currentLocation) {
+                this.map.animateToRegion(currentLocation);
+                tracker.logEvent('move-to-current-location', currentLocation);
+              }
             }}
           >
             <Icon name="near-me" size={26} color="#616161" />

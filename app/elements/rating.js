@@ -89,7 +89,7 @@ export default class Rating extends React.Component {
   }
 
   render() {
-    if (this.state.isRatingGiven || this.state.isRatingClose) {
+    if (this.state.isRatingGiven || this.state.isRatingClose || Platform.OS === 'android') {
       return null;
     }
 
