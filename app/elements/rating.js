@@ -12,11 +12,13 @@ import * as StoreReview from 'react-native-store-review';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
+import timer from 'react-native-timer';
 
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const STARS_TO_APP_STORE = 4;
+const TEN_MINUTES = 10 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -32,11 +34,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#3B5998',
     borderRadius: 2,
   },
+  titleText: {
+    fontSize: 16,
+    lineHeight: 40,
+  },
+  descriptionText: {
+    fontSize: 14,
+    lineHeight: 26,
+    textAlign: 'center',
+    paddingTop: 5,
+    paddingBottom: 10,
+  },
   text: {
     color: 'white',
     fontSize: 14,
+    textAlign: 'center',
   },
   close: {
+    padding: 5,
     position: 'absolute',
     top: 6,
     right: 10,
@@ -56,7 +71,7 @@ export default class Rating extends React.Component {
   state = {
     starCount: 0,
     isRatingGiven: false,
-    isRatingClose: false,
+    isRatingClose: true,
   };
 
   componentDidMount() {
@@ -66,6 +81,15 @@ export default class Rating extends React.Component {
         that.setState({ isRatingGiven });
       }
     });
+
+    timer.clearTimeout(this, 'ShowRatingBlock');
+    timer.setTimeout(this, 'ShowRatingBlock', () => {
+      this.setState({ isRatingClose: false });
+    }, TEN_MINUTES);
+  }
+
+  componentWillUnmount() {
+    timer.clearTimeout(this, 'ShowRatingBlock');
   }
 
   onStarRatingPress(rating) {
@@ -89,18 +113,19 @@ export default class Rating extends React.Component {
   }
 
   render() {
-    if (this.state.isRatingGiven || this.state.isRatingClose || Platform.OS === 'android') {
+    if (this.state.isRatingGiven || this.state.isRatingClose) {
       return null;
     }
 
-    return (<Animatable.View style={styles.container} animation="fadeIn" delay={10 * 60 * 1000}>
+    return (<Animatable.View style={styles.container} animation="fadeIn">
       <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
-        <Icon name="clear" size={18} color="#616161" />
+        <Icon name="clear" size={22} color="#616161" />
       </TouchableOpacity>
       <Icon name="thumb-up" size={28} color="#616161" />
-      <Text style={{ fontSize: 14, lineHeight: 40 }}>{I18n.t('rating_description')}</Text>
+      <Text style={styles.titleText}>{I18n.t('rating_title')}</Text>
+      <Text style={styles.descriptionText}>{I18n.t('rating_description')}</Text>
       <StarRating
-        starSize={32}
+        starSize={36}
         rating={this.state.starCount}
         selectedStar={rating => this.onStarRatingPress(rating)}
       />
