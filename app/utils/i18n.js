@@ -8,7 +8,7 @@ I18n.translations = {
     settings: 'Notification',
     help: 'Help',
     forecast: 'Forecast',
-    notify_title: 'Settings',
+    notify_title: 'Notification',
     notify_pollution_title: 'Notice me when the air quality gets significantly worse',
     notify_pollution_location: 'Pick a location',
     notify_pollution_therhold: 'Notice me when AQI is above',

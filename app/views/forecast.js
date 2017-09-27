@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   titleBlock: {
-    paddingTop: 60,
+    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     paddingLeft: 10,
     paddingBottom: 10,
   },
@@ -33,7 +34,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   text: {
-    color: 'black',
     fontSize: 14,
     fontWeight: '300',
     lineHeight: 30,

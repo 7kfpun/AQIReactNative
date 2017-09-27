@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,15 +20,17 @@ const deviceLocale = ReactNativeI18n.locale;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
     backgroundColor: 'white',
   },
   block: {
-    padding: 10,
-    marginVertical: 30,
+    paddingHorizontal: 10,
+    marginTop: Platform.OS === 'ios' ? 40 : 10,
+    marginBottom: 30,
   },
   title: {
     fontSize: 24,
+    color: 'black',
     marginBottom: 30,
   },
   row: {

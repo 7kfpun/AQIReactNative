@@ -22,11 +22,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   titleBlock: {
-    paddingTop: 60,
+    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     paddingLeft: 10,
     paddingBottom: 10,
   },
   titleText: {
+    color: 'black',
     fontSize: 24,
   },
   permissionReminderBlock: {
