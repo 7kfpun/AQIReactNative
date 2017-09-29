@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginBottom: 6,
+    marginBottom: 2,
     backgroundColor: 'transparent',
   },
   bubble: {

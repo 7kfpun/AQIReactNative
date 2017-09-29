@@ -9,6 +9,7 @@ import Forecast from './app/views/forecast';
 import Help from './app/views/help';
 import Main from './app/views/main';
 import Settings from './app/views/settings';
+import WeatherPhoto from './app/views/weather-photo';
 
 import { config } from './app/config';
 
@@ -21,6 +22,7 @@ AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
 const App = TabNavigator({
   Main: { screen: Main },
   Forecast: { screen: Forecast },
+  WeatherPhoto: { screen: WeatherPhoto },
   Settings: { screen: Settings },
   Help: { screen: Help },
 }, {

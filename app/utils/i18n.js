@@ -5,6 +5,8 @@ I18n.fallbacks = true;
 I18n.translations = {
   en: {
     main: 'Map',
+    weather_photo: 'Photo',
+    weather_photo_title: 'Weather Photo',
     settings: 'Notification',
     help: 'Help',
     forecast: 'Forecast',
@@ -29,9 +31,13 @@ I18n.translations = {
     roadside_stations: 'Roadside Stations',
     tomorrow_am: 'A.M.',
     tomorrow_pm: 'P.M.',
+
+
   },
   zh: {
     main: '地圖',
+    weather_photo: '天氣照片',
+    weather_photo_title: '天氣照片',
     settings: '通知設定',
     help: '幫助',
     forecast: '預測',
@@ -59,6 +65,8 @@ I18n.translations = {
   },
   'zh-Hans': {
     main: '地图',
+    weather_photo: '天氣照片',
+    weather_photo_title: '天氣照片',
     settings: '通知设定',
     help: '帮助',
     forecast: '预测',

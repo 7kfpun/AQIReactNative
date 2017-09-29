@@ -10,6 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
+import AdBanner from '../elements/ad-banner';
 import forecast from '../utils/forecast';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
@@ -132,6 +133,8 @@ export default class ForecastModal extends Component {
             <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.pm)}</Text>
           </View>
         </ScrollView>}
+
+        <AdBanner />
       </View>
     );
   }

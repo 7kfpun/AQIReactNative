@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
 
 import { locations } from '../utils/locations';
+import AdBanner from '../elements/ad-banner';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 import SettingsItem from '../elements/settings-item';
@@ -139,6 +140,8 @@ export default class SettingsView extends Component {
             renderItem={({ item }) => <SettingsItem item={item} />}
           />
         </ScrollView>
+
+        <AdBanner />
       </View>
     );
   }
