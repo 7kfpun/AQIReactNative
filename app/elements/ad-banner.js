@@ -20,14 +20,14 @@ export default class AdBanner extends React.Component {
       return;
     }
 
-    if (Math.random() < 0.5) {
+    if (Math.random() < 0.4) {
       InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
         .then((didClick) => {
           console.log('Facebook Interstitial Ad', didClick);
         })
         .catch((error) => {
           console.log('Facebook Interstitial Ad Failed', error);
-          AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+          // AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
         });
     } else {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));

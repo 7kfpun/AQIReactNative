@@ -339,8 +339,10 @@ export default class ForecastModal extends Component {
               style={{ width, height: this.state.ratio * width }}
               source={{ uri: item.uri }}
             />
-            <Text style={styles.imageTitleText}>{item[`title${lang}`]}</Text>
-            <Text style={styles.imageDescriptionText}>{item[`description${lang}`]}</Text>
+            <View style={{ padding: 10 }}>
+              <Text style={styles.imageTitleText}>{item[`title${lang}`]}</Text>
+              <Text style={styles.imageDescriptionText}>{item[`description${lang}`]}</Text>
+            </View>
           </View>))}
         </IndicatorViewPager>
 

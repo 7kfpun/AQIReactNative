@@ -101,6 +101,18 @@ export default class SettingsView extends Component {
     OneSignal.deleteTag('cleanlinessTherhold');
   }
 
+  static requestPermissions() {
+    if (Platform.OS === 'ios') {
+      const permissions = {
+        alert: true,
+        badge: true,
+        sound: true,
+      };
+      OneSignal.requestPermissions(permissions);
+      OneSignal.registerForPushNotifications();
+    }
+  }
+
   state = {
     isShowPermissionReminderBlock: false,
   };
@@ -109,6 +121,7 @@ export default class SettingsView extends Component {
     const tags = await OneSignalGetTags();
     this.checkPermissions(tags);
     SettingsView.migrateOldSettings(tags);
+    SettingsView.requestPermissions();
   }
 
   checkPermissions(tags) {

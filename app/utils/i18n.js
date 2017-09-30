@@ -5,7 +5,7 @@ I18n.fallbacks = true;
 I18n.translations = {
   en: {
     main: 'Map',
-    weather_photo: 'Photo',
+    weather_photo: 'Photos',
     weather_photo_title: 'Weather Photo',
     settings: 'Notification',
     help: 'Help',
@@ -31,8 +31,6 @@ I18n.translations = {
     roadside_stations: 'Roadside Stations',
     tomorrow_am: 'A.M.',
     tomorrow_pm: 'P.M.',
-
-
   },
   zh: {
     main: '地圖',

@@ -36,8 +36,8 @@ const App = TabNavigator({
     showIcon: true,
     pressColor: '#E0E0E0',
     labelStyle: {
-      fontSize: Platform.OS === 'ios' ? 12 : 8,
-      paddingBottom: Platform.OS === 'ios' ? 4 : 0,
+      fontSize: Platform.OS === 'ios' ? 10 : 8,
+      paddingBottom: Platform.OS === 'ios' ? 3 : 0,
     },
     style: {
       backgroundColor: 'white',
