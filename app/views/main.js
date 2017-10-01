@@ -12,6 +12,8 @@ import {
   NativeModules,
 } from 'react-native';
 
+import { AdMobInterstitial } from 'react-native-admob';
+import { InterstitialAdManager } from 'react-native-fbads';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import ReactNativeI18n from 'react-native-i18n';
@@ -27,6 +29,8 @@ import aqi from '../utils/aqi';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
+import { config } from '../config';
+
 const { RNLocation } = NativeModules;
 
 const { width, height } = Dimensions.get('window');
@@ -38,7 +42,10 @@ const LATITUDE = 22.32;
 const LONGITUDE = 114.15;
 const LATITUDE_DELTA = 0.75;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+const FIVE_SECONDS = 5 * 1000;
 const FIVE_MINUTES = 5 * 60 * 1000;
+const TEN_MINUTES = 10 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -131,6 +138,8 @@ const styles = StyleSheet.create({
   },
 });
 
+let first = true;
+
 export default class MainView extends Component {
   static navigationOptions = {
     header: null,
@@ -140,6 +149,25 @@ export default class MainView extends Component {
       <Icon name="place" size={20} color={tintColor || 'gray'} />
     ),
   };
+
+  static showInterstitial() {
+    if (__DEV__) {
+      return;
+    }
+
+    if (Math.random() < 0.5) {
+      InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
+        .then((didClick) => {
+          console.log('Facebook Interstitial Ad', didClick);
+        })
+        .catch((error) => {
+          console.log('Facebook Interstitial Ad Failed', error);
+          AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+        });
+    } else {
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+    }
+  }
 
   static isOutOfBound(latitude, longitude) {
     const distance = ((latitude - LATITUDE) * (latitude - LATITUDE)) + ((longitude - LONGITUDE) * (longitude - LONGITUDE));
@@ -168,7 +196,15 @@ export default class MainView extends Component {
   };
 
   componentDidMount() {
-    let first = true;
+    timer.clearTimeout(this);
+    timer.setTimeout(this, 'InterstitialTimeout', () => {
+      MainView.showInterstitial();
+    }, FIVE_SECONDS);
+
+    timer.setInterval(this, 'InterstitialInterval', () => {
+      MainView.showInterstitial();
+    }, TEN_MINUTES);
+
     if (Platform.OS === 'ios') {
       RNLocation.requestWhenInUseAuthorization();
       // RNLocation.requestAlwaysAuthorization();
@@ -182,12 +218,7 @@ export default class MainView extends Component {
             gpsEnabled: true,
           });
 
-          if (first && MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
-            first = false;
-            timer.setTimeout(this, 'MoveToHongKong', () => {
-              this.map.animateToRegion(MainView.getHongKongLocation());
-            }, 1000);
-          }
+          this.initialLocation(location.coords.latitude, location.coords.longitude);
         }
       });
     } else {
@@ -202,12 +233,7 @@ export default class MainView extends Component {
             gpsEnabled: true,
           });
 
-          if (first && MainView.isOutOfBound(location.Latitude, location.Longitude)) {
-            first = false;
-            timer.setTimeout(this, 'MoveToHongKong', () => {
-              this.map.animateToRegion(MainView.getHongKongLocation());
-            }, 1000);
-          }
+          this.initialLocation(location.Latitude, location.Longitude);
         }
       });
 
@@ -237,6 +263,21 @@ export default class MainView extends Component {
       latitudeDelta: this.state.gpsEnabled ? 0.25 : LATITUDE_DELTA,
       longitudeDelta: this.state.gpsEnabled ? 0.25 * ASPECT_RATIO : LONGITUDE_DELTA,
     };
+  }
+
+  initialLocation(latitude, longitude) {
+    if (first) {
+      first = false;
+      if (MainView.isOutOfBound(latitude, longitude)) {
+        timer.setTimeout(this, 'MoveToHongKong', () => {
+          this.map.animateToRegion(MainView.getHongKongLocation());
+        }, 1000);
+      } else {
+        timer.setTimeout(this, 'MoveToCurrentLocation', () => {
+          this.map.animateToRegion(this.getCurrentLocation());
+        }, 500);
+      }
+    }
   }
 
   prepareData() {
