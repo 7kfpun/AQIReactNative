@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
+  Dimensions,
   Image,
   Platform,
   StyleSheet,
   Text,
-  View,
-  Dimensions,
   TouchableHighlight,
+  View,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -303,13 +303,34 @@ export default class ForecastModal extends Component {
   };
 
   state = {
-    group: NEW_TERRITORIES,
+    distinct: NEW_TERRITORIES,
   }
 
   componentDidMount() {
     Image.getSize(NEW_TERRITORIES[0].uri, (imageWidth, imageHeight) => {
       console.log('getSize', imageWidth, imageHeight);
       this.setState({ ratio: imageHeight / imageWidth });
+    });
+  }
+
+  selectDistinct(distinct) {
+    this.setState({ distinct, random: Math.random() }, () => {
+      switch (distinct) {
+        case NEW_TERRITORIES:
+          tracker.logEvent('select-distinct', { label: 'NEW_TERRITORIES' });
+          break;
+        case KOWLOON:
+          tracker.logEvent('select-distinct', { label: 'KOWLOON' });
+          break;
+        case HONGKONG:
+          tracker.logEvent('select-distinct', { label: 'HONGKONG' });
+          break;
+        case LANTAU_AND_OTHER_ISLANDS:
+          tracker.logEvent('select-distinct', { label: 'LANTAU_AND_OTHER_ISLANDS' });
+          break;
+        default:
+          break;
+      }
     });
   }
 
@@ -329,12 +350,12 @@ export default class ForecastModal extends Component {
         <View style={styles.titleBlock}>
           <Text style={styles.titleText}>{I18n.t('weather_photo_title')}</Text>
         </View>
-
         <IndicatorViewPager
+          key={`${this.state.ratio}${this.state.random}`}
           style={{ flex: 1 }}
-          indicator={<PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={this.state.group.length} />}
+          indicator={<PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={this.state.distinct.length} />}
         >
-          {this.state.group.map(item => (<View key={`photo-${item.title}`} style={styles.body}>
+          {this.state.distinct.map(item => (<View key={`photo-${item.title}`} style={styles.body}>
             <Image
               style={{ width, height: this.state.ratio * width }}
               source={{ uri: item.uri }}
@@ -348,8 +369,8 @@ export default class ForecastModal extends Component {
 
         <View style={styles.buttonBlock}>
           <TouchableHighlight
-            style={[styles.button, { borderColor: this.state.group === NEW_TERRITORIES ? '#29B6F6' : '#EEEEEE' }]}
-            onPress={() => this.setState({ group: NEW_TERRITORIES })}
+            style={[styles.button, { borderColor: this.state.distinct === NEW_TERRITORIES ? '#29B6F6' : '#EEEEEE' }]}
+            onPress={() => this.selectDistinct(NEW_TERRITORIES)}
             underlayColor="#EEEEEE"
           >
             {(() => {
@@ -364,8 +385,8 @@ export default class ForecastModal extends Component {
             })()}
           </TouchableHighlight>
           <TouchableHighlight
-            style={[styles.button, { borderColor: this.state.group === KOWLOON ? '#29B6F6' : '#EEEEEE' }]}
-            onPress={() => this.setState({ group: KOWLOON })}
+            style={[styles.button, { borderColor: this.state.distinct === KOWLOON ? '#29B6F6' : '#EEEEEE' }]}
+            onPress={() => this.selectDistinct(KOWLOON)}
             underlayColor="#EEEEEE"
           >
             {(() => {
@@ -380,8 +401,8 @@ export default class ForecastModal extends Component {
             })()}
           </TouchableHighlight>
           <TouchableHighlight
-            style={[styles.button, { borderColor: this.state.group === HONGKONG ? '#29B6F6' : '#EEEEEE' }]}
-            onPress={() => this.setState({ group: HONGKONG })}
+            style={[styles.button, { borderColor: this.state.distinct === HONGKONG ? '#29B6F6' : '#EEEEEE' }]}
+            onPress={() => this.selectDistinct(HONGKONG)}
             underlayColor="#EEEEEE"
           >
             {(() => {
@@ -396,8 +417,8 @@ export default class ForecastModal extends Component {
             })()}
           </TouchableHighlight>
           <TouchableHighlight
-            style={[styles.button, { borderColor: this.state.group === LANTAU_AND_OTHER_ISLANDS ? '#29B6F6' : '#EEEEEE' }]}
-            onPress={() => this.setState({ group: LANTAU_AND_OTHER_ISLANDS })}
+            style={[styles.button, { borderColor: this.state.distinct === LANTAU_AND_OTHER_ISLANDS ? '#29B6F6' : '#EEEEEE' }]}
+            onPress={() => this.selectDistinct(LANTAU_AND_OTHER_ISLANDS)}
             underlayColor="#EEEEEE"
           >
             {(() => {

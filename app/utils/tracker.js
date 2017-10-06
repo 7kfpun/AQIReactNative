@@ -8,6 +8,7 @@ import {
 import { Answers } from 'react-native-fabric';
 import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
 import Analytics from 'analytics-react-native';
+import crashlytics from 'react-native-fabric-crashlytics';
 import DeviceInfo from 'react-native-device-info';
 
 import { config } from '../config';
@@ -15,6 +16,8 @@ import { config } from '../config';
 const { width, height } = Dimensions.get('window');
 
 const analytics = new Analytics(config.segment);
+
+crashlytics.init();
 
 const userId = DeviceInfo.getUniqueID();
 
