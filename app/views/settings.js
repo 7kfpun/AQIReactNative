@@ -10,12 +10,16 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
+import store from 'react-native-simple-store';
 
 import { locations } from '../utils/locations';
 import AdBanner from '../elements/ad-banner';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 import SettingsItem from '../elements/settings-item';
+
+const DEFAULT_POLLUTION_THERHOLD = 120;
+const DEFAULT_CLEANLINESS_THERHOLD = 40;
 
 const styles = StyleSheet.create({
   container: {
@@ -82,13 +86,13 @@ export default class SettingsView extends Component {
     if (pollutionIsEnabled === 'true' && pollutionLocation) {
       const valueLocation = pollutionLocation.replace('/', '_').replace(' ', '_').toLowerCase();
       tags[valueLocation] = true;
-      tags[`${valueLocation}_pollution_therhold`] = pollutionTherhold || 100;
+      tags[`${valueLocation}_pollution_therhold`] = pollutionTherhold || DEFAULT_POLLUTION_THERHOLD;
     }
 
     if (cleanlinessIsEnabled === 'true' && cleanlinessLocation) {
       const valueLocation = cleanlinessLocation.replace('/', '_').replace(' ', '_').toLowerCase();
       tags[valueLocation] = true;
-      tags[`${valueLocation}_pollution_therhold`] = cleanlinessTherhold || 40;
+      tags[`${valueLocation}_cleanliness_therhold`] = cleanlinessTherhold || DEFAULT_CLEANLINESS_THERHOLD;
     }
 
     console.log('Send tags', tags);
@@ -113,6 +117,28 @@ export default class SettingsView extends Component {
     }
   }
 
+  static defaultSettings(tags) {
+    if (tags) {
+      store.get('isReturnUser', true);
+      return true;
+    }
+
+    store.get('isReturnUser').then((isReturnUser) => {
+      if (!isReturnUser) {
+        const sendTags = {
+          central: true,
+          central_pollution_therhold: 140,
+          central_cleanliness_therhold: 20,
+        };
+        console.log('Send first time user tags', sendTags);
+        OneSignal.sendTags(sendTags);
+        tracker.logEvent('send-first-time-user-tags', sendTags);
+      }
+
+      store.get('isReturnUser', true);
+    });
+  }
+
   state = {
     isShowPermissionReminderBlock: false,
   };
@@ -121,6 +147,7 @@ export default class SettingsView extends Component {
     const tags = await OneSignalGetTags();
     this.checkPermissions(tags);
     SettingsView.migrateOldSettings(tags);
+    SettingsView.defaultSettings(tags);
     SettingsView.requestPermissions();
   }
 

@@ -15,6 +15,8 @@ import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const deviceLocale = ReactNativeI18n.locale;
+const DEFAULT_POLLUTION_THERHOLD = 120;
+const DEFAULT_CLEANLINESS_THERHOLD = 40;
 
 const styles = StyleSheet.create({
   container: {
@@ -39,8 +41,8 @@ const styles = StyleSheet.create({
 export default class SettingsItem extends Component {
   state = {
     isEnabled: false,
-    pollutionTherhold: 100,
-    cleanlinessTherhold: 40,
+    pollutionTherhold: DEFAULT_POLLUTION_THERHOLD,
+    cleanlinessTherhold: DEFAULT_CLEANLINESS_THERHOLD,
   };
 
   componentDidMount() {
@@ -52,8 +54,8 @@ export default class SettingsItem extends Component {
 
       that.setState({
         isEnabled: tags[item.key] === 'true',
-        pollutionTherhold: tags[`${item.key}_pollution_therhold`] ? parseInt(tags[`${item.key}_pollution_therhold`], 10) : 120,
-        cleanlinessTherhold: tags[`${item.key}_cleanliness_therhold`] ? parseInt(tags[`${item.key}_cleanliness_therhold`], 10) : 40,
+        pollutionTherhold: tags[`${item.key}_pollution_therhold`] ? parseInt(tags[`${item.key}_pollution_therhold`], 10) : DEFAULT_POLLUTION_THERHOLD,
+        cleanlinessTherhold: tags[`${item.key}_cleanliness_therhold`] ? parseInt(tags[`${item.key}_cleanliness_therhold`], 10) : DEFAULT_CLEANLINESS_THERHOLD,
       });
     });
   }
