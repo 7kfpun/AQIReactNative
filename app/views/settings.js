@@ -118,7 +118,7 @@ export default class SettingsView extends Component {
   }
 
   static defaultSettings(tags) {
-    if (tags) {
+    if (Object.keys(tags).length) {
       store.get('isReturnUser', true);
       return true;
     }
