@@ -4,6 +4,7 @@ import {
 
 import { AdMobInterstitial } from 'react-native-admob';
 import { TabNavigator } from 'react-navigation';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 
 import Forecast from './app/views/forecast';
 import Help from './app/views/help';
@@ -41,6 +42,10 @@ const App = TabNavigator({
     },
     style: {
       backgroundColor: 'white',
+      ...ifIphoneX({
+        height: 80,
+        paddingBottom: 25,
+      }, {}),
     },
   },
 });

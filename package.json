@@ -25,6 +25,7 @@
     "react-native-google-analytics-bridge": "^5.0.1",
     "react-native-html-parser": "^0.0.4",
     "react-native-i18n": "^1.0.0",
+    "react-native-iphone-x-helper": "^1.0.1",
     "react-native-location": "github:timfpark/react-native-location#723d46382d8c370f6e6b795006276f98e80b2d84",
     "react-native-maps": "^0.15.2",
     "react-native-onesignal": "3.0.5",
