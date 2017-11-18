@@ -80,6 +80,17 @@ const styles = StyleSheet.create({
     width: 44,
     borderRadius: 22,
   },
+  defaultLocation: {
+    position: 'absolute',
+    right: 14,
+    bottom: 130,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+  },
   currentLocation: {
     position: 'absolute',
     right: 14,
@@ -175,7 +186,7 @@ export default class MainView extends Component {
     return distance > 0.2;
   }
 
-  static getHongKongLocation() {
+  static getDefaultLocation() {
     return {
       latitude: LATITUDE,
       longitude: LONGITUDE,
@@ -260,8 +271,8 @@ export default class MainView extends Component {
     return {
       latitude: this.state.location.latitude,
       longitude: this.state.location.longitude,
-      latitudeDelta: this.state.gpsEnabled ? 0.25 : LATITUDE_DELTA,
-      longitudeDelta: this.state.gpsEnabled ? 0.25 * ASPECT_RATIO : LONGITUDE_DELTA,
+      latitudeDelta: this.state.gpsEnabled ? 0.1 : LATITUDE_DELTA,
+      longitudeDelta: this.state.gpsEnabled ? 0.1 * ASPECT_RATIO : LONGITUDE_DELTA,
     };
   }
 
@@ -270,7 +281,7 @@ export default class MainView extends Component {
       first = false;
       if (MainView.isOutOfBound(latitude, longitude)) {
         timer.setTimeout(this, 'MoveToHongKong', () => {
-          this.map.animateToRegion(MainView.getHongKongLocation());
+          this.map.animateToRegion(MainView.getDefaultLocation());
         }, 1000);
       } else {
         timer.setTimeout(this, 'MoveToCurrentLocation', () => {
@@ -353,6 +364,16 @@ export default class MainView extends Component {
           {/* <TouchableOpacity style={styles.help} onPress={() => navigate('Help')} >
             <Icon name="help-outline" size={26} color="#616161" />
           </TouchableOpacity> */}
+
+          <TouchableOpacity
+            style={styles.defaultLocation}
+            onPress={() => {
+              this.map.animateToRegion(MainView.getDefaultLocation());
+              tracker.logEvent('move-to-default-location');
+            }}
+          >
+            <Icon name="crop-free" size={26} color="#616161" />
+          </TouchableOpacity>
 
           {this.state.gpsEnabled && <TouchableOpacity
             style={styles.currentLocation}
