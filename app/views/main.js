@@ -21,6 +21,7 @@ import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
 
 import AdBanner from '../elements/ad-banner';
+import Indicator from '../elements/indicator';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
@@ -361,9 +362,7 @@ export default class MainView extends Component {
             </TouchableOpacity>
           </View>}
 
-          {/* <TouchableOpacity style={styles.help} onPress={() => navigate('Help')} >
-            <Icon name="help-outline" size={26} color="#616161" />
-          </TouchableOpacity> */}
+          <Indicator />
 
           <TouchableOpacity
             style={styles.defaultLocation}
@@ -387,8 +386,6 @@ export default class MainView extends Component {
           >
             <Icon name="near-me" size={26} color="#616161" />
           </TouchableOpacity>}
-
-          {/* <ForecastModal /> */}
 
           <Rating />
 

@@ -14,6 +14,7 @@ import ReactNativeI18n from 'react-native-i18n';
 
 import AdBanner from '../elements/ad-banner';
 import I18n from '../utils/i18n';
+import helpTexts from '../utils/helpTexts';
 import tracker from '../utils/tracker';
 
 const deviceLocale = ReactNativeI18n.locale;
@@ -50,101 +51,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-
-const helpTexts = {
-  AQI: [{
-    index: '0 - 50',
-    category: 'Good',
-    hantCategory: '良好',
-    hansCategory: '良好',
-    meaning: 'Air pollution risk is low.',
-    hantMeaning: '空氣污染風險很少。',
-    hansMeaning: '空气污染风险很少。',
-    backgroundColor: '#009866',
-    fontColor: 'black',
-  }, {
-    index: '51 - 100',
-    category: 'Moderate',
-    hantCategory: '一般',
-    hansCategory: '一般',
-    meaning: 'Air quality is acceptable.',
-    hantMeaning: '空氣質素可以接受。',
-    hansMeaning: '空气质素可以接受。',
-    backgroundColor: '#FEDE33',
-    fontColor: 'black',
-  }, {
-    index: '101 - 150',
-    category: 'Unhealthy for high-risk group',
-    hantCategory: '對高危人士不健康',
-    hansCategory: '对高危人士不健康',
-    meaning: 'High-risk group may have health effects. General public is not affected.',
-    hantMeaning: '高危人士可能出現健康反應。公眾暫時未受影響。',
-    hansMeaning: '高危人士可能出现健康反应。公众暂时未受影响。',
-    backgroundColor: '#FE9833',
-    fontColor: 'black',
-  }, {
-    index: '151 - 200',
-    category: 'Unhealthy',
-    hantCategory: '不健康',
-    hansCategory: '不健康',
-    meaning: 'High-risk group may have more serious health effects. Some of the general public may have health effects.',
-    hantMeaning: '高危人士可能出現較嚴重健康反應，部分公眾亦可能出現健康反應。',
-    hansMeaning: '高危人士可能出现较严重健康反应，部分公众亦可能出现健康反应。',
-    backgroundColor: '#CC0033',
-    fontColor: 'white',
-  }, {
-    index: '201 - 300',
-    category: 'Very Unhealthy',
-    hantCategory: '非常不健康',
-    hansCategory: '非常不健康',
-    meaning: 'General public have health effects.',
-    hantMeaning: '公眾出現健康反應。',
-    hansMeaning: '公众出现健康反应。',
-    backgroundColor: '#660098',
-    fontColor: 'white',
-  }, {
-    index: '301 - 500',
-    category: 'Hazardous',
-    hantCategory: '危害',
-    hansCategory: '危害',
-    meaning: 'Some of the general public may have more serious health effects.',
-    hantMeaning: '部分公眾可能出現較嚴重健康反應。',
-    hansMeaning: '部分公众可能出现较严重健康反应。',
-    backgroundColor: '#7E2200',
-    fontColor: 'white',
-  }],
-  AQHI: [{
-    index: '1 - 3',
-    healthRisk: 'Low',
-    hantHealthRisk: '低',
-    hansHealthRisk: '低',
-    backgroundColor: '#4DB748',
-  }, {
-    index: '4 - 6',
-    healthRisk: 'Moderate',
-    hantHealthRisk: '中',
-    hansHealthRisk: '中',
-    backgroundColor: '#F9AB1A',
-  }, {
-    index: '7',
-    healthRisk: 'High',
-    hantHealthRisk: '高',
-    hansHealthRisk: '高',
-    backgroundColor: '#ED1B24',
-  }, {
-    index: '8 - 10',
-    healthRisk: 'Very high',
-    hantHealthRisk: '甚高',
-    hansHealthRisk: '甚高',
-    backgroundColor: '#A04623',
-  }, {
-    index: '10+',
-    healthRisk: 'Serious',
-    hantHealthRisk: '嚴重',
-    hansHealthRisk: '严重',
-    backgroundColor: '#000000',
-  }],
-};
 
 export default class HelpView extends Component {
   static navigationOptions = {
