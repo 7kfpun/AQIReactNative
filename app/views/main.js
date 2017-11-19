@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   infomationContainer: {
     position: 'absolute',
-    top: 28,
+    top: Platform.OS === 'ios' ? 28 : 0,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
