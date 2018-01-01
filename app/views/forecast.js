@@ -134,7 +134,7 @@ export default class ForecastModal extends Component {
           </View>
         </ScrollView>}
 
-        <AdBanner />
+        <AdBanner adUnitID={'hkaqi-forecast-ios-footer'} />
       </View>
     );
   }

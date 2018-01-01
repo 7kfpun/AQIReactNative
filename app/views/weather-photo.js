@@ -433,7 +433,7 @@ export default class ForecastModal extends Component {
             })()}
           </TouchableHighlight>
         </View>
-        <AdBanner />
+        <AdBanner adUnitID={'hkaqi-photos-ios-footer'} />
       </View>
     );
   }

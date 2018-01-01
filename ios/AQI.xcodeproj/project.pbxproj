@@ -48,7 +48,6 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		964AE81D377A423D8AC52F9C /* libjschelpers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FDEB06BF664EC280C74E4A /* libjschelpers.a */; };
 		9C729D1D4F0F4F8298E778CB /* libyoga.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5023C8268A48238EB9BED4 /* libyoga.a */; };
-		9E262EC11ED1D78C00B94208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E262EC01ED1D78C00B94208 /* GoogleMobileAds.framework */; };
 		9E262F571ED1DBE600B94208 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E262F561ED1DBE600B94208 /* CoreData.framework */; };
 		9E262F591ED1DBEE00B94208 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E262F581ED1DBEE00B94208 /* SystemConfiguration.framework */; };
 		9E262F5B1ED1DBF500B94208 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E262F5A1ED1DBF500B94208 /* libz.tbd */; };
@@ -57,6 +56,7 @@
 		9E26315F1ED31AE200B94208 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E262F171ED1DB9500B94208 /* libRNI18n.a */; };
 		9EEEA66B1ED7D92B0064BC3A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA6691ED7D92B0064BC3A /* Crashlytics.framework */; };
 		9EEEA66C1ED7D92B0064BC3A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA66A1ED7D92B0064BC3A /* Fabric.framework */; };
+		9EF0FB5C1FFA2A8A002B1E9E /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF0FB5B1FFA2A89002B1E9E /* GoogleMobileAds.framework */; };
 		9EFB7C751F6D0DC200FF6B11 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFB7C721F6D0DC200FF6B11 /* FBAudienceNetwork.framework */; };
 		9EFB7C791F6D0E6900FF6B11 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFB7C771F6D0E6900FF6B11 /* Bolts.framework */; };
 		9EFB7C7A1F6D0E6900FF6B11 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFB7C781F6D0E6900FF6B11 /* FBSDKCoreKit.framework */; };
@@ -394,7 +394,6 @@
 		88C4BF9BBD7141D18E976DA5 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		8FE0BE8AA1DF43F1808ABEF8 /* libRNLocation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNLocation.a; sourceTree = "<group>"; };
 		95E19703D5DD4AF9865E8A23 /* librn-fbads.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "librn-fbads.a"; sourceTree = "<group>"; };
-		9E262EC01ED1D78C00B94208 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		9E262F561ED1DBE600B94208 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9E262F581ED1DBEE00B94208 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9E262F5A1ED1DBF500B94208 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -405,6 +404,7 @@
 		9E26315E1ED31AB300B94208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9EEEA6691ED7D92B0064BC3A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		9EEEA66A1ED7D92B0064BC3A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		9EF0FB5B1FFA2A89002B1E9E /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		9EFB7C721F6D0DC200FF6B11 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		9EFB7C771F6D0E6900FF6B11 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		9EFB7C781F6D0E6900FF6B11 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -452,7 +452,6 @@
 				9EEEA66B1ED7D92B0064BC3A /* Crashlytics.framework in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
-				9E262EC11ED1D78C00B94208 /* GoogleMobileAds.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				9EFB7C791F6D0E6900FF6B11 /* Bolts.framework in Frameworks */,
@@ -472,6 +471,7 @@
 				A7D50FE3801C4C588854EAF1 /* libAirMaps.a in Frameworks */,
 				568BFA857DD04FA29C59C3BD /* libRNStoreReview.a in Frameworks */,
 				AC6D9B57925B49D78FD4B109 /* libRNLocation.a in Frameworks */,
+				9EF0FB5C1FFA2A8A002B1E9E /* GoogleMobileAds.framework in Frameworks */,
 				9EEEA66C1ED7D92B0064BC3A /* Fabric.framework in Frameworks */,
 				3AA825093A1E432FAE1610F8 /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
 				DACD0717EF7240EC86E2D5ED /* librn-fbads.a in Frameworks */,
@@ -714,7 +714,7 @@
 		9E262EA61ED1D6DA00B94208 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				9E262EC01ED1D78C00B94208 /* GoogleMobileAds.framework */,
+				9EF0FB5B1FFA2A89002B1E9E /* GoogleMobileAds.framework */,
 			);
 			name = Framework;
 			sourceTree = "<group>";

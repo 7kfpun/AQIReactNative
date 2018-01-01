@@ -14,6 +14,7 @@ import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
 import timer from 'react-native-timer';
 
+import { config } from '../config';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
 
 export default class Rating extends React.Component {
   static openFeedbackUrl() {
-    const url = 'https://goo.gl/forms/LebZHLZK33CxAkSz1';
+    const url = I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en;
     Linking.canOpenURL(url).then((supported) => {
       if (supported) {
         Linking.openURL(url);

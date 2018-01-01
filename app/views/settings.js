@@ -181,7 +181,7 @@ export default class SettingsView extends Component {
           />
         </ScrollView>
 
-        <AdBanner />
+        <AdBanner adUnitID={'hkaqi-settings-ios-footer'} />
       </View>
     );
   }

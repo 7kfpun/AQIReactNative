@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import { AdMobInterstitial } from 'react-native-admob';
-import { InterstitialAdManager } from 'react-native-fbads';
+// import { InterstitialAdManager } from 'react-native-fbads';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import ReactNativeI18n from 'react-native-i18n';
@@ -29,8 +29,6 @@ import { locations } from '../utils/locations';
 import aqi from '../utils/aqi';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
-
-import { config } from '../config';
 
 const { RNLocation } = NativeModules;
 
@@ -53,7 +51,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 50,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -84,7 +81,7 @@ const styles = StyleSheet.create({
   defaultLocation: {
     position: 'absolute',
     right: 14,
-    bottom: 130,
+    bottom: 170,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -95,7 +92,7 @@ const styles = StyleSheet.create({
   currentLocation: {
     position: 'absolute',
     right: 14,
-    bottom: 70,
+    bottom: 110,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -167,18 +164,22 @@ export default class MainView extends Component {
       return;
     }
 
-    if (Math.random() < 0.5) {
-      InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
-        .then((didClick) => {
-          console.log('Facebook Interstitial Ad', didClick);
-        })
-        .catch((error) => {
-          console.log('Facebook Interstitial Ad Failed', error);
-          AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
-        });
-    } else {
+    if (Math.random() < 0.2) {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
     }
+
+    // if (Math.random() < 0.5) {
+    //   InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
+    //     .then((didClick) => {
+    //       console.log('Facebook Interstitial Ad', didClick);
+    //     })
+    //     .catch((error) => {
+    //       console.log('Facebook Interstitial Ad Failed', error);
+    //       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+    //     });
+    // } else {
+    //   AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+    // }
   }
 
   static isOutOfBound(latitude, longitude) {
@@ -405,9 +406,9 @@ export default class MainView extends Component {
               ))}
             </ScrollView>
           </View>
-        </View>
 
-        <AdBanner />
+          <AdBanner adUnitID={'hkaqi-main-ios-footer'} />
+        </View>
       </View>
     );
   }

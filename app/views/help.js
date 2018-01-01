@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {
+  Linking,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -17,6 +19,8 @@ import I18n from '../utils/i18n';
 import helpTexts from '../utils/helpTexts';
 import tracker from '../utils/tracker';
 
+import { config } from '../config';
+
 const deviceLocale = ReactNativeI18n.locale;
 
 const styles = StyleSheet.create({
@@ -24,6 +28,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
     backgroundColor: 'white',
+  },
+  titleBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 30,
   },
   block: {
     paddingHorizontal: 10,
@@ -33,7 +43,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     color: 'black',
-    marginBottom: 30,
   },
   row: {
     flexDirection: 'row',
@@ -62,13 +71,27 @@ export default class HelpView extends Component {
     ),
   };
 
+  static openFeedbackUrl() {
+    const url = I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en;
+    Linking.canOpenURL(url).then((supported) => {
+      if (supported) {
+        Linking.openURL(url);
+      }
+    });
+  }
+
   render() {
     tracker.view('Help');
     return (
       <View style={styles.container}>
         <ScrollView showsHorizontalScrollIndicator={false}>
           <View style={styles.block}>
-            <Text style={styles.title}>{I18n.t('aqi_full')}</Text>
+            <View style={styles.titleBlock}>
+              <Text style={styles.title}>{I18n.t('aqi_full')}</Text>
+              <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
+                <Icon name="help-outline" size={30} color={'gray'} />
+              </TouchableOpacity>
+            </View>
 
             {helpTexts.AQI.map((item) => {
               let itemCategory;
@@ -118,7 +141,7 @@ export default class HelpView extends Component {
           </View>
         </ScrollView>
 
-        <AdBanner />
+        <AdBanner adUnitID={'hkaqi-help-ios-footer'} />
       </View>
     );
   }

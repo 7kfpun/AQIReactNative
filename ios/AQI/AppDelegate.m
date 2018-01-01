@@ -35,7 +35,7 @@
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
 //  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:0.23 green:0.35 blue:0.60 alpha:1.0];
+  rootView.backgroundColor = [[UIColor alloc] initWithRed:0.95 green:0.93 blue:0.91 alpha:1.0];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
@@ -45,7 +45,7 @@
 
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
                                                          appId:@"9f000112-ef3c-4303-913c-e86134fe7167"
-                                                      settings:@{kOSSettingsKeyAutoPrompt: @false}];
+                                                      settings:@{kOSSettingsKeyAutoPrompt: @true}];
 
   [Fabric with:@[[Crashlytics class]]];
 

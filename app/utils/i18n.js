@@ -23,7 +23,7 @@ I18n.translations = {
     permissions_required: 'Notification permission required',
     too_small_therhold: 'The value is too small, you would get lots of notifications',
     too_large_therhold: 'The value is too large, you would get lots of notifications',
-    rating_title: 'Enjoying HK AQI?',
+    rating_title: 'Enjoy using HK AQI?',
     rating_description: 'Please give us 5 stars to cheer we up if you like this app.',
     feedback_description: 'Give us some feedbacks. We will definitely keep improving.',
     forecast_of_health_risk: 'Forecast of Health Risk',
@@ -92,8 +92,13 @@ I18n.translations = {
   },
 };
 
-I18n.translations['zh-Hans-US'] = I18n.translations['zh-Hans'];
 I18n.translations['zh-Hans-HK'] = I18n.translations['zh-Hans'];
 I18n.translations['zh-Hans-MN'] = I18n.translations['zh-Hans'];
+I18n.translations['zh-Hans-US'] = I18n.translations['zh-Hans'];
+I18n.translations['zh-Hant-HK'] = I18n.translations.zh;
+I18n.translations['zh-Hant-MN'] = I18n.translations.zh;
+I18n.translations['zh-Hant-US'] = I18n.translations.zh;
+
+I18n.isZh = I18n.locale.startsWith('zh');
 
 export default I18n;
