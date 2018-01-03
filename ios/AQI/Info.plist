@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>49</string>
+	<string>50</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -85,8 +85,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The nearest station will be automatically selected based on your current location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location is needed.</string>
+	<string>The nearest station will be automatically selected based on your current location</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
