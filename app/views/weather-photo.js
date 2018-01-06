@@ -355,16 +355,17 @@ export default class ForecastModal extends Component {
           style={{ flex: 1 }}
           indicator={<PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={this.state.distinct.length} />}
         >
-          {this.state.distinct.map(item => (<View key={`photo-${item.title}`} style={styles.body}>
-            <Image
-              style={{ width, height: this.state.ratio * width }}
-              source={{ uri: item.uri }}
-            />
-            <View style={{ padding: 10 }}>
-              <Text style={styles.imageTitleText}>{item[`title${lang}`]}</Text>
-              <Text style={styles.imageDescriptionText}>{item[`description${lang}`]}</Text>
-            </View>
-          </View>))}
+          {this.state.distinct.map(item => (
+            <View key={`photo-${item.title}`} style={styles.body}>
+              <Image
+                style={{ width, height: this.state.ratio * width }}
+                source={{ uri: item.uri }}
+              />
+              <View style={{ padding: 10 }}>
+                <Text style={styles.imageTitleText}>{item[`title${lang}`]}</Text>
+                <Text style={styles.imageDescriptionText}>{item[`description${lang}`]}</Text>
+              </View>
+            </View>))}
         </IndicatorViewPager>
 
         <View style={styles.buttonBlock}>
@@ -433,7 +434,7 @@ export default class ForecastModal extends Component {
             })()}
           </TouchableHighlight>
         </View>
-        <AdBanner adUnitID={'hkaqi-photos-ios-footer'} />
+        <AdBanner adUnitID="hkaqi-photos-ios-footer" />
       </View>
     );
   }

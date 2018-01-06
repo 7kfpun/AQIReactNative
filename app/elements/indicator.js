@@ -58,10 +58,12 @@ export default class Indicator extends React.PureComponent {
           } else {
             itemCategory = item.category;
           }
-          return (<View style={styles.item} key={item.index}>
-            <View style={[styles.bar, { backgroundColor: item.backgroundColor }]} />
-            <Text style={styles.text}>{itemCategory}</Text>
-          </View>);
+          return (
+            <View style={styles.item} key={item.index}>
+              <View style={[styles.bar, { backgroundColor: item.backgroundColor }]} />
+              <Text style={styles.text}>{itemCategory}</Text>
+            </View>
+          );
         })}
       </View>
     );

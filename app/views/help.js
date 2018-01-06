@@ -89,7 +89,7 @@ export default class HelpView extends Component {
             <View style={styles.titleBlock}>
               <Text style={styles.title}>{I18n.t('aqi_full')}</Text>
               <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
-                <Icon name="help-outline" size={30} color={'gray'} />
+                <Icon name="help-outline" size={30} color="gray" />
               </TouchableOpacity>
             </View>
 
@@ -106,15 +106,17 @@ export default class HelpView extends Component {
                 itemDescription = item.meaning;
               }
 
-              return (<View key={shortid.generate()}>
-                <View style={styles.row}>
-                  <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
-                    <Text style={{ color: item.fontColor }}>{item.index}</Text>
+              return (
+                <View key={shortid.generate()}>
+                  <View style={styles.row}>
+                    <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
+                      <Text style={{ color: item.fontColor }}>{item.index}</Text>
+                    </View>
+                    <Text>{itemCategory}</Text>
                   </View>
-                  <Text>{itemCategory}</Text>
+                  <Text style={styles.description}>{itemDescription}</Text>
                 </View>
-                <Text style={styles.description}>{itemDescription}</Text>
-              </View>);
+              );
             })}
           </View>
 
@@ -131,17 +133,19 @@ export default class HelpView extends Component {
                 itemHealthRisk = item.healthRisk;
               }
 
-              return (<View key={shortid.generate()} style={styles.row}>
-                <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
-                  <Text style={{ color: 'white' }}>{item.index}</Text>
+              return (
+                <View key={shortid.generate()} style={styles.row}>
+                  <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
+                    <Text style={{ color: 'white' }}>{item.index}</Text>
+                  </View>
+                  {<Text>{itemHealthRisk}</Text>}
                 </View>
-                {<Text>{itemHealthRisk}</Text>}
-              </View>);
+              );
             })}
           </View>
         </ScrollView>
 
-        <AdBanner adUnitID={'hkaqi-help-ios-footer'} />
+        <AdBanner adUnitID="hkaqi-help-ios-footer" />
       </View>
     );
   }

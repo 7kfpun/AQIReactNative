@@ -169,9 +169,10 @@ export default class SettingsView extends Component {
         <View style={styles.titleBlock}>
           <Text style={styles.titleText}>{I18n.t('notify_title')}</Text>
         </View>
-        {this.state.isShowPermissionReminderBlock && <View style={styles.permissionReminderBlock}>
-          <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
-        </View>}
+        {this.state.isShowPermissionReminderBlock &&
+          <View style={styles.permissionReminderBlock}>
+            <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
+          </View>}
         <ScrollView>
           <FlatList
             style={styles.list}
@@ -181,7 +182,7 @@ export default class SettingsView extends Component {
           />
         </ScrollView>
 
-        <AdBanner adUnitID={'hkaqi-settings-ios-footer'} />
+        <AdBanner adUnitID="hkaqi-settings-ios-footer" />
       </View>
     );
   }

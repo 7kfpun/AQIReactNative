@@ -164,7 +164,7 @@ export default class MainView extends Component {
       return;
     }
 
-    if (Math.random() < 0.2) {
+    if (Math.random() < 0.1) {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
     }
 

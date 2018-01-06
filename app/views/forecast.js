@@ -78,7 +78,6 @@ export default class ForecastModal extends Component {
   }
 
   state = {
-    isModalShow: false,
     data: {},
   }
 
@@ -102,39 +101,41 @@ export default class ForecastModal extends Component {
           <Text style={styles.titleText}>{I18n.t('forecast_of_health_risk')}</Text>
         </View>
 
-        {this.state.data && this.state.data.general && <ScrollView style={styles.body}>
-          <Text style={styles.text}>{this.state.data.date}</Text>
+        {this.state.data && this.state.data.general &&
+          <ScrollView style={styles.body}>
+            <Text style={styles.text}>{this.state.data.date}</Text>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-            <Text style={styles.text}>{I18n.t('general_stations')}</Text>
-          </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <Text style={styles.text}>{I18n.t('general_stations')}</Text>
+            </View>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
-            <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.am)}</Text>
-          </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
+              <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.am)}</Text>
+            </View>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
-            <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.pm)}</Text>
-          </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
+              <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.pm)}</Text>
+            </View>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-            <Text style={styles.text}>{I18n.t('roadside_stations')}</Text>
-          </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <Text style={styles.text}>{I18n.t('roadside_stations')}</Text>
+            </View>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
-            <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.am)}</Text>
-          </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
+              <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.am)}</Text>
+            </View>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
-            <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.pm)}</Text>
-          </View>
-        </ScrollView>}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
+              <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.pm)}</Text>
+            </View>
+          </ScrollView>
+        }
 
-        <AdBanner adUnitID={'hkaqi-forecast-ios-footer'} />
+        <AdBanner adUnitID="hkaqi-forecast-ios-footer" />
       </View>
     );
   }

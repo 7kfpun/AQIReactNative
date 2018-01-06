@@ -47,7 +47,7 @@ export default class AirMarker extends React.Component {
 
     let color;
     if (amount.includes('/')) {
-      amountColor = amount.split('/')[1];
+      amountColor = amount.split('/').pop();
     } else {
       amountColor = amount;
     }

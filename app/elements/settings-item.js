@@ -50,7 +50,7 @@ export default class SettingsItem extends Component {
     OneSignal.getTags((receivedTags) => {
       console.log(receivedTags);
       const tags = receivedTags || {};
-      const item = this.props.item;
+      const { item } = this.props;
 
       that.setState({
         isEnabled: tags[item.key] === 'true',
@@ -97,7 +97,7 @@ export default class SettingsItem extends Component {
   }
 
   sendTags() {
-    const item = this.props.item;
+    const { item } = this.props;
 
     const tags = {};
     tags[item.key] = this.state.isEnabled;
@@ -109,7 +109,7 @@ export default class SettingsItem extends Component {
   }
 
   render() {
-    const item = this.props.item;
+    const { item } = this.props;
     let itemTitle;
 
     if (deviceLocale.startsWith('zh-Hans')) {
@@ -130,33 +130,34 @@ export default class SettingsItem extends Component {
             <Switch
               onValueChange={value => this.setNotification(value)}
               value={this.state.isEnabled}
-              tintColor="white"
+              tintColor="#EEEEEE"
             />
           </View>
         </View>
-        {this.state.isEnabled && <View>
-          <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: {this.state.pollutionTherhold}</Text>
-          <Slider
-            style={{ width: window.width - 20 }}
-            step={1}
-            value={this.state.pollutionTherhold}
-            minimumValue={1}
-            maximumValue={500}
-            onValueChange={value => this.setNotificationPollutionTherhold(value)}
-          />
-          {this.state.pollutionTherhold < 100 && <Text style={styles.noticeWarningText}>{I18n.t('too_small_therhold')}</Text>}
+        {this.state.isEnabled &&
+          <View>
+            <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: {this.state.pollutionTherhold}</Text>
+            <Slider
+              style={{ width: window.width - 20 }}
+              step={1}
+              value={this.state.pollutionTherhold}
+              minimumValue={1}
+              maximumValue={500}
+              onValueChange={value => this.setNotificationPollutionTherhold(value)}
+            />
+            {this.state.pollutionTherhold < 100 && <Text style={styles.noticeWarningText}>{I18n.t('too_small_therhold')}</Text>}
 
-          <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: {this.state.cleanlinessTherhold}</Text>
-          <Slider
-            style={{ width: window.width - 20 }}
-            step={1}
-            value={this.state.cleanlinessTherhold}
-            minimumValue={1}
-            maximumValue={500}
-            onValueChange={value => this.setNotificationCleanlinessTherhold(value)}
-          />
-          {this.state.cleanlinessTherhold > 40 && <Text style={styles.noticeWarningText}>{I18n.t('too_large_therhold')}</Text>}
-        </View>}
+            <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: {this.state.cleanlinessTherhold}</Text>
+            <Slider
+              style={{ width: window.width - 20 }}
+              step={1}
+              value={this.state.cleanlinessTherhold}
+              minimumValue={1}
+              maximumValue={500}
+              onValueChange={value => this.setNotificationCleanlinessTherhold(value)}
+            />
+            {this.state.cleanlinessTherhold > 40 && <Text style={styles.noticeWarningText}>{I18n.t('too_large_therhold')}</Text>}
+          </View>}
       </View>
     );
   }
