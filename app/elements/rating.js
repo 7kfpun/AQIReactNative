@@ -18,8 +18,9 @@ import { config } from '../config';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
+const RATE_KEY = 'isRatingGiven.001';
 const STARS_TO_APP_STORE = 4;
-const TEN_MINUTES = 10 * 60 * 1000;
+const RATE_POPUP_TIME = 5 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -77,7 +78,7 @@ export default class Rating extends React.Component {
 
   componentDidMount() {
     const that = this;
-    store.get('isRatingGiven').then((isRatingGiven) => {
+    store.get(RATE_KEY).then((isRatingGiven) => {
       if (isRatingGiven) {
         that.setState({ isRatingGiven });
       }
@@ -86,7 +87,7 @@ export default class Rating extends React.Component {
     timer.clearTimeout(this, 'ShowRatingBlock');
     timer.setTimeout(this, 'ShowRatingBlock', () => {
       this.setState({ isRatingClose: false });
-    }, TEN_MINUTES);
+    }, RATE_POPUP_TIME);
   }
 
   componentWillUnmount() {
@@ -108,7 +109,7 @@ export default class Rating extends React.Component {
       }
     }
 
-    store.save('isRatingGiven', true);
+    store.save(RATE_KEY, true);
 
     tracker.logEvent('give-rating', { label: rating.toString() });
   }
@@ -123,7 +124,7 @@ export default class Rating extends React.Component {
         <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
           <Icon name="clear" size={22} color="#616161" />
         </TouchableOpacity>
-        <Icon name="thumb-up" size={28} color="#616161" />
+        <Icon name="thumb-up" size={30} color="#616161" />
         <Text style={styles.titleText}>{I18n.t('rating_title')}</Text>
         <Text style={styles.descriptionText}>{I18n.t('rating_description')}</Text>
         <StarRating
