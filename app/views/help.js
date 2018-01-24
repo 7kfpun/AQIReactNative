@@ -89,7 +89,7 @@ export default class HelpView extends Component {
             <View style={styles.titleBlock}>
               <Text style={styles.title}>{I18n.t('aqi_full')}</Text>
               <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
-                <Icon name="help-outline" size={30} color="gray" />
+                <Icon name="mail-outline" size={30} color="gray" />
               </TouchableOpacity>
             </View>
 
