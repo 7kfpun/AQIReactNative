@@ -5,6 +5,7 @@ I18n.fallbacks = true;
 I18n.translations = {
   en: {
     main: 'Map',
+    details: 'Details',
     weather_photo: 'Photos',
     weather_photo_title: 'Weather Photo',
     settings: 'Notification',
@@ -34,6 +35,7 @@ I18n.translations = {
   },
   zh: {
     main: '地圖',
+    details: '詳細',
     weather_photo: '天氣照片',
     weather_photo_title: '天氣照片',
     settings: '通知設定',
@@ -63,6 +65,7 @@ I18n.translations = {
   },
   'zh-Hans': {
     main: '地图',
+    details: '详细',
     weather_photo: '天氣照片',
     weather_photo_title: '天氣照片',
     settings: '通知设定',

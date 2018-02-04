@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 
 import { AdMobInterstitial } from 'react-native-admob';
-// import { InterstitialAdManager } from 'react-native-fbads';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import ReactNativeI18n from 'react-native-i18n';
@@ -25,8 +24,8 @@ import Indicator from '../elements/indicator';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
+import { aqi } from '../utils/api';
 import { locations } from '../utils/locations';
-import aqi from '../utils/aqi';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -314,27 +313,21 @@ export default class MainView extends Component {
             initialRegion={this.getCurrentLocation()}
             onRegionChange={region => this.onRegionChange(region)}
           >
-            {this.state.aqiResult && this.state.markers.map((marker) => {
-              let title;
-              if (deviceLocale.startsWith('zh-Hans')) {
-                title = `${marker.title_hans} ${this.state.selectedIndex} 值为 ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
-              } else if (deviceLocale.startsWith('zh')) {
-                title = `${marker.title_hant} ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]}`;
-              } else {
-                title = `${this.state.selectedIndex} is ${this.state.aqiResult[marker.title] && this.state.aqiResult[marker.title][this.state.selectedIndex]} in ${marker.title}`;
-              }
-
-              return (<MapView.Marker
+            {this.state.aqiResult && this.state.markers.map(marker => (
+              <MapView.Marker
                 key={`${marker.latlng.latitude}${this.state.selectedIndex}`}
                 coordinate={marker.latlng}
-                title={title}
-                description={marker.description}
-                onPress={() => this.setState({ selectedLocation: marker.title })}
+                onPress={() => {
+                  console.log('marker', marker);
+                  tracker.logEvent('check-main-details', marker);
+                  this.props.navigation.navigate('MainDetails', { item: marker });
+                }}
               >
-                {this.state.aqiResult[marker.title]
-                  && <Marker amount={this.state.aqiResult[marker.title][this.state.selectedIndex]} index={this.state.selectedIndex} />}
-              </MapView.Marker>);
-            })}
+                {this.state.aqiResult[marker.title] &&
+                  <Marker amount={this.state.aqiResult[marker.title][this.state.selectedIndex]} index={this.state.selectedIndex} />
+                }
+              </MapView.Marker>
+            ))}
 
             {this.state.gpsEnabled && this.state.location && <MapView.Marker
               coordinate={this.state.location}
@@ -406,8 +399,7 @@ export default class MainView extends Component {
               ))}
             </ScrollView>
           </View>
-
-          <AdBanner adUnitID={'hkaqi-main-ios-footer'} />
+          <AdBanner adUnitID="hkaqi-main-ios-footer" />
         </View>
       </View>
     );

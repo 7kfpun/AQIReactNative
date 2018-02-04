@@ -3,9 +3,10 @@ import {
 } from 'react-native';
 
 import { AdMobInterstitial } from 'react-native-admob';
-import { TabNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 
+import Details from './app/views/details';
 import Forecast from './app/views/forecast';
 import Help from './app/views/help';
 import Main from './app/views/main';
@@ -21,7 +22,12 @@ if (!__DEV__) {
 AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
 
 const App = TabNavigator({
-  Main: { screen: Main },
+  Main: {
+    screen: StackNavigator({
+      MainMap: { screen: Main },
+      MainDetails: { screen: Details },
+    }),
+  },
   Forecast: { screen: Forecast },
   WeatherPhoto: { screen: WeatherPhoto },
   Settings: { screen: Settings },

@@ -19,9 +19,7 @@ const DEFAULT_POLLUTION_THERHOLD = 120;
 const DEFAULT_CLEANLINESS_THERHOLD = 40;
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-  },
+  container: {},
   switchBlock: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -75,7 +73,7 @@ export default class SettingsItem extends Component {
       OneSignal.registerForPushNotifications();
     }
 
-    const item = this.props.item;
+    const { item } = this.props;
     tracker.logEvent('set-notification-pollution', {
       label: value ? 'notification-pollution-on' : 'notification-pollution-off',
       location: item.key,

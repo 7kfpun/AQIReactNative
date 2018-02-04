@@ -5,19 +5,21 @@ import {
   Text,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    alignSelf: 'flex-start',
   },
   bubble: {
     flex: 0,
     flexDirection: 'row',
-    alignSelf: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#FF5A5F',
-    padding: 3,
+    padding: 4,
+    paddingLeft: 8,
     borderRadius: 5,
-    borderColor: '#D23F44',
     borderWidth: 0.5,
   },
   amount: {
@@ -102,10 +104,15 @@ export default class AirMarker extends React.Component {
       showAmount = amount;
     }
 
+    // if (showAmount.includes('/')) {
+    //   showAmount = showAmount.split('/')[0];
+    // }
+
     return (
       <View style={styles.container}>
         <View style={[styles.bubble, { backgroundColor: color, borderColor: 'white' }]}>
           <Text style={[styles.amount, { fontSize }]}>{showAmount}</Text>
+          <Icon name="chevron-right" size={16} color="white" />
         </View>
         <View style={[styles.arrowBorder, { borderTopColor: 'white' }]} />
         <View style={[styles.arrow, { borderTopColor: color }]} />

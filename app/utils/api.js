@@ -1,5 +1,7 @@
 import { DOMParser } from 'react-native-html-parser';
 
+import { config } from '../config';
+
 const AQI = () => {
   const AQIURL = `http://www.weather.org.hk/english/aqi.html?${Math.random()}`;
   return fetch(AQIURL)
@@ -62,4 +64,16 @@ const AQI = () => {
     });
 };
 
-export default AQI;
+const HISTORY_LIMIT = 24;
+
+const history = (siteName) => {
+  const AQI_HISTORY_URL = `${config.aqiHistoryUrl}?site=${siteName.replace('/', '_')}&limit=${HISTORY_LIMIT}&t=${Math.random()}`;
+  return fetch(AQI_HISTORY_URL)
+    .then(res => res.json())
+    .catch((err) => {
+      console.log('Request for aqi history failed', err);
+    });
+};
+
+exports.aqi = AQI;
+exports.history = history;

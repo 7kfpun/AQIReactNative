@@ -178,7 +178,7 @@ export default class SettingsView extends Component {
             style={styles.list}
             data={locations}
             keyExtractor={(item, index) => `${index}-${item.key}`}
-            renderItem={({ item }) => <SettingsItem item={item} />}
+            renderItem={({ item }) => <View style={{ padding: 10 }}><SettingsItem item={item} /></View>}
           />
         </ScrollView>
 
