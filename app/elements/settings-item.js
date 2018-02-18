@@ -11,6 +11,7 @@ import {
 import OneSignal from 'react-native-onesignal';
 import ReactNativeI18n from 'react-native-i18n';
 
+import { getColor } from '../utils/indexes';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -107,10 +108,12 @@ export default class SettingsItem extends Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, text } = this.props;
     let itemTitle;
 
-    if (deviceLocale.startsWith('zh-Hans')) {
+    if (text) {
+      itemTitle = text;
+    } else if (deviceLocale.startsWith('zh-Hans')) {
       itemTitle = item.title_hans;
     } else if (deviceLocale.startsWith('zh')) {
       itemTitle = item.title_hant;
@@ -133,7 +136,7 @@ export default class SettingsItem extends Component {
           </View>
         </View>
         {this.state.isEnabled &&
-          <View>
+          <View style={{ marginTop: 8 }}>
             <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: {this.state.pollutionTherhold}</Text>
             <Slider
               style={{ width: window.width - 20 }}
@@ -142,6 +145,7 @@ export default class SettingsItem extends Component {
               minimumValue={1}
               maximumValue={500}
               onValueChange={value => this.setNotificationPollutionTherhold(value)}
+              minimumTrackTintColor={getColor('AQI', parseFloat(this.state.pollutionTherhold)).color || 'grey'}
             />
             {this.state.pollutionTherhold < 100 && <Text style={styles.noticeWarningText}>{I18n.t('too_small_therhold')}</Text>}
 
@@ -153,6 +157,7 @@ export default class SettingsItem extends Component {
               minimumValue={1}
               maximumValue={500}
               onValueChange={value => this.setNotificationCleanlinessTherhold(value)}
+              minimumTrackTintColor={getColor('AQI', parseFloat(this.state.cleanlinessTherhold)).color || 'grey'}
             />
             {this.state.cleanlinessTherhold > 40 && <Text style={styles.noticeWarningText}>{I18n.t('too_large_therhold')}</Text>}
           </View>}

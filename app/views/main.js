@@ -26,6 +26,7 @@ import Rating from '../elements/rating';
 
 import { aqi } from '../utils/api';
 import { locations } from '../utils/locations';
+import { indexTypes } from '../utils/indexes';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -163,22 +164,9 @@ export default class MainView extends Component {
       return;
     }
 
-    if (Math.random() < 0.1) {
+    if (Math.random() < 0.2) {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
     }
-
-    // if (Math.random() < 0.5) {
-    //   InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
-    //     .then((didClick) => {
-    //       console.log('Facebook Interstitial Ad', didClick);
-    //     })
-    //     .catch((error) => {
-    //       console.log('Facebook Interstitial Ad Failed', error);
-    //       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
-    //     });
-    // } else {
-    //   AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
-    // }
   }
 
   static isOutOfBound(latitude, longitude) {
@@ -312,6 +300,7 @@ export default class MainView extends Component {
             ref={(ref) => { this.map = ref; }}
             initialRegion={this.getCurrentLocation()}
             onRegionChange={region => this.onRegionChange(region)}
+            showsUserLocation={true}
           >
             {this.state.aqiResult && this.state.markers.map(marker => (
               <MapView.Marker
@@ -328,10 +317,6 @@ export default class MainView extends Component {
                 }
               </MapView.Marker>
             ))}
-
-            {this.state.gpsEnabled && this.state.location && <MapView.Marker
-              coordinate={this.state.location}
-            />}
           </MapView>
 
           {/* <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
@@ -385,16 +370,16 @@ export default class MainView extends Component {
 
           <View style={styles.buttonContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {['AQI', 'AQHI', 'NO2', 'O3', 'SO2', 'CO', 'PM10', 'PM2.5'].map(item => (
+              {indexTypes.map(item => (
                 <TouchableOpacity
-                  key={item}
+                  key={item.name}
                   onPress={() => {
-                    this.setState({ selectedIndex: item });
-                    tracker.logEvent('select-index', { label: item });
+                    this.setState({ selectedIndex: item.name });
+                    tracker.logEvent('select-index', { label: item.name });
                   }}
-                  style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
+                  style={[styles.bubble, styles.button, this.state.selectedIndex === item.name ? styles.selectedBubble : {}]}
                 >
-                  <Text style={styles.text}>{item}</Text>
+                  <Text style={styles.text}>{item.name}</Text>
                 </TouchableOpacity>
               ))}
             </ScrollView>

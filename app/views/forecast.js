@@ -119,7 +119,7 @@ export default class ForecastModal extends Component {
               <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.pm)}</Text>
             </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 15 }}>
               <Text style={styles.text}>{I18n.t('roadside_stations')}</Text>
             </View>
 

@@ -14,6 +14,7 @@ import ReactNativeI18n from 'react-native-i18n';
 
 import AdBanner from '../elements/ad-banner';
 import Chart from '../elements/chart';
+import IndicatorHorizontal from '../elements/indicator-horizontal';
 import SettingsItem from '../elements/settings-item';
 
 import { history } from '../utils/api';
@@ -132,16 +133,22 @@ export default class DetailsView extends Component {
             />
           }
         >
-          {!this.state.refreshing &&
-            <View style={{ padding: 10 }}>
-              <SettingsItem
-                text={I18n.t('notify_title')}
-                item={item}
-                tags={this.state.tags || {}}
-              />
-            </View>}
+          <IndicatorHorizontal />
+
+          <View style={{ paddingHorizontal: 10 }}>
+            <SettingsItem
+              text={I18n.t('notify_title')}
+              item={item}
+              tags={this.state.tags || {}}
+            />
+          </View>
+
           {!this.state.refreshing && indexTypes.map((indexType) => {
             const { length } = this.state.result.history;
+            if (!indexType.isShownDetails) {
+              return null;
+            }
+
             return (
               <View key={indexType.key} style={styles.block}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

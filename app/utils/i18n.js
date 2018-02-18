@@ -32,6 +32,12 @@ I18n.translations = {
     roadside_stations: 'Roadside Stations',
     tomorrow_am: 'A.M.',
     tomorrow_pm: 'P.M.',
+    status_good: 'Good',
+    status_moderate: 'Moderate',
+    status_unhealthy_for_sensitive_groups: 'Unhealthy for high-risk group',
+    status_unhealthy: 'Unhealthy',
+    status_very_unhealthy: 'Very Unhealthy',
+    status_hazardous: 'Hazardous',
   },
   zh: {
     main: '地圖',
@@ -62,6 +68,12 @@ I18n.translations = {
     roadside_stations: '路邊監測站',
     tomorrow_am: '上午',
     tomorrow_pm: '下午',
+    status_good: '良好',
+    status_moderate: '一般',
+    status_unhealthy_for_sensitive_groups: '對高危人士不健康',
+    status_unhealthy: '不健康',
+    status_very_unhealthy: '非常不健康',
+    status_hazardous: '危害',
   },
   'zh-Hans': {
     main: '地图',
@@ -92,6 +104,12 @@ I18n.translations = {
     roadside_stations: '路边监测站',
     tomorrow_am: '上午',
     tomorrow_pm: '下午',
+    status_good: '良好',
+    status_moderate: '一般',
+    status_unhealthy_for_sensitive_groups: '对高危人士不健康',
+    status_unhealthy: '不健康',
+    status_very_unhealthy: '非常不健康',
+    status_hazardous: '危害',
   },
 };
 
