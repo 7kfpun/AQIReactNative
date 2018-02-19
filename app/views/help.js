@@ -14,7 +14,7 @@ import shortid from 'shortid';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
-import AdBanner from '../elements/ad-banner';
+import Admob from '../elements/admob';
 import I18n from '../utils/i18n';
 import helpTexts from '../utils/helpTexts';
 import tracker from '../utils/tracker';
@@ -145,7 +145,7 @@ export default class HelpView extends Component {
           </View>
         </ScrollView>
 
-        <AdBanner adUnitID="hkaqi-help-ios-footer" />
+        <Admob adUnitID={config.admob[`hkaqi-help-${Platform.OS}-footer`]} />
       </View>
     );
   }

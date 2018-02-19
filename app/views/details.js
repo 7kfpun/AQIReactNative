@@ -12,7 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
-import AdBanner from '../elements/ad-banner';
+import Admob from '../elements/admob';
 import Chart from '../elements/chart';
 import IndicatorHorizontal from '../elements/indicator-horizontal';
 import SettingsItem from '../elements/settings-item';
@@ -21,6 +21,8 @@ import { history } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+
+import { config } from '../config';
 
 const deviceLocale = ReactNativeI18n.locale;
 
@@ -143,6 +145,8 @@ export default class DetailsView extends Component {
             />
           </View>
 
+          <Admob adUnitID={config.admob[`hkaqi-details-${Platform.OS}-footer`]} bannerSize="largeBanner" />
+
           {!this.state.refreshing && indexTypes.map((indexType) => {
             const { length } = this.state.result.history;
             if (!indexType.isShownDetails) {
@@ -165,7 +169,8 @@ export default class DetailsView extends Component {
             );
           })}
         </ScrollView>
-        <AdBanner adUnitID="hkaqi-details-ios-footer" />
+
+        <Admob adUnitID={config.admob[`hkaqi-details-${Platform.OS}-footer`]} />
       </View>
     );
   }

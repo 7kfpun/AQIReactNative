@@ -10,10 +10,12 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
-import AdBanner from '../elements/ad-banner';
+import Admob from '../elements/admob';
 import forecast from '../utils/forecast';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+
+import { config } from '../config';
 
 const deviceLocale = ReactNativeI18n.locale;
 
@@ -135,7 +137,7 @@ export default class ForecastModal extends Component {
           </ScrollView>
         }
 
-        <AdBanner adUnitID="hkaqi-forecast-ios-footer" />
+        <Admob adUnitID={config.admob[`hkaqi-forecast-${Platform.OS}-footer`]} />
       </View>
     );
   }

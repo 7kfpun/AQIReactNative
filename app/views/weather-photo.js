@@ -13,9 +13,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
-import AdBanner from '../elements/ad-banner';
+import Admob from '../elements/admob';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+
+import { config } from '../config';
 
 const deviceLocale = ReactNativeI18n.locale;
 const { width } = Dimensions.get('window');
@@ -434,7 +436,8 @@ export default class ForecastModal extends Component {
             })()}
           </TouchableHighlight>
         </View>
-        <AdBanner adUnitID="hkaqi-photos-ios-footer" />
+
+        <Admob adUnitID={config.admob[`hkaqi-photos-${Platform.OS}-footer`]} />
       </View>
     );
   }

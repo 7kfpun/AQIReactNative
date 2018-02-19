@@ -19,7 +19,7 @@ import ReactNativeI18n from 'react-native-i18n';
 import RNALocation from 'react-native-android-location';
 import timer from 'react-native-timer';
 
-import AdBanner from '../elements/ad-banner';
+import Admob from '../elements/admob';
 import Indicator from '../elements/indicator';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
@@ -29,6 +29,8 @@ import { locations } from '../utils/locations';
 import { indexTypes } from '../utils/indexes';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+
+import { config } from '../config';
 
 const { RNLocation } = NativeModules;
 
@@ -384,7 +386,8 @@ export default class MainView extends Component {
               ))}
             </ScrollView>
           </View>
-          <AdBanner adUnitID="hkaqi-main-ios-footer" />
+
+          <Admob adUnitID={config.admob[`hkaqi-main-${Platform.OS}-footer`]} />
         </View>
       </View>
     );

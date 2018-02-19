@@ -13,10 +13,12 @@ import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
 
 import { locations } from '../utils/locations';
-import AdBanner from '../elements/ad-banner';
+import Admob from '../elements/admob';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 import SettingsItem from '../elements/settings-item';
+
+import { config } from '../config';
 
 const DEFAULT_POLLUTION_THERHOLD = 120;
 const DEFAULT_CLEANLINESS_THERHOLD = 40;
@@ -182,7 +184,7 @@ export default class SettingsView extends Component {
           />
         </ScrollView>
 
-        <AdBanner adUnitID="hkaqi-settings-ios-footer" />
+        <Admob adUnitID={config.admob[`hkaqi-settings-${Platform.OS}-footer`]} />
       </View>
     );
   }

@@ -44,13 +44,13 @@ export default class AirMarker extends React.Component {
     // 301-500 Hazardous Some of the general public may have more serious health effects.
     if (amountColor <= 50) {
       color = '#009866';
-      fontColor = '#424242';
+      fontColor = 'white';
     } else if (amountColor > 50 && amountColor <= 100) {
       color = '#FEDE33';
       fontColor = '#424242';
     } else if (amountColor > 100 && amountColor <= 150) {
       color = '#FE9833';
-      fontColor = 'white';
+      fontColor = '#424242';
     } else if (amountColor > 150 && amountColor <= 200) {
       color = '#CC0033';
       fontColor = 'white';
@@ -73,7 +73,7 @@ export default class AirMarker extends React.Component {
     if (index === 'AQHI') {
       if (amount >= 1 && amount <= 3) {
         color = '#4DB748';
-        fontColor = '#424242';
+        fontColor = 'white';
       } else if (amount >= 4 && amount <= 6) {
         color = '#F9AB1A';
         fontColor = '#424242';
