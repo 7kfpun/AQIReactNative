@@ -13,6 +13,7 @@ import { config } from '../config';
 const styles = StyleSheet.create({
   container: {
     height: 50,
+    justifyContent: 'center',
   },
 });
 
@@ -27,7 +28,7 @@ export default class Admob extends Component {
       return null;
     }
 
-    const height = DeviceInfo.isTablet() ? 90 : 50;
+    const height = DeviceInfo.isTablet() || this.props.bannerSize === 'largeBanner' ? 90 : 50;
 
     return (
       <View style={[
