@@ -145,7 +145,9 @@ export default class DetailsView extends Component {
             />
           </View>
 
-          <Admob adUnitID={config.admob[`hkaqi-details-${Platform.OS}-footer`]} bannerSize="largeBanner" />
+          <View style={{ marginVertical: 10, justifyContent: 'center', alignItems: 'center' }}>
+            <Admob adUnitID={config.admob[`hkaqi-details-${Platform.OS}-footer`]} bannerSize="largeBanner" />
+          </View>
 
           {!this.state.refreshing && indexTypes.map((indexType) => {
             const { length } = this.state.result.history;

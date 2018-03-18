@@ -9,6 +9,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper';
 import Details from './app/views/details';
 import Forecast from './app/views/forecast';
 import Help from './app/views/help';
+import Mall from './app/views/mall';
 import Main from './app/views/main';
 import Settings from './app/views/settings';
 import WeatherPhoto from './app/views/weather-photo';
@@ -26,12 +27,18 @@ const App = TabNavigator({
     screen: StackNavigator({
       MainMap: { screen: Main },
       MainDetails: { screen: Details },
+      MainSettings: { screen: Help },
     }),
   },
   Forecast: { screen: Forecast },
   WeatherPhoto: { screen: WeatherPhoto },
-  Settings: { screen: Settings },
-  Help: { screen: Help },
+  Settings: {
+    screen: StackNavigator({
+      SettingsSettings: { screen: Settings },
+      SettingsHelp: { screen: Help },
+    }),
+  },
+  Mall: { screen: Mall },
 }, {
   headerMode: 'none',
   swipeEnabled: true,

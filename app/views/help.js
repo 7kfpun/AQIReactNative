@@ -11,6 +11,7 @@ import {
 
 import shortid from 'shortid';
 
+import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
@@ -67,7 +68,7 @@ export default class HelpView extends Component {
     title: 'Help',
     tabBarLabel: I18n.t('help'),
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="info-outline" size={21} color={tintColor || 'gray'} />
+      <Icon name="help" size={21} color={tintColor || 'gray'} />
     ),
   };
 
@@ -80,6 +81,10 @@ export default class HelpView extends Component {
     });
   }
 
+  goBack = () => {
+    this.props.navigation.goBack(null);
+  }
+
   render() {
     tracker.view('Help');
     return (
@@ -87,7 +92,10 @@ export default class HelpView extends Component {
         <ScrollView showsHorizontalScrollIndicator={false}>
           <View style={styles.block}>
             <View style={styles.titleBlock}>
-              <Text style={styles.title}>{I18n.t('aqi_full')}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Icon name="chevron-left" size={40} color="gray" onPress={this.goBack} />
+                <Text style={styles.title}>{I18n.t('aqi_full')}</Text>
+              </View>
               <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
                 <Icon name="mail-outline" size={30} color="gray" />
               </TouchableOpacity>

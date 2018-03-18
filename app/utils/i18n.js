@@ -10,6 +10,7 @@ I18n.translations = {
     weather_photo_title: 'Weather Photo',
     settings: 'Notification',
     help: 'Help',
+    mall: 'Mall',
     forecast: 'Forecast',
     notify_title: 'Notification',
     notify_pollution_title: 'Notice me when the air quality gets significantly worse',
@@ -38,6 +39,7 @@ I18n.translations = {
     status_unhealthy: 'Unhealthy',
     status_very_unhealthy: 'Very Unhealthy',
     status_hazardous: 'Hazardous',
+    my_fair_lady_description: 'A group of earth and animal lovers form a volunteer community that updates knowledge and facts regarding to Ethical Consumption in Beauty and Cosmetic.',
   },
   zh: {
     main: '地圖',
@@ -46,6 +48,7 @@ I18n.translations = {
     weather_photo_title: '天氣照片',
     settings: '通知設定',
     help: '幫助',
+    mall: '購物',
     forecast: '預測',
     notify_title: '空氣質素通知',
     notify_pollution_title: '當空氣質素明顯惡化時通知我',
@@ -74,6 +77,7 @@ I18n.translations = {
     status_unhealthy: '不健康',
     status_very_unhealthy: '非常不健康',
     status_hazardous: '危害',
+    my_fair_lady_description: '2014 年創辦，My Fair Lady 致力推動意識消費，以Mind ‧ Your Beauty 為口號，把女性購物狂力量導向可持續的消費習慣。 本港首個推動 #無動物測試、#純素及 #公平貿易 潮流與彩妝的策展平台。',
   },
   'zh-Hans': {
     main: '地图',
@@ -82,6 +86,7 @@ I18n.translations = {
     weather_photo_title: '天氣照片',
     settings: '通知设定',
     help: '帮助',
+    mall: '购物',
     forecast: '预测',
     notify_title: '空气质素通知',
     notify_pollution_title: '当空气质素明显恶化时通知我',
@@ -110,6 +115,7 @@ I18n.translations = {
     status_unhealthy: '不健康',
     status_very_unhealthy: '非常不健康',
     status_hazardous: '危害',
+    my_fair_lady_description: '2014 年创办，My Fair Lady 致力推动意识消费，以Mind ‧ Your Beauty 为口号，把女性购物狂力量导向可持续的消费习惯。本港首个推动 #无动物测试、#纯素及 #公平贸易 潮流与彩妆的策展平台。',
   },
 };
 

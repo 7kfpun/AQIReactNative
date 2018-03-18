@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -26,12 +27,14 @@ const DEFAULT_CLEANLINESS_THERHOLD = 40;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     backgroundColor: 'white',
   },
   titleBlock: {
-    paddingTop: Platform.OS === 'ios' ? 60 : 10,
-    paddingLeft: 10,
-    paddingBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
   },
   titleText: {
     color: 'black',
@@ -170,7 +173,11 @@ export default class SettingsView extends Component {
       <View style={styles.container}>
         <View style={styles.titleBlock}>
           <Text style={styles.titleText}>{I18n.t('notify_title')}</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('SettingsHelp')}>
+            <Icon name="help-outline" size={30} color="gray" />
+          </TouchableOpacity>
         </View>
+
         {this.state.isShowPermissionReminderBlock &&
           <View style={styles.permissionReminderBlock}>
             <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>

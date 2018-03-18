@@ -72,13 +72,13 @@ const styles = StyleSheet.create({
   help: {
     position: 'absolute',
     right: 15,
-    top: 25,
+    top: 55,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 44,
-    width: 44,
-    borderRadius: 22,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
   },
   defaultLocation: {
     position: 'absolute',
@@ -344,6 +344,10 @@ export default class MainView extends Component {
           </View>}
 
           <Indicator />
+
+          <TouchableOpacity style={styles.help} onPress={() => this.props.navigation.navigate('MainSettings')}>
+            <Icon name="help-outline" size={30} color="gray" />
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.defaultLocation}
