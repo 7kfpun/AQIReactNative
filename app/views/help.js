@@ -11,7 +11,6 @@ import {
 
 import shortid from 'shortid';
 
-import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 

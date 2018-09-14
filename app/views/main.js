@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
 import ReactNativeI18n from 'react-native-i18n';
 import RNALocation from 'react-native-android-location';
+import store from 'react-native-simple-store';
 import timer from 'react-native-timer';
 
 import Admob from '../elements/admob';
@@ -198,6 +199,15 @@ export default class MainView extends Component {
   };
 
   componentDidMount() {
+    const that = this;
+    store.get('selectedIndex').then((selectedIndex) => {
+      if (selectedIndex) {
+        that.setState({
+          selectedIndex,
+        });
+      }
+    });
+
     timer.clearTimeout(this);
     timer.setTimeout(this, 'InterstitialTimeout', () => {
       MainView.showInterstitial();
@@ -327,21 +337,22 @@ export default class MainView extends Component {
             </Animatable.View>
           </TouchableOpacity> */}
 
-          {this.state.aqiResult && <View style={styles.infomationContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                this.prepareData();
-                tracker.logEvent('fetch-latest-data');
-              }}
-              style={styles.infomationBubble}
-            >
-              <View style={styles.infomationBubbleBody}>
-                <Text style={styles.infomationBubbleText}>{this.state.aqiResult.time}</Text>
-                {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
-                {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
-              </View>
-            </TouchableOpacity>
-          </View>}
+          {this.state.aqiResult &&
+            <View style={styles.infomationContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.prepareData();
+                  tracker.logEvent('fetch-latest-data');
+                }}
+                style={styles.infomationBubble}
+              >
+                <View style={styles.infomationBubbleBody}>
+                  <Text style={styles.infomationBubbleText}>{this.state.aqiResult.time}</Text>
+                  {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
+                  {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
+                </View>
+              </TouchableOpacity>
+            </View>}
 
           <Indicator />
 
@@ -359,18 +370,19 @@ export default class MainView extends Component {
             <Icon name="crop-free" size={26} color="#616161" />
           </TouchableOpacity>
 
-          {this.state.gpsEnabled && <TouchableOpacity
-            style={styles.currentLocation}
-            onPress={() => {
-              const currentLocation = this.getCurrentLocation();
-              if (currentLocation) {
-                this.map.animateToRegion(currentLocation);
-                tracker.logEvent('move-to-current-location', currentLocation);
-              }
-            }}
-          >
-            <Icon name="near-me" size={26} color="#616161" />
-          </TouchableOpacity>}
+          {this.state.gpsEnabled &&
+            <TouchableOpacity
+              style={styles.currentLocation}
+              onPress={() => {
+                const currentLocation = this.getCurrentLocation();
+                if (currentLocation) {
+                  this.map.animateToRegion(currentLocation);
+                  tracker.logEvent('move-to-current-location', currentLocation);
+                }
+              }}
+            >
+              <Icon name="near-me" size={26} color="#616161" />
+            </TouchableOpacity>}
 
           <Rating />
 
@@ -381,6 +393,7 @@ export default class MainView extends Component {
                   key={item.name}
                   onPress={() => {
                     this.setState({ selectedIndex: item.name });
+                    store.save('selectedIndex', item.name);
                     tracker.logEvent('select-index', { label: item.name });
                   }}
                   style={[styles.bubble, styles.button, this.state.selectedIndex === item.name ? styles.selectedBubble : {}]}
