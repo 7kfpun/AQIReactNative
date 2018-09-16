@@ -17,20 +17,47 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.12</string>
+	<string>1.1.13</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb276250682813793</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
-	<string>59</string>
+	<string>60</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The nearest station will be automatically selected based on your current location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The nearest station will be automatically selected based on your current location</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
+	</array>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -45,14 +72,8 @@
 			</dict>
 		</array>
 	</dict>
-	<key>FacebookAppID</key>
-	<string>276250682813793</string>
-	<key>FacebookDisplayName</key>
-	<string>AQI</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -85,23 +106,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>The nearest station will be automatically selected based on your current location</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The nearest station will be automatically selected based on your current location</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Entypo.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>Foundation.ttf</string>
-		<string>Ionicons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-		<string>MaterialIcons.ttf</string>
-		<string>Octicons.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
-	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

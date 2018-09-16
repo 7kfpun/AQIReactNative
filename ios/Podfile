@@ -58,7 +58,6 @@ target 'HKAQI' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
-  pod 'react-native-google-analytics-bridge', :path => '../node_modules/react-native-google-analytics-bridge'
 
   pod 'Fabric'
   pod 'Crashlytics'
