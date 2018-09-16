@@ -9,17 +9,19 @@ import {
   View,
 } from 'react-native';
 
+import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
 
-import { locations } from '../utils/locations';
-import Admob from '../elements/admob';
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
-import SettingsItem from '../elements/settings-item';
+import SettingsItem from '../../components/settings-item';
 
-import { config } from '../config';
+import { locations } from '../../utils/locations';
+import Admob from '../../components/admob';
+import I18n from '../../utils/i18n';
+import tracker from '../../utils/tracker';
+
+import { config } from '../../config';
 
 const DEFAULT_POLLUTION_THERHOLD = 120;
 const DEFAULT_CLEANLINESS_THERHOLD = 40;
@@ -66,7 +68,7 @@ function OneSignalGetTags() {
   });
 }
 
-export default class SettingsView extends Component {
+export default class Settings extends Component {
   static navigationOptions = {
     header: null,
     title: 'Settings',
@@ -76,41 +78,7 @@ export default class SettingsView extends Component {
     ),
   };
 
-  static migrateOldSettings(receivedTags) {
-    const {
-      pollutionIsEnabled,
-      pollutionLocation,
-      pollutionTherhold,
-      cleanlinessIsEnabled,
-      cleanlinessLocation,
-      cleanlinessTherhold,
-    } = receivedTags || {};
-
-    const tags = {};
-
-    if (pollutionIsEnabled === 'true' && pollutionLocation) {
-      const valueLocation = pollutionLocation.replace('/', '_').replace(' ', '_').toLowerCase();
-      tags[valueLocation] = true;
-      tags[`${valueLocation}_pollution_therhold`] = pollutionTherhold || DEFAULT_POLLUTION_THERHOLD;
-    }
-
-    if (cleanlinessIsEnabled === 'true' && cleanlinessLocation) {
-      const valueLocation = cleanlinessLocation.replace('/', '_').replace(' ', '_').toLowerCase();
-      tags[valueLocation] = true;
-      tags[`${valueLocation}_cleanliness_therhold`] = cleanlinessTherhold || DEFAULT_CLEANLINESS_THERHOLD;
-    }
-
-    console.log('Send tags', tags);
-    OneSignal.sendTags(tags);
-    OneSignal.deleteTag('pollutionIsEnabled');
-    OneSignal.deleteTag('pollutionLocation');
-    OneSignal.deleteTag('pollutionTherhold');
-    OneSignal.deleteTag('cleanlinessIsEnabled');
-    OneSignal.deleteTag('cleanlinessLocation');
-    OneSignal.deleteTag('cleanlinessTherhold');
-  }
-
-  static requestPermissions() {
+  requestPermissions = () => {
     if (Platform.OS === 'ios') {
       const permissions = {
         alert: true,
@@ -122,7 +90,7 @@ export default class SettingsView extends Component {
     }
   }
 
-  static defaultSettings(tags) {
+  defaultSettings = (tags) => {
     if (Object.keys(tags).length) {
       store.get('isReturnUser', true);
       return true;
@@ -149,11 +117,12 @@ export default class SettingsView extends Component {
   };
 
   async componentDidMount() {
+    OneSignal.init(config.oneSignal, { kOSSettingsKeyAutoPrompt: true });
+
     const tags = await OneSignalGetTags();
     this.checkPermissions(tags);
-    SettingsView.migrateOldSettings(tags);
-    SettingsView.defaultSettings(tags);
-    SettingsView.requestPermissions();
+    this.defaultSettings(tags);
+    this.requestPermissions();
   }
 
   checkPermissions(tags) {
@@ -168,12 +137,11 @@ export default class SettingsView extends Component {
   }
 
   render() {
-    tracker.view('Settings');
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.titleBlock}>
           <Text style={styles.titleText}>{I18n.t('notify_title')}</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('SettingsHelp')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('settings-help')}>
             <Icon name="help-outline" size={30} color="gray" />
           </TouchableOpacity>
         </View>
@@ -191,8 +159,8 @@ export default class SettingsView extends Component {
           />
         </ScrollView>
 
-        <Admob adUnitID={config.admob[`hkaqi-settings-${Platform.OS}-footer`]} />
-      </View>
+        <Admob unitId={config.admob[`hkaqi-settings-${Platform.OS}-footer`]} />
+      </SafeAreaView>
     );
   }
 }

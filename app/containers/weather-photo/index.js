@@ -9,15 +9,17 @@ import {
   View,
 } from 'react-native';
 
+import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
-import Admob from '../elements/admob';
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
 
-import { config } from '../config';
+import Admob from '../../components/admob';
+import I18n from '../../utils/i18n';
+import tracker from '../../utils/tracker';
+
+import { config } from '../../config';
 
 const deviceLocale = ReactNativeI18n.locale;
 const { width } = Dimensions.get('window');
@@ -25,6 +27,7 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     backgroundColor: 'white',
   },
   body: {
@@ -32,7 +35,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleBlock: {
-    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     paddingLeft: 10,
     paddingBottom: 10,
   },
@@ -294,7 +296,7 @@ const LANTAU_AND_OTHER_ISLANDS = [{
   uri: 'http://www.hko.gov.hk/wxinfo/aws/hko_mica/wgl/latest_WGL.jpg',
 }];
 
-export default class ForecastModal extends Component {
+export default class WeatherPhoto extends Component {
   static navigationOptions = {
     header: null,
     title: 'Photo',
@@ -337,8 +339,6 @@ export default class ForecastModal extends Component {
   }
 
   render() {
-    tracker.view('Weather Photo');
-
     if (deviceLocale.startsWith('zh-Hans')) {
       lang = 'Hans';
     } else if (deviceLocale.startsWith('zh')) {
@@ -348,7 +348,7 @@ export default class ForecastModal extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.titleBlock}>
           <Text style={styles.titleText}>{I18n.t('weather_photo_title')}</Text>
         </View>
@@ -437,8 +437,8 @@ export default class ForecastModal extends Component {
           </TouchableHighlight>
         </View>
 
-        <Admob adUnitID={config.admob[`hkaqi-photos-${Platform.OS}-footer`]} />
-      </View>
+        <Admob unitId={config.admob[`hkaqi-weather-photo-${Platform.OS}-footer`]} />
+      </SafeAreaView>
     );
   }
 }

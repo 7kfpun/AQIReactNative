@@ -9,32 +9,35 @@ import {
   View,
 } from 'react-native';
 
+import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReactNativeI18n from 'react-native-i18n';
 
-import Admob from '../elements/admob';
-import Chart from '../elements/chart';
-import IndicatorHorizontal from '../elements/indicator-horizontal';
-import SettingsItem from '../elements/settings-item';
+import Admob from '../../components/admob';
+import Chart from '../../components/chart';
+import IndicatorHorizontal from '../../components/indicator-horizontal';
 
-import { history } from '../utils/api';
-import { indexTypes } from '../utils/indexes';
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
+import SettingsItem from '../../components/settings-item';
 
-import { config } from '../config';
+import { history } from '../../utils/api';
+import { indexTypes } from '../../utils/indexes';
+import I18n from '../../utils/i18n';
+import tracker from '../../utils/tracker';
+
+import { config } from '../../config';
 
 const deviceLocale = ReactNativeI18n.locale;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     backgroundColor: 'white',
   },
   titleBlock: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ? 50 : 20,
     paddingLeft: 2,
     marginBottom: 10,
   },
@@ -74,11 +77,13 @@ export default class DetailsView extends Component {
   static navigationOptions = () => ({
     header: null,
     tabBarLabel: I18n.t('details'),
-    tabBarIcon: ({ tintColor }) => (<Icon
-      name="timeline"
-      size={21}
-      color={tintColor}
-    />),
+    tabBarIcon: ({ tintColor }) => (
+      <Ionicons
+        name="ios-map"
+        size={20}
+        color={tintColor}
+      />
+    ),
   })
 
   state = {
@@ -120,9 +125,8 @@ export default class DetailsView extends Component {
       title = item.title_hant;
     }
 
-    tracker.view('History-Details');
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.titleBlock}>
           <Icon name="chevron-left" size={40} color="gray" onPress={this.goBack} />
           <Text style={styles.title}>{title}</Text>
@@ -146,7 +150,7 @@ export default class DetailsView extends Component {
           </View>
 
           <View style={{ marginVertical: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Admob adUnitID={config.admob[`hkaqi-details-${Platform.OS}-footer`]} bannerSize="largeBanner" />
+            <Admob unitId={config.admob[`hkaqi-details-${Platform.OS}-footer`]} bannerSize="LARGE_BANNER" />
           </View>
 
           {!this.state.refreshing && indexTypes.map((indexType) => {
@@ -172,8 +176,8 @@ export default class DetailsView extends Component {
           })}
         </ScrollView>
 
-        <Admob adUnitID={config.admob[`hkaqi-details-${Platform.OS}-footer`]} />
-      </View>
+        <Admob unitId={config.admob[`hkaqi-details-${Platform.OS}-footer`]} />
+      </SafeAreaView>
     );
   }
 }

@@ -6,18 +6,16 @@ import {
 
 // 3rd party libraries
 import { Answers } from 'react-native-fabric';
-import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
 import Analytics from 'analytics-react-native';
-import crashlytics from 'react-native-fabric-crashlytics';
 import DeviceInfo from 'react-native-device-info';
+import firebase from 'react-native-firebase';
 
 import { config } from '../config';
 
 const { width, height } = Dimensions.get('window');
-
 const analytics = new Analytics(config.segment);
-
-crashlytics.init();
+firebase.analytics().setAnalyticsCollectionEnabled(true);
+firebase.perf().setPerformanceCollectionEnabled(true);
 
 const userId = DeviceInfo.getUniqueID();
 
@@ -64,39 +62,64 @@ const context = {
   isTablet: DeviceInfo.isTablet(),
 };
 
-const GoogleAnalytics = new GoogleAnalyticsTracker(config.googleAnalytics[Platform.OS]);
+const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
+
+const firebaseContext = {};
+Object.entries(context).forEach(([key0, value0]) => {
+  if (typeof value0 === 'object') {
+    Object.entries(value0).forEach(([key1, value1]) => {
+      firebaseContext[`${key0}${capitalizeFirstLetter(key1)}`] = String(value1);
+    });
+  } else {
+    firebaseContext[key0] = String(value0);
+  }
+});
+console.log('firebaseContext', firebaseContext);
 
 const tracker = {
-  identify: () => {
+  identify: async () => {
     if (isTracking) {
-      fetch('http://checkip.amazonaws.com/')
+      const ip = await fetch('http://checkip.amazonaws.com/')
         .then(res => res.text())
-        .then((ip) => {
-          ip = ip.replace('\n', '');
-          if (ip) {
-            console.log('ip address', ip);
-            context.ip = ip;
-          }
-          analytics.identify({ userId, context });
-        });
+        .then(ipText => ipText.replace('\n', ''))
+        .catch(err => console.log(err));
+
+      if (ip) {
+        console.log('IP address', ip);
+        context.ip = ip;
+      }
+      console.log('identify', userId, context);
+      analytics.identify({ userId, context });
+      firebase.analytics().setUserId(userId);
+      firebase.analytics().setUserProperties(firebaseContext);
     }
   },
   logEvent: (event, properties) => {
     if (isTracking) {
-      const message = { userId, event, properties, context };
-      console.log(message);
-      GoogleAnalytics.trackEvent('user-action', event);
-      Answers.logCustom(event, properties);
+      const message = {
+        userId,
+        event,
+        properties,
+        context,
+      };
+      console.log('logEvent', message);
       analytics.track(message);
+      firebase.analytics().logEvent(event.replace(/-/g, '_'), properties);
+      Answers.logCustom(event, properties);
     }
   },
   view: (screen, properties) => {
     if (isTracking) {
-      const message = { userId, screen, properties, context };
-      console.log(message);
-      GoogleAnalytics.trackScreenView(screen);
-      Answers.logContentView(screen, '', '', properties);
+      const message = {
+        userId,
+        name: screen,
+        properties,
+        context,
+      };
+      console.log('view', message);
       analytics.screen(message);
+      firebase.analytics().setCurrentScreen(screen, screen);
+      Answers.logContentView(screen, '', '', properties);
     }
   },
 };

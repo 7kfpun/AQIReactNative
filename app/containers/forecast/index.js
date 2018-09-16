@@ -7,15 +7,14 @@ import {
   View,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReactNativeI18n from 'react-native-i18n';
 
-import Admob from '../elements/admob';
-import forecast from '../utils/forecast';
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
+import Admob from '../../components/admob';
+import forecast from '../../utils/forecast';
+import I18n from '../../utils/i18n';
 
-import { config } from '../config';
+import { config } from '../../config';
 
 const deviceLocale = ReactNativeI18n.locale;
 
@@ -43,13 +42,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ForecastModal extends Component {
+export default class Forecast extends Component {
   static navigationOptions = {
     header: null,
     title: 'Forecast',
     tabBarLabel: I18n.t('forecast'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="visibility" size={20} color={tintColor || 'gray'} />
+    tabBarIcon: ({ focused, tintColor }) => (
+      <Ionicons name="ios-analytics" size={20} color={tintColor || 'gray'} />
     ),
   };
 
@@ -96,7 +95,6 @@ export default class ForecastModal extends Component {
   }
 
   render() {
-    tracker.view('Forecast');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
@@ -113,12 +111,12 @@ export default class ForecastModal extends Component {
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
-              <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.am)}</Text>
+              <Text style={styles.text}>{Forecast.translate(this.state.data.general.am)}</Text>
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
-              <Text style={styles.text}>{ForecastModal.translate(this.state.data.general.pm)}</Text>
+              <Text style={styles.text}>{Forecast.translate(this.state.data.general.pm)}</Text>
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 15 }}>
@@ -127,17 +125,17 @@ export default class ForecastModal extends Component {
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.text}>{I18n.t('tomorrow_am')}</Text>
-              <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.am)}</Text>
+              <Text style={styles.text}>{Forecast.translate(this.state.data.roadside.am)}</Text>
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.text}>{I18n.t('tomorrow_pm')}</Text>
-              <Text style={styles.text}>{ForecastModal.translate(this.state.data.roadside.pm)}</Text>
+              <Text style={styles.text}>{Forecast.translate(this.state.data.roadside.pm)}</Text>
             </View>
           </ScrollView>
         }
 
-        <Admob adUnitID={config.admob[`hkaqi-forecast-${Platform.OS}-footer`]} />
+        <Admob unitId={config.admob[`hkaqi-forecast-${Platform.OS}-footer`]} />
       </View>
     );
   }

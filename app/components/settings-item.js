@@ -131,7 +131,7 @@ export default class SettingsItem extends Component {
             <Switch
               onValueChange={value => this.setNotification(value)}
               value={this.state.isEnabled}
-              tintColor="#EEEEEE"
+              trackColor="#EEEEEE"
             />
           </View>
         </View>

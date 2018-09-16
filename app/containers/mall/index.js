@@ -11,24 +11,25 @@ import {
   View,
 } from 'react-native';
 
+import { SafeAreaView } from 'react-navigation';
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Admob from '../elements/admob';
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
+import Admob from '../../components/admob';
+import I18n from '../../utils/i18n';
+import tracker from '../../utils/tracker';
 
-import { config } from '../config';
+import { config } from '../../config';
 
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     backgroundColor: 'white',
   },
   titleBlock: {
-    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -93,9 +94,8 @@ export default class MallView extends Component {
   }
 
   render() {
-    tracker.view('Mall');
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.titleBlock}>
           <Text style={styles.title}>{I18n.t('mall')}</Text>
           <TouchableOpacity onPress={MallView.openFeedbackUrl}>
@@ -118,8 +118,8 @@ export default class MallView extends Component {
           </TouchableOpacity>
         </ScrollView>
 
-        <Admob adUnitID={config.admob[`hkaqi-mall-${Platform.OS}-footer`]} />
-      </View>
+        <Admob unitId={config.admob[`hkaqi-mall-${Platform.OS}-footer`]} />
+      </SafeAreaView>
     );
   }
 }

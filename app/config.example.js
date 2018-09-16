@@ -17,18 +17,6 @@ exports.config = {
     'hkaqi-help-ios-footer': '',
     'hkaqi-mall-ios-footer': '',
   },
-  fbads: {
-    ios: {
-      banner: '',
-      native: '',
-      interstital: '',
-    },
-    android: {
-      banner: '',
-      native: '',
-      interstital: '',
-    },
-  },
   googleAnalytics: {
     ios: '',
     android: '',

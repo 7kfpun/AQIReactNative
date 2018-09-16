@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   ActivityIndicator,
   DeviceEventEmitter,
@@ -8,30 +10,31 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  PermissionsAndroid,
   View,
   NativeModules,
 } from 'react-native';
 
-import { AdMobInterstitial } from 'react-native-admob';
+import { SafeAreaView } from 'react-navigation';
+// import { AdMobInterstitial } from 'react-native-admob';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
 import ReactNativeI18n from 'react-native-i18n';
-import RNALocation from 'react-native-android-location';
 import store from 'react-native-simple-store';
-import timer from 'react-native-timer';
 
-import Admob from '../elements/admob';
-import Indicator from '../elements/indicator';
-import Marker from '../elements/marker';
-import Rating from '../elements/rating';
+import Admob from '../../components/admob';
+import Indicator from '../../components/indicator';
+import Marker from './components/marker';
+import Rating from '../../components/rating';
 
-import { aqi } from '../utils/api';
-import { locations } from '../utils/locations';
-import { indexTypes } from '../utils/indexes';
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
+import { aqi } from '../../utils/api';
+import { locations } from '../../utils/locations';
+import { indexTypes } from '../../utils/indexes';
+import I18n from '../../utils/i18n';
+import tracker from '../../utils/tracker';
 
-import { config } from '../config';
+import { config } from '../../config';
 
 const { RNLocation } = NativeModules;
 
@@ -46,7 +49,6 @@ const LATITUDE_DELTA = 0.75;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const FIVE_SECONDS = 5 * 1000;
-const FIVE_MINUTES = 5 * 60 * 1000;
 const TEN_MINUTES = 10 * 60 * 1000;
 
 const styles = StyleSheet.create({
@@ -152,13 +154,17 @@ const styles = StyleSheet.create({
 
 let first = true;
 
-export default class MainView extends Component {
+export default class Main extends Component {
   static navigationOptions = {
     header: null,
     title: 'Main',
     tabBarLabel: I18n.t('main'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="place" size={20} color={tintColor || 'gray'} />
+    tabBarIcon: ({ tintColor, focused }) => (
+      <Ionicons
+        name="ios-map"
+        size={20}
+        color={tintColor}
+      />
     ),
   };
 
@@ -168,7 +174,7 @@ export default class MainView extends Component {
     }
 
     if (Math.random() < 0.2) {
-      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+      // AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
     }
   }
 
@@ -199,6 +205,20 @@ export default class MainView extends Component {
   };
 
   componentDidMount() {
+    this.checkSelectedIndex();
+    this.requestLocationPermission();
+
+    // fetching data
+    this.fetchData();
+    if (!this.reloadFetchLatestDataInterval) {
+      this.reloadFetchLatestDataInterval = setInterval(() => {
+        this.fetchData();
+        tracker.logEvent('reload-fetch-latest-data');
+      }, TEN_MINUTES);
+    }
+  }
+
+  checkSelectedIndex() {
     const that = this;
     store.get('selectedIndex').then((selectedIndex) => {
       if (selectedIndex) {
@@ -207,60 +227,107 @@ export default class MainView extends Component {
         });
       }
     });
+  }
 
-    timer.clearTimeout(this);
-    timer.setTimeout(this, 'InterstitialTimeout', () => {
-      MainView.showInterstitial();
-    }, FIVE_SECONDS);
+  fetchData() {
+    this.setState({ isLoading: true });
+    aqi().then((result) => {
+      this.setState({
+        aqiResult: result,
+        isLoading: false,
+      });
+    });
+  }
 
-    timer.setInterval(this, 'InterstitialInterval', () => {
-      MainView.showInterstitial();
-    }, TEN_MINUTES);
-
+  requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
-      RNLocation.requestWhenInUseAuthorization();
-      // RNLocation.requestAlwaysAuthorization();
-      RNLocation.startUpdatingLocation();
-      RNLocation.setDistanceFilter(5.0);
-      DeviceEventEmitter.addListener('locationUpdated', (location) => {
-        console.log('Location updated', location);
-        if (location && location.coords && location.coords.latitude && location.coords.longitude) {
-          this.setState({
-            location: location.coords,
-            gpsEnabled: true,
-          });
-
-          this.initialLocation(location.coords.latitude, location.coords.longitude);
-        }
-      });
+      navigator.geolocation.requestAuthorization();
     } else {
-      DeviceEventEmitter.addListener('updateLocation', (location) => {
-        console.log('Location updated', location);
-        if (location && location.Latitude && location.Longitude) {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: I18n.t('location_permission.title'),
+            message: I18n.t('location_permission.description'),
+          },
+        );
+        console.log(granted);
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           this.setState({
-            location: {
-              latitude: location.Latitude,
-              longitude: location.Longitude,
-            },
             gpsEnabled: true,
           });
-
-          this.initialLocation(location.Latitude, location.Longitude);
+          this.checkLocation();
         }
-      });
-
-      // Initialize RNALocation
-      RNALocation.getLocation();
+      } catch (err) {
+        console.warn(err);
+      }
     }
+  }
 
-    this.prepareData();
+  loadMapContent = async () => {
+    if (Platform.OS === 'ios') {
+      this.checkLocation();
+    } else {
+      const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
 
-    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        this.checkLocation();
+      } else {
+        this.requestLocationPermission();
+      }
+    }
+  }
+
+  checkLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log('geolocation', position);
+        this.setState({
+          location: position.coords,
+          gpsEnabled: true,
+        });
+
+        const moveLocation = Main.isOutOfBound(position.coords.latitude, position.coords.longitude) ? Main.getDefaultLocation() : this.getCurrentLocation();
+        try {
+          this.map.animateToRegion(moveLocation);
+        } catch (err) {
+          log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
+        }
+      },
+      (error) => {
+        this.requestLocationPermission();
+        if (!this.state.isLocationMovedToDefault) {
+          // alert(error.message);
+          this.setState({ isLocationMovedToDefault: true });
+          setTimeout(() => {
+            try {
+              console.log(error);
+              this.map.animateToRegion(Main.getDefaultLocation());
+            } catch (err) {
+              log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
+            }
+          }, 2000);
+        }
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+
+    this.watchPosition = navigator.geolocation.watchPosition((position) => {
+      this.setState({
+        location: position.coords,
+        gpsEnabled: true,
+      });
+    });
   }
 
   componentWillUnmount() {
-    timer.clearTimeout(this);
-    timer.clearInterval(this);
+    if (this.watchPosition) navigator.geolocation.clearWatch(this.watchPosition);
+    if (this.reloadFetchLatestDataInterval) clearInterval(this.reloadFetchLatestDataInterval);
+    if (this.moveToHongKongTimeout) clearTimeout(this.moveToHongKongTimeout);
+    if (this.moveToCurrentLocationTimeout) clearTimeout(this.moveToCurrentLocationTimeout);
+
+    OneSignal.removeEventListener('received', this.onReceived);
+    OneSignal.removeEventListener('opened', this.onOpened);
   }
 
   onRegionChange(region) {
@@ -280,38 +347,28 @@ export default class MainView extends Component {
   initialLocation(latitude, longitude) {
     if (first) {
       first = false;
-      if (MainView.isOutOfBound(latitude, longitude)) {
-        timer.setTimeout(this, 'MoveToHongKong', () => {
-          this.map.animateToRegion(MainView.getDefaultLocation());
+      if (Main.isOutOfBound(latitude, longitude)) {
+        this.moveToHongKongTimeout = setTimeout(() => {
+          this.map.animateToRegion(Main.getDefaultLocation());
         }, 1000);
       } else {
-        timer.setTimeout(this, 'MoveToCurrentLocation', () => {
+        this.moveToCurrentLocationTimeout = setTimeout(() => {
           this.map.animateToRegion(this.getCurrentLocation());
         }, 500);
       }
     }
   }
 
-  prepareData() {
-    this.setState({ isLoading: true });
-    aqi().then((result) => {
-      this.setState({
-        aqiResult: result,
-        isLoading: false,
-      });
-    });
-  }
-
   render() {
-    tracker.view('Main');
     return (
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'flex-end' }}>
         <View style={styles.container}>
           <MapView
             style={styles.map}
             ref={(ref) => { this.map = ref; }}
             initialRegion={this.getCurrentLocation()}
             onRegionChange={region => this.onRegionChange(region)}
+            onMapReady={this.loadMapContent}
             showsUserLocation={true}
           >
             {this.state.aqiResult && this.state.markers.map(marker => (
@@ -321,7 +378,7 @@ export default class MainView extends Component {
                 onPress={() => {
                   console.log('marker', marker);
                   tracker.logEvent('check-main-details', marker);
-                  this.props.navigation.navigate('MainDetails', { item: marker });
+                  this.props.navigation.navigate('map-details', { item: marker });
                 }}
               >
                 {this.state.aqiResult[marker.title] &&
@@ -331,17 +388,11 @@ export default class MainView extends Component {
             ))}
           </MapView>
 
-          {/* <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
-            <Animatable.View animation="tada" delay={2000} iterationCount={40}>
-              <Icon name="notifications-active" size={26} color="#616161" />
-            </Animatable.View>
-          </TouchableOpacity> */}
-
           {this.state.aqiResult &&
             <View style={styles.infomationContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  this.prepareData();
+                  this.fetchData();
                   tracker.logEvent('fetch-latest-data');
                 }}
                 style={styles.infomationBubble}
@@ -356,14 +407,14 @@ export default class MainView extends Component {
 
           <Indicator />
 
-          <TouchableOpacity style={styles.help} onPress={() => this.props.navigation.navigate('MainSettings')}>
+          <TouchableOpacity style={styles.help} onPress={() => this.props.navigation.navigate('map-help')}>
             <Icon name="help-outline" size={30} color="gray" />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.defaultLocation}
             onPress={() => {
-              this.map.animateToRegion(MainView.getDefaultLocation());
+              this.map.animateToRegion(Main.getDefaultLocation());
               tracker.logEvent('move-to-default-location');
             }}
           >
@@ -376,6 +427,7 @@ export default class MainView extends Component {
               onPress={() => {
                 const currentLocation = this.getCurrentLocation();
                 if (currentLocation) {
+                  console.log('currentLocation', currentLocation);
                   this.map.animateToRegion(currentLocation);
                   tracker.logEvent('move-to-current-location', currentLocation);
                 }
@@ -404,15 +456,15 @@ export default class MainView extends Component {
             </ScrollView>
           </View>
 
-          <Admob adUnitID={config.admob[`hkaqi-main-${Platform.OS}-footer`]} />
+          <Admob unitId={config.admob[`hkaqi-main-${Platform.OS}-footer`]} />
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
-MainView.propTypes = {
-  navigation: React.PropTypes.shape({
-    navigate: React.PropTypes.func.isRequired,
+Main.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };

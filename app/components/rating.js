@@ -12,7 +12,6 @@ import * as StoreReview from 'react-native-store-review';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
-import timer from 'react-native-timer';
 
 import { config } from '../config';
 import I18n from '../utils/i18n';
@@ -20,7 +19,7 @@ import tracker from '../utils/tracker';
 
 const RATE_KEY = 'isRatingGiven.001';
 const STARS_TO_APP_STORE = 4;
-const RATE_POPUP_TIME = 5 * 60 * 1000;
+const FIVE_MINUTES = 5 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -84,14 +83,13 @@ export default class Rating extends React.Component {
       }
     });
 
-    timer.clearTimeout(this, 'ShowRatingBlock');
-    timer.setTimeout(this, 'ShowRatingBlock', () => {
+    this.showRatingBlockTimeout = setTimeout(() => {
       this.setState({ isRatingClose: false });
-    }, RATE_POPUP_TIME);
+    }, FIVE_MINUTES);
   }
 
   componentWillUnmount() {
-    timer.clearTimeout(this, 'ShowRatingBlock');
+    if (this.showRatingBlockTimeout) clearTimeout(this.showRatingBlockTimeout);
   }
 
   onStarRatingPress(rating) {

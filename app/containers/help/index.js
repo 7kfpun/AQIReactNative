@@ -9,24 +9,22 @@ import {
   View,
 } from 'react-native';
 
-import shortid from 'shortid';
-
+import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReactNativeI18n from 'react-native-i18n';
 
-import Admob from '../elements/admob';
-import I18n from '../utils/i18n';
-import helpTexts from '../utils/helpTexts';
-import tracker from '../utils/tracker';
+import Admob from '../../components/admob';
+import I18n from '../../utils/i18n';
+import helpTexts from '../../utils/helpTexts';
 
-import { config } from '../config';
+import { config } from '../../config';
 
 const deviceLocale = ReactNativeI18n.locale;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 20 : 0,
+    paddingTop: Platform.OS === 'ios' ? 60 : 10,
     backgroundColor: 'white',
   },
   titleBlock: {
@@ -37,7 +35,6 @@ const styles = StyleSheet.create({
   },
   block: {
     paddingHorizontal: 10,
-    marginTop: Platform.OS === 'ios' ? 40 : 10,
     marginBottom: 30,
   },
   title: {
@@ -85,9 +82,8 @@ export default class HelpView extends Component {
   }
 
   render() {
-    tracker.view('Help');
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ScrollView showsHorizontalScrollIndicator={false}>
           <View style={styles.block}>
             <View style={styles.titleBlock}>
@@ -114,7 +110,7 @@ export default class HelpView extends Component {
               }
 
               return (
-                <View key={shortid.generate()}>
+                <View key={item.index}>
                   <View style={styles.row}>
                     <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
                       <Text style={{ color: item.fontColor }}>{item.index}</Text>
@@ -141,7 +137,7 @@ export default class HelpView extends Component {
               }
 
               return (
-                <View key={shortid.generate()} style={styles.row}>
+                <View key={item.index} style={styles.row}>
                   <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
                     <Text style={{ color: 'white' }}>{item.index}</Text>
                   </View>
@@ -152,8 +148,8 @@ export default class HelpView extends Component {
           </View>
         </ScrollView>
 
-        <Admob adUnitID={config.admob[`hkaqi-help-${Platform.OS}-footer`]} />
-      </View>
+        <Admob unitId={config.admob[`hkaqi-help-${Platform.OS}-footer`]} />
+      </SafeAreaView>
     );
   }
 }
