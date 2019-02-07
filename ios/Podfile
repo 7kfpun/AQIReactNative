@@ -32,6 +32,11 @@ target 'HKAQI' do
   ]
   pod 'yoga', :path => yoga_path
 
+  # Third party deps
+  pod 'DoubleConversion', :podspec => react_path + '/third-party-podspecs/DoubleConversion.podspec'
+  # pod 'GLog', :podspec => react_path + '/third-party-podspecs/GLog.podspec'
+  pod 'Folly', :podspec => react_path + '/third-party-podspecs/Folly.podspec'
+
   # Pods for HKAQI
   pod 'Firebase/Core'
   pod 'Firebase/AdMob'
@@ -40,28 +45,18 @@ target 'HKAQI' do
   pod 'Firebase/Performance'
   pod 'Firebase/RemoteConfig'
 
-  # Third party deps
-  pod 'DoubleConversion', :podspec => react_path + '/third-party-podspecs/DoubleConversion.podspec'
-  # pod 'GLog', :podspec => react_path + '/third-party-podspecs/GLog.podspec'
-  pod 'Folly', :podspec => react_path + '/third-party-podspecs/Folly.podspec'
-
-  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
-
-  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
-
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
-  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
-
-  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
-
-
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
-
-
   pod 'Fabric'
   pod 'Crashlytics'
+
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
+  pod 'react-native-safari-view', :path => '../node_modules/react-native-safari-view'
   pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
+  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
 end
 

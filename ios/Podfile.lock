@@ -107,14 +107,12 @@ PODS:
   - Protobuf (3.6.1)
   - React (0.57.0):
     - React/Core (= 0.57.0)
-  - react-native-google-analytics-bridge (6.1.0):
-    - react-native-google-analytics-bridge/Core (= 6.1.0)
-  - react-native-google-analytics-bridge/Core (6.1.0):
-    - React
   - react-native-maps (0.21.0):
     - React
   - react-native-onesignal (3.2.7):
     - OneSignal (= 2.8.8)
+    - React
+  - react-native-safari-view (1.0.0):
     - React
   - React/Core (0.57.0):
     - yoga (= 0.57.0.React)
@@ -167,9 +165,12 @@ PODS:
     - React
   - RNDeviceInfo (0.21.5):
     - React
+  - RNFirebase (5.0.0-rc1):
+    - Firebase/Core
+    - React
   - RNI18n (2.0.15):
     - React
-  - RNSVG (6.5.2):
+  - RNSVG (7.0.2):
     - React
   - RNVectorIcons (5.0.0):
     - React
@@ -186,9 +187,9 @@ DEPENDENCIES:
   - Firebase/Performance
   - Firebase/RemoteConfig
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
-  - react-native-google-analytics-bridge (from `../node_modules/react-native-google-analytics-bridge`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
+  - react-native-safari-view (from `../node_modules/react-native-safari-view`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -204,6 +205,7 @@ DEPENDENCIES:
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - ReactNativeFabric (from `../node_modules/react-native-fabric`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNI18n (from `../node_modules/react-native-i18n`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -239,16 +241,18 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   React:
     :path: "../node_modules/react-native"
-  react-native-google-analytics-bridge:
-    :path: "../node_modules/react-native-google-analytics-bridge"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal"
+  react-native-safari-view:
+    :path: "../node_modules/react-native-safari-view"
   ReactNativeFabric:
     :path: "../node_modules/react-native-fabric"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNFirebase:
+    :path: "../node_modules/react-native-firebase/ios"
   RNI18n:
     :path: "../node_modules/react-native-i18n"
   RNSVG:
@@ -282,16 +286,17 @@ SPEC CHECKSUMS:
   OneSignal: 7d2571e9fce1d961b882e1bd9f1f242802e9c8b1
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
-  react-native-google-analytics-bridge: 359c98813e0422d560ab7537531eeb1a6ff7a6fd
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   react-native-onesignal: f4300ef8272ef1d8d81b00f0207335f305bcaadb
+  react-native-safari-view: a20edf45cdf96f32649e66924ee04d725a170bff
   ReactNativeFabric: 3912bf9c714d7cc98110eadf06ca6dedef219322
   RNDeviceInfo: 568c5641057313b4912d08a7742ff0b2f753ed5c
+  RNFirebase: 2b25fd2e60269f26bb0a76c71dcc942b35a77df0
   RNI18n: 46b8694063fbd699f2c06a4dc8e835b3176763b1
   RNSVG: 6252323c0312735f0af5f58b5adf2965b6a9ffbf
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: beaa9881a694a0013ef9e1a3c8909d2f5c4433b1
+PODFILE CHECKSUM: 20b0d7d67a49faf1a1ad7b760ff7b3779aeca365
 
 COCOAPODS: 1.5.2
