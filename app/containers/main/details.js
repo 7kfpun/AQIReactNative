@@ -25,8 +25,6 @@ import { indexTypes } from '../../utils/indexes';
 import I18n from '../../utils/i18n';
 import tracker from '../../utils/tracker';
 
-import { config } from '../../config';
-
 const deviceLocale = ReactNativeI18n.locale;
 
 const styles = StyleSheet.create({
@@ -150,7 +148,7 @@ export default class DetailsView extends Component {
           </View>
 
           <View style={{ marginVertical: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Admob unitId={config.admob[`hkaqi-details-${Platform.OS}-footer`]} bannerSize="LARGE_BANNER" />
+            <Admob unitId={`hkaqi-details-${Platform.OS}-footer`} bannerSize="LARGE_BANNER" />
           </View>
 
           {!this.state.refreshing && indexTypes.map((indexType) => {
@@ -176,7 +174,7 @@ export default class DetailsView extends Component {
           })}
         </ScrollView>
 
-        <Admob unitId={config.admob[`hkaqi-details-${Platform.OS}-footer`]} />
+        <Admob unitId={`hkaqi-details-${Platform.OS}-footer`} />
       </SafeAreaView>
     );
   }

@@ -118,7 +118,7 @@ export default class MallView extends Component {
           </TouchableOpacity>
         </ScrollView>
 
-        <Admob unitId={config.admob[`hkaqi-mall-${Platform.OS}-footer`]} />
+        <Admob unitId={`hkaqi-mall-${Platform.OS}-footer`} />
       </SafeAreaView>
     );
   }

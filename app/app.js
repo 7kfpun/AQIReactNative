@@ -6,6 +6,7 @@ import {
 
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { iOSColors } from 'react-native-typography';
+import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Details from './containers/main/details';
@@ -20,6 +21,10 @@ import tracker from './utils/tracker';
 
 if (!__DEV__) {
   console.log = () => {};
+}
+
+if (__DEV__) {
+  firebase.config().enableDeveloperMode();
 }
 
 const AppTab = TabNavigator({

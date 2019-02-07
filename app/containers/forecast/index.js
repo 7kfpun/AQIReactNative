@@ -14,8 +14,6 @@ import Admob from '../../components/admob';
 import forecast from '../../utils/forecast';
 import I18n from '../../utils/i18n';
 
-import { config } from '../../config';
-
 const deviceLocale = ReactNativeI18n.locale;
 
 const styles = StyleSheet.create({
@@ -135,7 +133,7 @@ export default class Forecast extends Component {
           </ScrollView>
         }
 
-        <Admob unitId={config.admob[`hkaqi-forecast-${Platform.OS}-footer`]} />
+        <Admob unitId={`hkaqi-forecast-${Platform.OS}-footer`} />
       </View>
     );
   }

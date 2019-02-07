@@ -159,7 +159,7 @@ export default class Settings extends Component {
           />
         </ScrollView>
 
-        <Admob unitId={config.admob[`hkaqi-settings-${Platform.OS}-footer`]} />
+        <Admob unitId={`hkaqi-settings-${Platform.OS}-footer`} />
       </SafeAreaView>
     );
   }

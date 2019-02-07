@@ -34,8 +34,6 @@ import { indexTypes } from '../../utils/indexes';
 import I18n from '../../utils/i18n';
 import tracker from '../../utils/tracker';
 
-import { config } from '../../config';
-
 const { RNLocation } = NativeModules;
 
 const { width, height } = Dimensions.get('window');
@@ -456,7 +454,7 @@ export default class Main extends Component {
             </ScrollView>
           </View>
 
-          <Admob unitId={config.admob[`hkaqi-main-${Platform.OS}-footer`]} />
+          <Admob unitId={`hkaqi-main-${Platform.OS}-footer`} />
         </View>
       </SafeAreaView>
     );

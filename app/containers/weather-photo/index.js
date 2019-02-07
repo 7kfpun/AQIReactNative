@@ -19,8 +19,6 @@ import Admob from '../../components/admob';
 import I18n from '../../utils/i18n';
 import tracker from '../../utils/tracker';
 
-import { config } from '../../config';
-
 const deviceLocale = ReactNativeI18n.locale;
 const { width } = Dimensions.get('window');
 
@@ -437,7 +435,7 @@ export default class WeatherPhoto extends Component {
           </TouchableHighlight>
         </View>
 
-        <Admob unitId={config.admob[`hkaqi-weather-photo-${Platform.OS}-footer`]} />
+        <Admob unitId={`hkaqi-weather-photo-${Platform.OS}-footer`} />
       </SafeAreaView>
     );
   }

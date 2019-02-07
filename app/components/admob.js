@@ -8,7 +8,10 @@ import {
 import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
 
+import AdCustom from './ad-custom';
+
 import { config } from '../config';
+import { getAd } from '../utils/firebase-config';
 
 const { AdRequest, Banner } = firebase.admob;
 const request = new AdRequest();
@@ -53,9 +56,48 @@ export default class Admob extends Component {
     isReceivedFailed: false,
   };
 
+  componentDidMount() {
+    this.setIsReceivedFailedTimeout = setTimeout(() => {
+      if (!this.state.isReceived && !this.state.isShowAdCustom) {
+        this.setState({ isReceivedFailed: true });
+      }
+    }, 60 * 1000);
+
+    this.checkCardAd();
+    this.checkCardAdInterval = setInterval(() => {
+      this.checkCardAd();
+    }, 30 * 1000);
+  }
+
+  componentWillUnmount() {
+    if (this.setIsReceivedFailedTimeout) clearTimeout(this.setIsReceivedFailedTimeout);
+    if (this.checkCardAdInterval) clearInterval(this.checkCardAdInterval);
+  }
+
+  async checkCardAd() {
+    const ad = await getAd('card');
+    const isShowAdCustom = ad.impressionRate > Math.random();
+    console.log('isShowAdCustom', isShowAdCustom);
+
+    if (isShowAdCustom && ad.impressionRate > 0) {
+      this.setState({
+        isShowAdCustom: true,
+        key: Math.random(),
+      });
+    } else {
+      this.setState({
+        isShowAdCustom: false,
+      });
+    }
+  }
+
   render() {
     if (this.state.isReceivedFailed) {
-      return null;
+      return <AdCustom />;
+    }
+
+    if (this.state.isShowAdCustom) {
+      return <AdCustom client="card" />;
     }
 
     let { bannerSize } = this.props;
@@ -80,11 +122,13 @@ export default class Admob extends Component {
         <Banner
           key={this.state.key}
           size={bannerSize}
-          unitId={this.props.unitId}
+          unitId={this.props.unitId && config.admob[this.props.unitId]}
           request={request.build()}
           onAdLoaded={() => {
             console.log('Ads received');
-            this.setState({ isReceived: true });
+            setTimeout(() => {
+              this.setState({ isReceived: true });
+            }, 1000);
           }}
           onAdFailedToLoad={(error) => {
             console.log('Ads error', error);

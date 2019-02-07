@@ -148,7 +148,7 @@ export default class HelpView extends Component {
           </View>
         </ScrollView>
 
-        <Admob unitId={config.admob[`hkaqi-help-${Platform.OS}-footer`]} />
+        <Admob unitId={`hkaqi-help-${Platform.OS}-footer`} />
       </SafeAreaView>
     );
   }
