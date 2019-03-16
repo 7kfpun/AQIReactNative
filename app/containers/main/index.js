@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import {
   ActivityIndicator,
-  DeviceEventEmitter,
   Dimensions,
   Platform,
   ScrollView,
@@ -12,20 +11,18 @@ import {
   TouchableOpacity,
   PermissionsAndroid,
   View,
-  NativeModules,
 } from 'react-native';
 
 import { SafeAreaView } from 'react-navigation';
-// import { AdMobInterstitial } from 'react-native-admob';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
-import ReactNativeI18n from 'react-native-i18n';
 import store from 'react-native-simple-store';
 
-import Admob from '../../components/admob';
-import Indicator from '../../components/indicator';
 import Marker from './components/marker';
+import ClosestStation from './components/closest-station';
+
+import Admob from '../../components/admob';
 import Rating from '../../components/rating';
 
 import { aqi } from '../../utils/api';
@@ -34,11 +31,7 @@ import { indexTypes } from '../../utils/indexes';
 import I18n from '../../utils/i18n';
 import tracker from '../../utils/tracker';
 
-const { RNLocation } = NativeModules;
-
 const { width, height } = Dimensions.get('window');
-const deviceLocale = ReactNativeI18n.locale;
-console.log('deviceLocale', deviceLocale);
 
 const ASPECT_RATIO = width / height;
 const LATITUDE = 22.32;
@@ -46,7 +39,6 @@ const LONGITUDE = 114.15;
 const LATITUDE_DELTA = 0.75;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const FIVE_SECONDS = 5 * 1000;
 const TEN_MINUTES = 10 * 60 * 1000;
 
 const styles = StyleSheet.create({
@@ -196,6 +188,10 @@ export default class Main extends Component {
       latitude: LATITUDE,
       longitude: LONGITUDE,
     },
+    centerLocation: {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+    },
     markers: locations,
     selectedIndex: 'AQI',
     isLoading: false,
@@ -214,17 +210,6 @@ export default class Main extends Component {
         tracker.logEvent('reload-fetch-latest-data');
       }, TEN_MINUTES);
     }
-  }
-
-  checkSelectedIndex() {
-    const that = this;
-    store.get('selectedIndex').then((selectedIndex) => {
-      if (selectedIndex) {
-        that.setState({
-          selectedIndex,
-        });
-      }
-    });
   }
 
   fetchData() {
@@ -330,7 +315,13 @@ export default class Main extends Component {
 
   onRegionChange(region) {
     console.log(region);
-    this.setState({ region, selectedLocation: null });
+  }
+
+  onRegionChangeComplete(region) {
+    console.log('onRegionChangeComplete', region);
+    this.setState({
+      centerLocation: region,
+    });
   }
 
   getCurrentLocation() {
@@ -340,6 +331,17 @@ export default class Main extends Component {
       latitudeDelta: this.state.gpsEnabled ? 0.1 : LATITUDE_DELTA,
       longitudeDelta: this.state.gpsEnabled ? 0.1 * ASPECT_RATIO : LONGITUDE_DELTA,
     };
+  }
+
+  checkSelectedIndex() {
+    const that = this;
+    store.get('selectedIndex').then((selectedIndex) => {
+      if (selectedIndex) {
+        that.setState({
+          selectedIndex,
+        });
+      }
+    });
   }
 
   initialLocation(latitude, longitude) {
@@ -358,6 +360,12 @@ export default class Main extends Component {
   }
 
   render() {
+    const {
+      centerLocation,
+      aqiResult,
+      selectedIndex,
+    } = this.state;
+
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: 'flex-end' }}>
         <View style={styles.container}>
@@ -366,12 +374,15 @@ export default class Main extends Component {
             ref={(ref) => { this.map = ref; }}
             initialRegion={this.getCurrentLocation()}
             onRegionChange={region => this.onRegionChange(region)}
+            onRegionChangeComplete={region =>
+              this.onRegionChangeComplete(region)
+            }
             onMapReady={this.loadMapContent}
             showsUserLocation={true}
           >
-            {this.state.aqiResult && this.state.markers.map(marker => (
+            {aqiResult && this.state.markers.map(marker => (
               <MapView.Marker
-                key={`${marker.latlng.latitude}${this.state.selectedIndex}`}
+                key={`${marker.latlng.latitude}${selectedIndex}`}
                 coordinate={marker.latlng}
                 onPress={() => {
                   console.log('marker', marker);
@@ -379,14 +390,14 @@ export default class Main extends Component {
                   this.props.navigation.navigate('map-details', { item: marker });
                 }}
               >
-                {this.state.aqiResult[marker.title] &&
-                  <Marker amount={this.state.aqiResult[marker.title][this.state.selectedIndex]} index={this.state.selectedIndex} />
+                {aqiResult[marker.title] &&
+                  <Marker amount={aqiResult[marker.title][selectedIndex]} index={selectedIndex} />
                 }
               </MapView.Marker>
             ))}
           </MapView>
 
-          {this.state.aqiResult &&
+          {aqiResult &&
             <View style={styles.infomationContainer}>
               <TouchableOpacity
                 onPress={() => {
@@ -396,14 +407,19 @@ export default class Main extends Component {
                 style={styles.infomationBubble}
               >
                 <View style={styles.infomationBubbleBody}>
-                  <Text style={styles.infomationBubbleText}>{this.state.aqiResult.time}</Text>
+                  <Text style={styles.infomationBubbleText}>{aqiResult.time}</Text>
                   {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
                   {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
                 </View>
               </TouchableOpacity>
             </View>}
 
-          <Indicator />
+          <ClosestStation
+            aqiResult={aqiResult}
+            selectedIndex={selectedIndex}
+            lat={centerLocation.latitude}
+            long={centerLocation.longitude}
+          />
 
           <TouchableOpacity style={styles.help} onPress={() => this.props.navigation.navigate('map-help')}>
             <Icon name="help-outline" size={30} color="gray" />
@@ -446,7 +462,7 @@ export default class Main extends Component {
                     store.save('selectedIndex', item.name);
                     tracker.logEvent('select-index', { label: item.name });
                   }}
-                  style={[styles.bubble, styles.button, this.state.selectedIndex === item.name ? styles.selectedBubble : {}]}
+                  style={[styles.bubble, styles.button, selectedIndex === item.name ? styles.selectedBubble : {}]}
                 >
                   <Text style={styles.text}>{item.name}</Text>
                 </TouchableOpacity>

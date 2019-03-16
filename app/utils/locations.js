@@ -1,4 +1,4 @@
-exports.locations = [{
+const locations = [{
   latlng: {
     latitude: 22.286374,
     longitude: 114.142542,
@@ -143,3 +143,23 @@ exports.locations = [{
   title_hant: '旺角',
   title_hans: '旺角',
 }];
+
+const getClosestStation = (lat, long) => {
+  let distance = Number.POSITIVE_INFINITY;
+  let closestIndex = 40;
+
+  for (i = 0; i < locations.length; i += 1) {
+    const squarePlus =
+      (lat - locations[i].latlng.latitude) ** 2 + (long - locations[i].latlng.longitude) ** 2;
+
+    if (squarePlus < distance) {
+      distance = Math.min(squarePlus, distance);
+      closestIndex = i;
+    }
+  }
+
+  return locations[closestIndex];
+};
+
+exports.getClosestStation = getClosestStation;
+exports.locations = locations;

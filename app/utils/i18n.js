@@ -127,5 +127,9 @@ I18n.translations['zh-Hant-MN'] = I18n.translations.zh;
 I18n.translations['zh-Hant-US'] = I18n.translations.zh;
 
 I18n.isZh = I18n.locale.startsWith('zh');
+if (I18n.isZh) {
+  I18n.isZhHans = I18n.locale.startsWith('zh-Hans');
+  I18n.isZhHant = !I18n.isZhHans;
+}
 
 export default I18n;
