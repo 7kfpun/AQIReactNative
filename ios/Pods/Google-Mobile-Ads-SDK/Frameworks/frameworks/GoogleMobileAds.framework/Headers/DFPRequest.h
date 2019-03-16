@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
@@ -16,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 GAD_EXTERN const id kDFPSimulatorID;
 
 /// Specifies optional parameters for ad requests.
-GAD_SUBCLASSING_RESTRICTED
 @interface DFPRequest : GADRequest
 
 /// Publisher provided user ID.

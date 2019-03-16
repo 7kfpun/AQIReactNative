@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// The delegate of a GADAdLoader object must conform to this protocol to receive DFPBannerViews.
-@protocol DFPBannerAdLoaderDelegate<GADAdLoaderDelegate>
+@protocol DFPBannerAdLoaderDelegate <GADAdLoaderDelegate>
 
 /// Asks the delegate which banner ad sizes should be requested.
 - (NSArray<NSValue *> *)validBannerSizesForAdLoader:(GADAdLoader *)adLoader;
@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// To request this ad type using GADAdLoader, you need to pass kGADAdLoaderAdTypeDFPBanner (see
 /// GADAdLoaderAdTypes.h) to the |adTypes| parameter in GADAdLoader's initializer method. If you
 /// request this ad type, your delegate must conform to the DFPBannerAdLoaderDelegate protocol.
-GAD_SUBCLASSING_RESTRICTED
 @interface DFPBannerView : GADBannerView
 
 /// Required value created on the Ad Manager website. Create a new ad unit for every unique
@@ -73,8 +72,8 @@ GAD_SUBCLASSING_RESTRICTED
 @property(nonatomic, assign) BOOL enableManualImpressions;
 
 /// Optional delegate object for custom rendered ads.
-@property(nonatomic, weak, nullable)
-    IBOutlet id<DFPCustomRenderedBannerViewDelegate> customRenderedBannerViewDelegate;
+@property(nonatomic, weak, nullable) IBOutlet id<DFPCustomRenderedBannerViewDelegate>
+    customRenderedBannerViewDelegate;
 
 /// Video controller for controlling video rendered by this ad view.
 @property(nonatomic, strong, readonly) GADVideoController *videoController;

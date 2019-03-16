@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Google Ad Manager interstitial ad, a full-screen advertisement shown at natural
 /// transition points in your application such as between game levels or news stories.
-GAD_SUBCLASSING_RESTRICTED
 @interface DFPInterstitial : GADInterstitial
 
 /// Required value created on the Ad Manager website. Create a new ad unit for every unique
@@ -33,8 +32,8 @@ GAD_SUBCLASSING_RESTRICTED
 @property(nonatomic, weak, nullable) id<GADAppEventDelegate> appEventDelegate;
 
 /// Optional delegate object for custom rendered ads.
-@property(nonatomic, weak, nullable)
-    id<DFPCustomRenderedInterstitialDelegate> customRenderedInterstitialDelegate;
+@property(nonatomic, weak, nullable) id<DFPCustomRenderedInterstitialDelegate>
+    customRenderedInterstitialDelegate;
 
 @end
 

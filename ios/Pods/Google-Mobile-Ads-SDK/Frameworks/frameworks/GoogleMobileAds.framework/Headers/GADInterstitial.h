@@ -5,19 +5,17 @@
 //  Copyright 2011 Google Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import <GoogleMobileAds/GADInAppPurchaseDelegate.h>
 #import <GoogleMobileAds/GADInterstitialDelegate.h>
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GADRequestError.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /// An interstitial ad. This is a full-screen advertisement shown at natural transition points in
 /// your application such as between game levels or news stories.
-GAD_SUBCLASSING_RESTRICTED
 @interface GADInterstitial : NSObject
 
 /// Initializes an interstitial with an ad unit created on the AdMob website. Create a new ad unit
@@ -73,9 +71,9 @@ GAD_SUBCLASSING_RESTRICTED
 
 #pragma mark Deprecated
 
-/// Deprecated delegate. GADInAppPurchase has been deprecated.
-@property(nonatomic, weak, nullable)
-    id<GADInAppPurchaseDelegate> inAppPurchaseDelegate GAD_DEPRECATED_ATTRIBUTE;
+/// Deprecated delegate. GADInAppPurchase is deprecated.
+@property(nonatomic, weak, nullable) id<GADInAppPurchaseDelegate> inAppPurchaseDelegate
+    GAD_DEPRECATED_ATTRIBUTE;
 
 /// Deprecated intializer. Use initWithAdUnitID: instead.
 - (instancetype)init GAD_DEPRECATED_MSG_ATTRIBUTE("Use initWithAdUnitID:.");
