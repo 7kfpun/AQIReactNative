@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  Platform,
-  YellowBox,
-} from 'react-native';
+import { Platform, YellowBox } from 'react-native';
 
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Details from './containers/main/details';
 import Forecast from './containers/forecast';
@@ -27,28 +23,26 @@ if (__DEV__) {
   firebase.config().enableDeveloperMode();
 }
 
-const AppTab = TabNavigator({
-  'map': {
-    screen: StackNavigator(
-      {
+const AppTab = TabNavigator(
+  {
+    map: {
+      screen: StackNavigator({
         map: { screen: Main },
         'map-details': { screen: Details },
         'map-help': { screen: Help },
-      },
-    ),
-  },
-  forecast: { screen: Forecast },
-  'weather-photo': { screen: WeatherPhoto },
-  'settings': {
-    screen: StackNavigator(
-      {
+      }),
+    },
+    forecast: { screen: Forecast },
+    'weather-photo': { screen: WeatherPhoto },
+    settings: {
+      screen: StackNavigator({
         settings: { screen: Settings },
         'settings-help': { screen: Help },
-      },
-    ),
+      }),
+    },
+    mall: { screen: Mall },
   },
-  mall: { screen: Mall },
-}, {
+  {
     tabBarOptions: {
       activeTintColor: '#29B6F6',
       inactiveTintColor: 'gray',
@@ -87,11 +81,12 @@ const AppTab = TabNavigator({
         fontWeight: 'bold',
       },
     },
-  });
+  },
+);
 
 YellowBox.ignoredYellowBox = [
   '[xmldom warning]',
-  'Warning: Method `jumpToIndex` is deprecated.'
+  'Warning: Method `jumpToIndex` is deprecated.',
 ];
 
 // gets the current screen from navigation state
