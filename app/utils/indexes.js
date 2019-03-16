@@ -442,7 +442,7 @@ exports.indexRanges = indexRanges;
 
 const getColor = (index, amount) => {
   let amountColor;
-  if (amount.includes('/')) {
+  if (amount && amount.includes && amount.includes('/')) {
     [amountColor] = amount.split('/');
   } else {
     amountColor = amount;

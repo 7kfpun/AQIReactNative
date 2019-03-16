@@ -3,8 +3,6 @@ import { number, shape, string } from 'prop-types';
 
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import I18n from '../../../utils/i18n';
 import { getClosestStation } from '../../../utils/locations';
 import { getColor } from '../../../utils/indexes';
