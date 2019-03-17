@@ -10,7 +10,7 @@
 
 /// Reports information to the Google Mobile Ads SDK from the adapter. Adapters receive an ad event
 /// delegate when they provide a GADMediationAd by calling a render completion handler.
-@protocol GADMediationAdEventDelegate<NSObject>
+@protocol GADMediationAdEventDelegate <NSObject>
 
 /// Notifies Google Mobile Ads SDK that an impression occurred on the GADMediationAd.
 - (void)reportImpression;
@@ -34,7 +34,7 @@
 @end
 
 /// Reports banner related information to the Google Mobile Ads SDK from the adapter.
-@protocol GADMediationBannerAdEventDelegate<GADMediationAdEventDelegate>
+@protocol GADMediationBannerAdEventDelegate <GADMediationAdEventDelegate>
 
 /// Notifies Google Mobile Ads SDK that an action on the GADMediationAd will cause the application
 /// to move into the background.
@@ -43,7 +43,7 @@
 @end
 
 /// Reports interstitial related information to the Google Mobile Ads SDK from the adapter.
-@protocol GADMediationInterstitialAdEventDelegate<GADMediationAdEventDelegate>
+@protocol GADMediationInterstitialAdEventDelegate <GADMediationAdEventDelegate>
 
 /// Notifies Google Mobile Ads SDK that an action on the GADMediationAd will cause the application
 /// to move into the background.
@@ -52,7 +52,7 @@
 @end
 
 /// Reports native related information to the Google Mobile Ads SDK from the adapter.
-@protocol GADMediationNativeAdEventDelegate<GADMediationAdEventDelegate>
+@protocol GADMediationNativeAdEventDelegate <GADMediationAdEventDelegate>
 
 /// Notifies Google Mobile Ads SDK that the GADMediationAd started video playback.
 - (void)didPlayVideo;
@@ -76,7 +76,7 @@
 @end
 
 /// Reports rewarded related information to the Google Mobile Ads SDK from the adapter.
-@protocol GADMediationRewardedAdEventDelegate<GADMediationAdEventDelegate>
+@protocol GADMediationRewardedAdEventDelegate <GADMediationAdEventDelegate>
 
 /// Notifies the Google Mobile Ads SDK that the GADMediationAd has rewarded the user with a reward.
 - (void)didRewardUserWithReward:(nonnull GADAdReward *)reward;

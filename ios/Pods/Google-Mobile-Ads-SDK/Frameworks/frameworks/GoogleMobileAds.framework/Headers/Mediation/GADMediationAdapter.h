@@ -19,27 +19,28 @@
 /// Called by the adapter after loading the banner ad or encountering an error. Returns an ad
 /// event object to send ad events to the Google Mobile Ads SDK. The block returns nil if a delegate
 /// couldn't be created or if the block has already been called.
-typedef id<GADMediationBannerAdEventDelegate> _Nullable (^GADBannerLoadCompletionHandler)(
+typedef id<GADMediationBannerAdEventDelegate> _Nullable (^GADMediationBannerLoadCompletionHandler)(
     _Nullable id<GADMediationBannerAd> ad, NSError *_Nullable error);
 
 /// Called by the adapter after loading the interstitial ad or encountering an error. Returns an
 /// ad event delegate to send ad events to the Google Mobile Ads SDK. The block returns nil if a
 /// delegate couldn't be created or if the block has already been called.
 typedef id<GADMediationInterstitialAdEventDelegate> _Nullable (
-    ^GADInterstitialLoadCompletionHandler)(_Nullable id<GADMediationInterstitialAd> ad,
-                                           NSError *_Nullable error);
+    ^GADMediationInterstitialLoadCompletionHandler)(_Nullable id<GADMediationInterstitialAd> ad,
+                                                    NSError *_Nullable error);
 
 /// Called by the adapter after loading the native ad or encountering an error. Returns an ad
 /// event delegate to send ad events to the Google Mobile Ads SDK. The block returns nil if a
 /// delegate couldn't be created or if the block has already been called.
-typedef id<GADMediationNativeAdEventDelegate> _Nullable (^GADNativeLoadCompletionHandler)(
+typedef id<GADMediationNativeAdEventDelegate> _Nullable (^GADMediationNativeLoadCompletionHandler)(
     _Nullable id<GADMediationNativeAd> ad, NSError *_Nullable error);
 
 /// Called by the adapter after loading the rewarded ad or encountering an error. Returns an ad
 /// event delegate to send ad events to the Google Mobile Ads SDK. The block returns nil if a
 /// delegate couldn't be created or if the block has already been called.
-typedef id<GADMediationRewardedAdEventDelegate> _Nullable (^GADRewardedLoadCompletionHandler)(
-    _Nullable id<GADMediationRewardedAd> ad, NSError *_Nullable error);
+typedef id<GADMediationRewardedAdEventDelegate> _Nullable (
+    ^GADMediationRewardedLoadCompletionHandler)(_Nullable id<GADMediationRewardedAd> ad,
+                                                NSError *_Nullable error);
 
 /// Executes when adapter set up completes.
 typedef void (^GADMediationAdapterSetUpCompletionBlock)(NSError *_Nullable error);
@@ -51,7 +52,7 @@ typedef void (^GADMediationAdapterSetUpCompletionBlock)(NSError *_Nullable error
 ///
 /// Adapters are initialized on a background queue and should avoid using the main queue until
 /// load time.
-@protocol GADMediationAdapter<NSObject>
+@protocol GADMediationAdapter <NSObject>
 /// Returns the adapter version.
 + (GADVersionNumber)version;
 
@@ -74,7 +75,8 @@ typedef void (^GADMediationAdapterSetUpCompletionBlock)(NSError *_Nullable error
 /// back completionHandler with the loaded ad, or it may call back with an error. This method is
 /// called on the main thread, and completionHandler must be called back on the main thread.
 - (void)loadBannerForAdConfiguration:(nonnull GADMediationBannerAdConfiguration *)adConfiguration
-                   completionHandler:(nonnull GADBannerLoadCompletionHandler)completionHandler;
+                   completionHandler:
+                       (nonnull GADMediationBannerLoadCompletionHandler)completionHandler;
 
 /// Asks the adapter to load an interstitial ad with the provided ad configuration. The adapter
 /// must call back completionHandler with the loaded ad, or it may call back with an error. This
@@ -82,24 +84,29 @@ typedef void (^GADMediationAdapterSetUpCompletionBlock)(NSError *_Nullable error
 /// thread.
 - (void)loadInterstitialForAdConfiguration:
             (nonnull GADMediationInterstitialAdConfiguration *)adConfiguration
-                         completionHandler:
-                             (nonnull GADInterstitialLoadCompletionHandler)completionHandler;
+                         completionHandler:(nonnull GADMediationInterstitialLoadCompletionHandler)
+                                               completionHandler;
 
 /// Asks the adapter to load a native ad with the provided ad configuration. The adapter must call
 /// back completionHandler with the loaded ad, or it may call back with an error. This method is
 /// called on the main thread, and completionHandler must be called back on the main thread.
 - (void)loadNativeAdForAdConfiguration:(nonnull GADMediationNativeAdConfiguration *)adConfiguration
-                     completionHandler:(nonnull GADNativeLoadCompletionHandler)completionHandler;
+                     completionHandler:
+                         (nonnull GADMediationNativeLoadCompletionHandler)completionHandler;
 
 /// Asks the adapter to load a rewarded ad with the provided ad configuration. The adapter must
 /// call back completionHandler with the loaded ad, or it may call back with an error. This method
 /// is called on the main thread, and completionHandler must be called back on the main thread.
-- (void)
-    loadRewardedAdForAdConfiguration:(nonnull GADMediationRewardedAdConfiguration *)adConfiguration
-                   completionHandler:(nonnull GADRewardedLoadCompletionHandler)completionHandler;
+- (void)loadRewardedAdForAdConfiguration:
+            (nonnull GADMediationRewardedAdConfiguration *)adConfiguration
+                       completionHandler:
+                           (nonnull GADMediationRewardedLoadCompletionHandler)completionHandler;
 
-/// Deprecated.
+/// Deprecated. To be removed before launch. Use setUpWithConfiguration:completionHandler:.
++ (void)setUp;
+
+/// Deprecated. To be removed before launch. Use setUpWithConfiguration:completionHandler:.
 + (void)updateConfiguration:(nonnull GADMediationServerConfiguration *)configuration
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Use setUpWithConfiguration:completionHandler: instead.");
+    GAD_DEPRECATED_MSG_ATTRIBUTE("Use setUpWithConfiguration:completionHandler:.");
 
 @end

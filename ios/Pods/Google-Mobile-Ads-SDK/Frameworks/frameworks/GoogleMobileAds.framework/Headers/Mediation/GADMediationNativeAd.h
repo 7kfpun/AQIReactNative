@@ -16,7 +16,7 @@
 /// Rendered native ad.
 // TODO(burnse): Remove the dependency on GADMediatedUnifiedNativeAd by copying API to this protocol
 // directly once legacy mediation APIs have been deprecated.
-@protocol GADMediationNativeAd<GADMediationAd, GADMediatedUnifiedNativeAd>
+@protocol GADMediationNativeAd <GADMediationAd, GADMediatedUnifiedNativeAd>
 
 @optional
 

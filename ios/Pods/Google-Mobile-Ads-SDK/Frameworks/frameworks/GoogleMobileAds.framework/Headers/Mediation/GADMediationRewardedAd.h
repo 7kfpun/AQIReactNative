@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 
 /// Rendered rewarded ad.
-@protocol GADMediationRewardedAd<GADMediationAd>
+@protocol GADMediationRewardedAd <GADMediationAd>
 - (void)presentFromViewController:(nonnull UIViewController *)viewController;
 @end
 

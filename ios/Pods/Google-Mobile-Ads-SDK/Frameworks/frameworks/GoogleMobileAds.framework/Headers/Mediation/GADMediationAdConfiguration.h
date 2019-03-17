@@ -23,6 +23,9 @@
 /// Mediation configuration set by the publisher on the AdMob frontend.
 @property(nonatomic, readonly, nonnull) GADMediationCredentials *credentials;
 
+/// PNG data containing a watermark that identifies the ad's source.
+@property(nonatomic, readonly, nullable) NSData *watermark;
+
 /// Extras the publisher registered with -[GADRequest registerAdNetworkExtras:].
 @property(nonatomic, readonly, nullable) id<GADAdNetworkExtras> extras;
 

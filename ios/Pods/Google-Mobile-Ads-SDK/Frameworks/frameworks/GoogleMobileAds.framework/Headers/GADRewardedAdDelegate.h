@@ -6,13 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GoogleMobileAds/GADAdMetadataKeys.h>
 #import <GoogleMobileAds/GADAdReward.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 @class GADRewardedAd;
 
 /// Delegate for receiving state change messages from a GADRewardedAd.
-@protocol GADRewardedAdDelegate<NSObject>
+@protocol GADRewardedAdDelegate <NSObject>
 
 @required
 

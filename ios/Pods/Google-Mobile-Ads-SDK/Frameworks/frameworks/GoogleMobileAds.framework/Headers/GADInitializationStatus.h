@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, GADAdapterInitializationState) {
 };
 
 /// An immutable snapshot of a mediation adapter's initialization status.
-@interface GADAdapterStatus : NSObject<NSCopying>
+@interface GADAdapterStatus : NSObject <NSCopying>
 
 /// Initialization state of the adapter.
 @property(nonatomic, readonly) GADAdapterInitializationState state;
@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, GADAdapterInitializationState) {
 
 /// An immutable snapshot of the Google Mobile Ads SDK's initialization status, categorized by
 /// mediation adapter.
-@interface GADInitializationStatus : NSObject<NSCopying>
+@interface GADInitializationStatus : NSObject <NSCopying>
 /// Initialization status of each ad network available to the Google Mobile Ads SDK, keyed by its
 /// GADMAdapter's class name. The list of available ad networks may be incomplete during early
 /// phases of SDK initialization.

@@ -15,7 +15,7 @@ typedef void (^GADRTBSignalCompletionHandler)(NSString *_Nullable signals,
                                               NSError *_Nullable error);
 
 /// Adapter that provides signals to the Google Mobile Ads SDK to be included in an OpenRTB auction.
-@protocol GADRTBAdapter<GADMediationAdapter>
+@protocol GADRTBAdapter <GADMediationAdapter>
 
 /// Asks the receiver for encrypted signals. Signals are provided to the 3PAS at request time. The
 /// receiver must call completionHandler with signals or an error.

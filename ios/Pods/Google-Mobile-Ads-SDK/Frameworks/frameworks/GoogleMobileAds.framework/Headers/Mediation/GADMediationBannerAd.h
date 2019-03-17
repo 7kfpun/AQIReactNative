@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 
 /// Rendered banner ad. Provides a single subview to add to the banner view's view hierarchy.
-@protocol GADMediationBannerAd<GADMediationAd>
+@protocol GADMediationBannerAd <GADMediationAd>
 @property(nonatomic, readonly, nonnull) UIView *view;
 
 @optional

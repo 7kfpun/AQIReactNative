@@ -4,35 +4,35 @@ PODS:
     - Fabric (~> 1.9.0)
   - DoubleConversion (1.1.6)
   - Fabric (1.9.0)
-  - Firebase/AdMob (5.17.0):
+  - Firebase/AdMob (5.18.0):
     - Firebase/Core
-    - Google-Mobile-Ads-SDK (~> 7.39)
-  - Firebase/Analytics (5.17.0):
+    - Google-Mobile-Ads-SDK (~> 7.40)
+  - Firebase/Analytics (5.18.0):
     - Firebase/Core
-  - Firebase/Core (5.17.0):
+  - Firebase/Core (5.18.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.6.0)
-  - Firebase/CoreOnly (5.17.0):
-    - FirebaseCore (= 5.3.0)
-  - Firebase/Performance (5.17.0):
+    - FirebaseAnalytics (= 5.7.0)
+  - Firebase/CoreOnly (5.18.0):
+    - FirebaseCore (= 5.3.1)
+  - Firebase/Performance (5.18.0):
     - Firebase/Core
     - FirebasePerformance (= 2.2.3)
-  - Firebase/RemoteConfig (5.17.0):
+  - Firebase/RemoteConfig (5.18.0):
     - Firebase/Core
     - FirebaseRemoteConfig (= 3.1.0)
   - FirebaseABTesting (2.0.0):
     - FirebaseCore (~> 5.0)
     - Protobuf (~> 3.5)
-  - FirebaseAnalytics (5.6.0):
+  - FirebaseAnalytics (5.7.0):
     - FirebaseCore (~> 5.3)
-    - FirebaseInstanceID (~> 3.5)
-    - GoogleAppMeasurement (= 5.6.0)
+    - FirebaseInstanceID (~> 3.6)
+    - GoogleAppMeasurement (= 5.7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseCore (5.3.0):
+  - FirebaseCore (5.3.1):
     - GoogleUtilities/Logger (~> 5.2)
   - FirebaseInstanceID (3.7.0):
     - FirebaseCore (~> 5.2)
@@ -61,8 +61,9 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.4)
-  - Google-Mobile-Ads-SDK (7.41.0)
-  - GoogleAppMeasurement (5.6.0):
+  - Google-Mobile-Ads-SDK (7.42.0):
+    - GoogleAppMeasurement (~> 5.7)
+  - GoogleAppMeasurement (5.7.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
@@ -165,7 +166,7 @@ PODS:
     - React
   - RNI18n (2.0.15):
     - React
-  - RNSVG (7.2.0):
+  - RNSVG (6.5.2):
     - React
   - RNVectorIcons (5.0.0):
     - React
@@ -177,7 +178,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase/AdMob
   - Firebase/Analytics
-  - Firebase/Core (~> 5.17.0)
+  - Firebase/Core
   - Firebase/Performance
   - Firebase/RemoteConfig
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
@@ -260,17 +261,17 @@ SPEC CHECKSUMS:
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  Firebase: 59d557e064217fab6a03ff00baa73c06e73832e6
+  Firebase: 02f3281965c075426141a0ce1277e9de6649cab9
   FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
-  FirebaseAnalytics: 75e4bbc6417d190cc98ec1f17c41a4fad4c2c976
-  FirebaseCore: c0c4befb82374d6aef64d800e569f47625352edc
+  FirebaseAnalytics: 23851fe602c872130a2c5c55040b302120346cc2
+  FirebaseCore: 52f851b30e11360f1e67cf04b1edfebf0a47a2d3
   FirebaseInstanceID: bd6fc5a258884e206fd5c474ebe4f5b00e21770e
   FirebasePerformance: b97b1c301790b4fddc9fe675bca05b71c04e24a6
   FirebaseRemoteConfig: 7e11c65f0769c09bff6947997c209515058c5318
   Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
-  Google-Mobile-Ads-SDK: 101ce89b94fdf60ec64ba7b6e9b9d812dc765936
-  GoogleAppMeasurement: 008e04ecd8efedd97a693aea8634aefe220bd26e
+  Google-Mobile-Ads-SDK: c7bec408202526ec4e9ccd025c00f9f30e9f8807
+  GoogleAppMeasurement: 6cf307834da065863f9faf4c0de0a936d81dd832
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
@@ -285,10 +286,10 @@ SPEC CHECKSUMS:
   RNDeviceInfo: 98d06534f7e68edb88b0a2313ad99a1217212688
   RNFirebase: fb4f66d93810b53aa4d1cc50c9fb91ee3548abe2
   RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
-  RNSVG: f7c318a122e24caf39a574195d7babf2efc048cd
+  RNSVG: 3c037ade1c42014de732e27e3879bf2b77ea78ea
   RNVectorIcons: f066f73bf4f25564d7ee7b1bb150e3b431f3a194
   yoga: 3185502dcd7da9c2da966d79a8c9eab730edcf1d
 
-PODFILE CHECKSUM: 7a1ece45b0b59fc934de4360e74134035c1a85e4
+PODFILE CHECKSUM: 5ee0ff8fc3662295ed7dac711203cd7f567ddb78
 
 COCOAPODS: 1.6.0.beta.2

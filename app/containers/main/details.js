@@ -23,7 +23,6 @@ import SettingsItem from '../../components/settings-item';
 import { history } from '../../utils/api';
 import { indexTypes } from '../../utils/indexes';
 import I18n from '../../utils/i18n';
-import tracker from '../../utils/tracker';
 
 const deviceLocale = ReactNativeI18n.locale;
 
@@ -70,23 +69,19 @@ export default class DetailsView extends Component {
       state: PropTypes.shape({}).isRequired,
       goBack: PropTypes.func.isRequired,
     }).isRequired,
-  }
+  };
 
   static navigationOptions = () => ({
     header: null,
     tabBarLabel: I18n.t('details'),
     tabBarIcon: ({ tintColor }) => (
-      <Ionicons
-        name="ios-map"
-        size={20}
-        color={tintColor}
-      />
+      <Ionicons name="ios-map" size={20} color={tintColor} />
     ),
-  })
+  });
 
   state = {
     refreshing: true,
-  }
+  };
 
   componentDidMount() {
     this.prepareData();
@@ -106,11 +101,11 @@ export default class DetailsView extends Component {
       }
       this.setState({ refreshing: false });
     });
-  }
+  };
 
   goBack = () => {
     this.props.navigation.goBack(null);
-  }
+  };
 
   render() {
     const { state } = this.props.navigation;
@@ -126,7 +121,12 @@ export default class DetailsView extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.titleBlock}>
-          <Icon name="chevron-left" size={40} color="gray" onPress={this.goBack} />
+          <Icon
+            name="chevron-left"
+            size={40}
+            color="gray"
+            onPress={this.goBack}
+          />
           <Text style={styles.title}>{title}</Text>
         </View>
         <ScrollView
@@ -139,39 +139,65 @@ export default class DetailsView extends Component {
         >
           <IndicatorHorizontal />
 
-          <View style={{ paddingHorizontal: 10 }}>
+          {/* <View style={{ paddingHorizontal: 10 }}>
             <SettingsItem
               text={I18n.t('notify_title')}
               item={item}
               tags={this.state.tags || {}}
             />
+          </View> */}
+
+          <View
+            style={{
+              marginVertical: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Admob
+              unitId={`hkaqi-details-${Platform.OS}-footer`}
+              bannerSize="LARGE_BANNER"
+            />
           </View>
 
-          <View style={{ marginVertical: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Admob unitId={`hkaqi-details-${Platform.OS}-footer`} bannerSize="LARGE_BANNER" />
-          </View>
+          {!this.state.refreshing &&
+            indexTypes.map((indexType) => {
+              const { length } = this.state.result.history;
+              if (!indexType.isShownDetails) {
+                return null;
+              }
 
-          {!this.state.refreshing && indexTypes.map((indexType) => {
-            const { length } = this.state.result.history;
-            if (!indexType.isShownDetails) {
-              return null;
-            }
+              return (
+                <View key={indexType.key} style={styles.block}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Text style={styles.text}>{indexType.name}</Text>
+                    <Text style={styles.amountText}>{`${
+                      this.state.result.history[length - 1][indexType.key]
+                    }${indexType.unit ? ` ${indexType.unit}` : ''}`}</Text>
+                  </View>
 
-            return (
-              <View key={indexType.key} style={styles.block}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.text}>{indexType.name}</Text>
-                  <Text style={styles.amountText}>{`${this.state.result.history[length - 1][indexType.key]}${indexType.unit ? ` ${indexType.unit}` : ''}`}</Text>
+                  <Chart result={this.state.result} index={indexType.key} />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Text style={styles.dateText}>
+                      {this.state.result.history[0].time}
+                    </Text>
+                    <Text style={styles.dateText}>
+                      {this.state.result.history[length - 1].time}
+                    </Text>
+                  </View>
                 </View>
-
-                <Chart result={this.state.result} index={indexType.key} />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.dateText}>{this.state.result.history[0].time}</Text>
-                  <Text style={styles.dateText}>{this.state.result.history[length - 1].time}</Text>
-                </View>
-              </View>
-            );
-          })}
+              );
+            })}
         </ScrollView>
 
         <Admob unitId={`hkaqi-details-${Platform.OS}-footer`} />

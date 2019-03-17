@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 
 /// Rendered interstitial ad.
-@protocol GADMediationInterstitialAd<GADMediationAd>
+@protocol GADMediationInterstitialAd <GADMediationAd>
 - (void)presentFromViewController:(nonnull UIViewController *)viewController;
 @end
 
