@@ -15,13 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol GADMediatedNativeAd;
 
 /// GADMediatedNativeAdDelegate objects handle mediated native ad events.
-@protocol GADMediatedNativeAdDelegate <NSObject>
+@protocol GADMediatedNativeAdDelegate<NSObject>
 
 @optional
 
 /// Tells the delegate that the mediated native ad has rendered in |view| with clickable asset views
-/// and nonclickable asset views. viewController should be used to present modal views if the ad
-/// opens full screen.
+/// and nonclickable asset views. viewController should be used to present modal views for the ad.
 - (void)mediatedNativeAd:(id<GADMediatedNativeAd>)mediatedNativeAd
            didRenderInView:(UIView *)view
        clickableAssetViews:(NSDictionary<NSString *, UIView *> *)clickableAssetViews
@@ -51,10 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// used to present modal views for the ad.
 - (void)mediatedNativeAd:(id<GADMediatedNativeAd>)mediatedNativeAd
          didRenderInView:(UIView *)view
-          viewController:(UIViewController *)viewController
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Use "
-                                 "-mediatedNativeAd:didRenderInView:clickableAssetViews:"
-                                 "nonclickableAssetViews:viewController: instead.");
+          viewController:(UIViewController *)viewController GAD_DEPRECATED_MSG_ATTRIBUTE(
+                             "Use "
+                             "-mediatedNativeAd:didRenderInView:clickableAssetViews:"
+                             "nonclickableAssetViews:viewController instead.");
 
 @end
 

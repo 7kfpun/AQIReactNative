@@ -5,8 +5,10 @@
 //  Copyright 2016 Google Inc. All rights reserved.
 //
 
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
+
+#import <GoogleMobileAds/GADNativeAd.h>
+#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

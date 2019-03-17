@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Configuration Settings
 
-/// Indicates whether the CSA "adTest" parameter is enabled.
+/// Indicates if the CSA "adTest" parameter is enabled.
 @property(nonatomic, assign) BOOL adTestEnabled;
 
 /// The CSA "channel" parameter.
@@ -47,19 +47,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Ad Extensions
 
-/// Indicates whether the CSA "clickToCall" parameter is enabled.
+/// Indicates if the CSA "clickToCall" parameter is enabled.
 @property(nonatomic, assign) BOOL clickToCallExtensionEnabled;
 
-/// Indicates whether the CSA "location" parameter is enabled.
+/// Indicates if the CSA "location" parameter is enabled.
 @property(nonatomic, assign) BOOL locationExtensionEnabled;
 
-/// Indicates whether the CSA "plusOnes" parameter is enabled.
+/// Indicates if the CSA "plusOnes" parameter is enabled.
 @property(nonatomic, assign) BOOL plusOnesExtensionEnabled;
 
-/// Indicates whether the CSA "sellerRatings" parameter is enabled.
+/// Indicates if the CSA "sellerRatings" parameter is enabled.
 @property(nonatomic, assign) BOOL sellerRatingsExtensionEnabled;
 
-/// Indicates whether the CSA "siteLinks" parameter is enabled.
+/// Indicates if the CSA "siteLinks" parameter is enabled.
 @property(nonatomic, assign) BOOL siteLinksExtensionEnabled;
 
 #pragma mark - Unit Level Parameters
@@ -140,10 +140,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// The CSA "borderSelections" parameter.
 @property(nonatomic, copy, nullable) NSString *borderCSSSelections;
 
-/// Indicates whether the CSA "noTitleUnderline" parameter is enabled.
+/// Indicates if the CSA "noTitleUnderline" parameter is enabled.
 @property(nonatomic, assign) BOOL titleUnderlineHidden;
 
-/// Indicates whether the CSA "titleBold" parameter is enabled.
+/// Indicates if the CSA "titleBold" parameter is enabled.
 @property(nonatomic, assign) BOOL boldTitleEnabled;
 
 /// The CSA "verticalSpacing" parameter.
@@ -151,10 +151,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Ad Extensions
 
-/// Indicates whether the CSA "detailedAttribution" parameter is enabled.
+/// Indicates if the CSA "detailedAttribution" parameter is enabled.
 @property(nonatomic, assign) BOOL detailedAttributionExtensionEnabled;
 
-/// Indicates whether the CSA "longerHeadlines" parameter is enabled.
+/// Indicates if the CSA "longerHeadlines" parameter is enabled.
 @property(nonatomic, assign) BOOL longerHeadlinesExtensionEnabled;
 
 /// Sets an advanced option value for a specified key. The value must be an NSString or NSNumber.

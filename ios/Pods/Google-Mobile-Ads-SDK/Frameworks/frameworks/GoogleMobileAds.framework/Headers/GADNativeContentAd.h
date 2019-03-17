@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 #import <GoogleMobileAds/GADAdChoicesView.h>
 #import <GoogleMobileAds/GADAdLoaderDelegate.h>
 #import <GoogleMobileAds/GADMediaView.h>
@@ -14,7 +16,6 @@
 #import <GoogleMobileAds/GADNativeContentAdAssetIDs.h>
 #import <GoogleMobileAds/GADVideoController.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
-#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -73,7 +74,7 @@ GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADUnifiedNativeAd instead.")
 
 /// The delegate of a GADAdLoader object implements this protocol to receive GADNativeContentAd ads.
 GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADUnifiedNativeAdLoaderDelegate instead.")
-@protocol GADNativeContentAdLoaderDelegate <GADAdLoaderDelegate>
+@protocol GADNativeContentAdLoaderDelegate<GADAdLoaderDelegate>
 /// Called when native content is received.
 - (void)adLoader:(GADAdLoader *)adLoader
     didReceiveNativeContentAd:(GADNativeContentAd *)nativeContentAd;

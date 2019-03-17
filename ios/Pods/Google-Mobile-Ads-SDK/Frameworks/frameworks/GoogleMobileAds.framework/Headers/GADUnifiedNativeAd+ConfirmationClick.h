@@ -12,11 +12,13 @@
 #import <GoogleMobileAds/GADUnifiedNativeAdUnconfirmedClickDelegate.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
-@interface GADUnifiedNativeAd (ConfirmedClick)
+NS_ASSUME_NONNULL_BEGIN
+
+@interface GADUnifiedNativeAd (ConfirmationClick)
 
 /// Unconfirmed click delegate.
-@property(nonatomic, weak, nullable) id<GADUnifiedNativeAdUnconfirmedClickDelegate>
-    unconfirmedClickDelegate;
+@property(nonatomic, weak, nullable)
+    id<GADUnifiedNativeAdUnconfirmedClickDelegate> unconfirmedClickDelegate;
 
 /// Registers a view that will confirm the click.
 - (void)registerClickConfirmingView:(nullable UIView *)view;
@@ -28,3 +30,5 @@
 - (void)cancelUnconfirmedClick;
 
 @end
+
+NS_ASSUME_NONNULL_END

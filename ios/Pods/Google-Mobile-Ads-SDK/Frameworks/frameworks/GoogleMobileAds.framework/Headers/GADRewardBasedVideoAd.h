@@ -6,11 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 #import <GoogleMobileAds/GADAdMetadataKeys.h>
 #import <GoogleMobileAds/GADRequest.h>
-#import <GoogleMobileAds/GADRequestError.h>
 #import <GoogleMobileAds/GADRewardBasedVideoAdDelegate.h>
-#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /// The GADRewardBasedVideoAd class is used for requesting and presenting a reward based video ad.
 /// This class isn't thread safe.
@@ -19,7 +21,7 @@
 /// Delegate for receiving video notifications.
 @property(nonatomic, weak, nullable) id<GADRewardBasedVideoAdDelegate> delegate;
 
-/// Indicates whether the receiver is ready to be presented full screen.
+/// Indicates if the receiver is ready to be presented full screen.
 @property(nonatomic, readonly, getter=isReady) BOOL ready;
 
 /// The ad network class name that fetched the current ad. Returns nil while the latest ad request
@@ -42,14 +44,16 @@
 @property(nonatomic, readonly, nullable) NSDictionary<GADAdMetadataKey, id> *adMetadata;
 
 /// Returns the shared GADRewardBasedVideoAd instance.
-+ (nonnull GADRewardBasedVideoAd *)sharedInstance;
++ (GADRewardBasedVideoAd *)sharedInstance;
 
 /// Initiates the request to fetch the reward based video ad. The |request| object supplies ad
 /// targeting information and must not be nil. The adUnitID is the ad unit id used for fetching an
 /// ad and must not be nil.
-- (void)loadRequest:(nonnull GADRequest *)request withAdUnitID:(nonnull NSString *)adUnitID;
+- (void)loadRequest:(GADRequest *)request withAdUnitID:(NSString *)adUnitID;
 
 /// Presents the reward based video ad with the provided view controller.
-- (void)presentFromRootViewController:(nonnull UIViewController *)viewController;
+- (void)presentFromRootViewController:(UIViewController *)viewController;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -6,14 +6,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import <GoogleMobileAds/GADAdNetworkExtras.h>
-#import <GoogleMobileAds/GADRequest.h>
-#import <GoogleMobileAds/GADRequestConfiguration.h>
-#import <GoogleMobileAds/Mediation/GADMEnums.h>
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 /// Provides information which can be used for making ad requests during mediation.
-@protocol GADMediationAdRequest <NSObject>
+@protocol GADMediationAdRequest<NSObject>
 
 /// Publisher ID set by the publisher on the AdMob frontend.
 - (NSString *)publisherId;

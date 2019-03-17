@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import <GoogleMobileAds/GADRequestError.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Delegate methods for receiving GADNativeExpressAdView state change messages such as ad request
 /// status and ad click lifecycle.
-@protocol GADNativeExpressAdViewDelegate <NSObject>
+@protocol GADNativeExpressAdViewDelegate<NSObject>
 
 @optional
 

@@ -5,8 +5,9 @@
 //  Copyright 2014 Google Inc. All rights reserved.
 //
 
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
+
+#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 @class DFPBannerView;
 @class DFPCustomRenderedAd;
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The DFPCustomRenderedAd banner view delegate protocol for notifying the delegate of changes to
 /// custom rendered banners.
-@protocol DFPCustomRenderedBannerViewDelegate <NSObject>
+@protocol DFPCustomRenderedBannerViewDelegate<NSObject>
 
 /// Called after ad data has been received. You must construct a banner from |customRenderedAd| and
 /// call the |customRenderedAd| object's finishedRenderingAdView: when the ad has been rendered.

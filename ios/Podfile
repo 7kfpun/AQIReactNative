@@ -38,7 +38,7 @@ target 'HKAQI' do
   pod 'Folly', :podspec => react_path + '/third-party-podspecs/Folly.podspec'
 
   # Pods for HKAQI
-  pod 'Firebase/Core'
+  pod 'Firebase/Core', '~> 5.17.0'
   pod 'Firebase/AdMob'
   pod 'Firebase/Analytics'
   pod 'Firebase/Performance'

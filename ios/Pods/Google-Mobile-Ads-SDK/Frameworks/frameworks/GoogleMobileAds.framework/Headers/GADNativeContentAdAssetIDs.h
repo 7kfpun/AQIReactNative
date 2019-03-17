@@ -6,11 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSString *GADNativeContentAdAssetID NS_STRING_ENUM;
+typedef NSString *GADNativeContentAdAssetID GAD_STRING_ENUM;
 
 GAD_EXTERN GADNativeContentAdAssetID const GADNativeContentHeadlineAsset GAD_DEPRECATED_ATTRIBUTE;
 GAD_EXTERN GADNativeContentAdAssetID const GADNativeContentBodyAsset GAD_DEPRECATED_ATTRIBUTE;

@@ -13,7 +13,6 @@
 			buildPhases = (
 			);
 			dependencies = (
-				CFF726FDE4ED5F68E8F42B98E8D03DC9 /* PBXTargetDependency */,
 			);
 			name = "Google-Mobile-Ads-SDK";
 		};
@@ -694,7 +693,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		11349D2C11D837E47DE59099B58AD223 /* PBXContainerItemProxy */ = {
@@ -911,7 +910,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		66E05CE7188620109DDF8FA2BB95DF10 /* PBXContainerItemProxy */ = {
@@ -967,7 +966,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		88175612CF7471FFAF006E5B9C7A7A93 /* PBXContainerItemProxy */ = {
@@ -1019,13 +1018,6 @@
 			remoteGlobalIDString = 2C43102EB040012B24EC2FEC28871B4F;
 			remoteInfo = FirebaseABTesting;
 		};
-		9A831BE670B56B2B4FD74AA3F3AF1D11 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9130769E767555FF5D794E2C386FD083;
-			remoteInfo = GoogleAppMeasurement;
-		};
 		A133C0F5A910475F9A828391F157D13B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -1051,7 +1043,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		B028114102FDB8337A09390339CD9AFC /* PBXContainerItemProxy */ = {
@@ -1100,7 +1092,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		C8AA3EA7F9D19F61C67824FB4A9D874B /* PBXContainerItemProxy */ = {
@@ -1121,7 +1113,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		CF612D35682098A06C5D6F07CA0864DE /* PBXContainerItemProxy */ = {
@@ -1149,7 +1141,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		DA7CF0E14DDC3A148642727775270A7D /* PBXContainerItemProxy */ = {
@@ -1177,7 +1169,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		E032B8866A4988FC69F587FF3AC899C2 /* PBXContainerItemProxy */ = {
@@ -1191,7 +1183,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		E735B8B3F6BF430F2DDE2AB71153FCB7 /* PBXContainerItemProxy */ = {
@@ -1219,7 +1211,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000007630;
+			remoteGlobalIDString = 000000007640;
 			remoteInfo = React;
 		};
 		F50DF42F16C27696B43A8917E53EF843 /* PBXContainerItemProxy */ = {
@@ -1251,7 +1243,6 @@
 		026368C06C99EE761D7B966789762B5A /* RCTComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RCTComponent.h; sourceTree = "<group>"; };
 		027BD7BBAB98F57FA46021FA25632657 /* RCTMultilineTextInputViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTMultilineTextInputViewManager.m; sourceTree = "<group>"; };
 		02DC81D508289DB068A5F0A524C9702F /* JSModulesUnbundle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSModulesUnbundle.h; path = ReactCommon/cxxreact/JSModulesUnbundle.h; sourceTree = "<group>"; };
-		030FCE5171EED86AB0EF142B98F6EA3A /* Google-Mobile-Ads-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Google-Mobile-Ads-SDK.xcconfig"; sourceTree = "<group>"; };
 		037CB459229EE9927ED383DF5F235860 /* RCTSurfaceHostingView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RCTSurfaceHostingView.h; sourceTree = "<group>"; };
 		038450904FDA5DEE0C4D0FAA125EE971 /* RCTModuloAnimatedNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RCTModuloAnimatedNode.h; sourceTree = "<group>"; };
 		03F05EEE802BA94B7EE7AA5C7543F913 /* RNSVGRect.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RNSVGRect.m; sourceTree = "<group>"; };
@@ -2199,7 +2190,6 @@
 		CB94E83F8F9B0053D0A3853B8DE10EEE /* FIRInstanceIDStringEncoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDStringEncoding.m; path = Firebase/InstanceID/FIRInstanceIDStringEncoding.m; sourceTree = "<group>"; };
 		CBA86E80A3FB7ACB67CA003213593099 /* RNSVGSolidColorBrush.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RNSVGSolidColorBrush.h; sourceTree = "<group>"; };
 		CC239FD1C26621739449EB3E217EABD0 /* RCTImageUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RCTImageUtils.m; path = Libraries/Image/RCTImageUtils.m; sourceTree = "<group>"; };
-		CC581CA9F579C00AD18FDDFE513D4A05 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		CC6A1F37D174FBFEF2F840BD059F62CD /* RCTBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RCTBridge.h; sourceTree = "<group>"; };
 		CC6CFF18FE938F3187BA01B257AA2436 /* RCTActivityIndicatorViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTActivityIndicatorViewManager.m; sourceTree = "<group>"; };
 		CC709E22CEE8B9AC107F3E1C28ACF34C /* RCTSegmentedControlManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTSegmentedControlManager.m; sourceTree = "<group>"; };
@@ -2213,6 +2203,7 @@
 		CDF4B20D16A6B8F76A2C98134627742A /* RCTSurfaceView.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = RCTSurfaceView.mm; sourceTree = "<group>"; };
 		CDFBBEF988942248EA3D47C3C47350BD /* GULReachabilityMessageCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULReachabilityMessageCode.h; path = GoogleUtilities/Reachability/Private/GULReachabilityMessageCode.h; sourceTree = "<group>"; };
 		CE687354F20FEE3AA425548E0CBEA71F /* SMCalloutView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
+		CE6BCCEF923039D85B6CF22705E1CA9D /* Google-Mobile-Ads-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Google-Mobile-Ads-SDK.xcconfig"; sourceTree = "<group>"; };
 		CEF4515EB9F267C12937326A9D9F7399 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRNFirebase.a; path = libRNFirebase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1A2B6F042B80FD1BB90D8EAC8368B2 /* GULNetwork.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULNetwork.m; path = GoogleUtilities/Network/GULNetwork.m; sourceTree = "<group>"; };
 		CF1FECC62909C322BD512E5F89AE92EF /* RNSVGTextPath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RNSVGTextPath.m; sourceTree = "<group>"; };
@@ -2256,6 +2247,7 @@
 		D8F6547313D26614364CD6AED6B8B52E /* GoogleUtilities-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GoogleUtilities-dummy.m"; sourceTree = "<group>"; };
 		D920B231DD50D42B6294DE7D026F0424 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		D924317CA4CDE894B56B89B54F39E456 /* GULObjectSwizzler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULObjectSwizzler.m; path = GoogleUtilities/ISASwizzler/GULObjectSwizzler.m; sourceTree = "<group>"; };
+		D925B053F191FE436874449C9E578536 /* libGoogleMobileAds.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGoogleMobileAds.a; path = Libraries/libGoogleMobileAds.a; sourceTree = "<group>"; };
 		D93E049C76A46661DDEF3F25150A13CE /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libGoogleToolboxForMac.a; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95F9733F842721E58043E9A6ECA5CE6 /* pb_common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
 		D9B1143E73DD6783405199C7E7A14EA7 /* RCTModuloAnimatedNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTModuloAnimatedNode.m; sourceTree = "<group>"; };
@@ -2423,6 +2415,7 @@
 		FB66E013732BCA707E55A3D9D65FE093 /* RCTPerformanceLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RCTPerformanceLogger.h; sourceTree = "<group>"; };
 		FB7AF1E347E41C557C872297EF9F286A /* FIRInstanceIDCheckinService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDCheckinService.m; path = Firebase/InstanceID/FIRInstanceIDCheckinService.m; sourceTree = "<group>"; };
 		FB87E6CD2C170D80A240751F98CE2C8E /* RCTBaseTextInputShadowView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTBaseTextInputShadowView.m; sourceTree = "<group>"; };
+		FBC5AF9C07CFAB96E58F3D9BB5A022DF /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		FBC8AF78C8277A245FB5EE8B8F753A66 /* YGStyle.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = YGStyle.cpp; path = yoga/YGStyle.cpp; sourceTree = "<group>"; };
 		FC5D067A3C3F9563066456D03D9E9B4D /* AIRMapOverlayManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AIRMapOverlayManager.m; path = lib/ios/AirMaps/AIRMapOverlayManager.m; sourceTree = "<group>"; };
 		FC7EFFA58B05F809CD4842F0CCD5ECCF /* GULOriginalIMPConvenienceMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULOriginalIMPConvenienceMacros.h; path = GoogleUtilities/MethodSwizzler/Private/GULOriginalIMPConvenienceMacros.h; sourceTree = "<group>"; };
@@ -3142,14 +3135,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/FirebaseRemoteConfig";
-			sourceTree = "<group>";
-		};
-		4F4D85DE360227DD2807C7AFB681FBEF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CC581CA9F579C00AD18FDDFE513D4A05 /* GoogleMobileAds.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4F599A30953EE601E0F42A357E32FDF0 /* Core */ = {
@@ -4339,6 +4324,15 @@
 			name = AppDelegateSwizzler;
 			sourceTree = "<group>";
 		};
+		9EE0DF1638A1E3B50624C215446346E5 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE6BCCEF923039D85B6CF22705E1CA9D /* Google-Mobile-Ads-SDK.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Google-Mobile-Ads-SDK";
+			sourceTree = "<group>";
+		};
 		9F0FA765C4315576A8CCCF363D8FBCB6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4355,7 +4349,7 @@
 				FE3AF9E58FBA7C0AC37D89703AE8E65A /* FirebaseRemoteConfig */,
 				53D943086A59AA24BB7F639871D6784F /* Folly */,
 				74A0593189ED4CD61900D40578ACD0CC /* glog */,
-				F2A94F65F7EE4277BC88455F8F15B6DE /* Google-Mobile-Ads-SDK */,
+				B3168B159772EC26CC3470B990341C58 /* Google-Mobile-Ads-SDK */,
 				B7E941B76D6D0B50C0B34115EA3183B9 /* GoogleAppMeasurement */,
 				C363951E2FF8AF0B78340323BECB1047 /* GoogleToolboxForMac */,
 				0225C692AA6FAFB1D59110DF2B7212A5 /* GoogleUtilities */,
@@ -4609,6 +4603,16 @@
 			);
 			name = "react-native-maps";
 			path = "../../node_modules/react-native-maps";
+			sourceTree = "<group>";
+		};
+		B3168B159772EC26CC3470B990341C58 /* Google-Mobile-Ads-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				F22A9A2E3295948EDB31F515FF3270FA /* Frameworks */,
+				9EE0DF1638A1E3B50624C215446346E5 /* Support Files */,
+			);
+			name = "Google-Mobile-Ads-SDK";
+			path = "Google-Mobile-Ads-SDK";
 			sourceTree = "<group>";
 		};
 		B5A296CDC780C982B02560F738C44223 /* cxxreact */ = {
@@ -5067,15 +5071,6 @@
 			name = MethodSwizzler;
 			sourceTree = "<group>";
 		};
-		DEE231BC61814761E189DBC0CBDFF971 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				030FCE5171EED86AB0EF142B98F6EA3A /* Google-Mobile-Ads-SDK.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Google-Mobile-Ads-SDK";
-			sourceTree = "<group>";
-		};
 		E05F7B8992A34F63F896B2FF0FA5B008 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -5184,14 +5179,13 @@
 			name = Pod;
 			sourceTree = "<group>";
 		};
-		F2A94F65F7EE4277BC88455F8F15B6DE /* Google-Mobile-Ads-SDK */ = {
+		F22A9A2E3295948EDB31F515FF3270FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4F4D85DE360227DD2807C7AFB681FBEF /* Frameworks */,
-				DEE231BC61814761E189DBC0CBDFF971 /* Support Files */,
+				FBC5AF9C07CFAB96E58F3D9BB5A022DF /* GoogleMobileAds.framework */,
+				D925B053F191FE436874449C9E578536 /* libGoogleMobileAds.a */,
 			);
-			name = "Google-Mobile-Ads-SDK";
-			path = "Google-Mobile-Ads-SDK";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F2DAE8A37122C6918B4D452B4E52FB5F /* RCTLinkingIOS */ = {
@@ -7027,12 +7021,6 @@
 			target = CD4E8A996078E2A907DCF13AD9AE8C81 /* boost-for-react-native */;
 			targetProxy = 2F887BA1FE95BAC299F34C13D0BECF00 /* PBXContainerItemProxy */;
 		};
-		CFF726FDE4ED5F68E8F42B98E8D03DC9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = GoogleAppMeasurement;
-			target = 9130769E767555FF5D794E2C386FD083 /* GoogleAppMeasurement */;
-			targetProxy = 9A831BE670B56B2B4FD74AA3F3AF1D11 /* PBXContainerItemProxy */;
-		};
 		D2957B9C61624373E518E972E140C1B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = React;
@@ -7085,7 +7073,7 @@
 /* Begin XCBuildConfiguration section */
 		0277AB559A002A6AF6775832EA54285A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 030FCE5171EED86AB0EF142B98F6EA3A /* Google-Mobile-Ads-SDK.xcconfig */;
+			baseConfigurationReference = CE6BCCEF923039D85B6CF22705E1CA9D /* Google-Mobile-Ads-SDK.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -7535,7 +7523,7 @@
 		};
 		583A8A5E115B06BB279B18EE730FDB67 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 030FCE5171EED86AB0EF142B98F6EA3A /* Google-Mobile-Ads-SDK.xcconfig */;
+			baseConfigurationReference = CE6BCCEF923039D85B6CF22705E1CA9D /* Google-Mobile-Ads-SDK.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
