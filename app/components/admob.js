@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Platform,
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
@@ -41,7 +38,7 @@ export default class Admob extends Component {
     margin: PropTypes.number,
     backgroundColor: PropTypes.string,
     alignItems: PropTypes.string,
-  }
+  };
 
   static defaultProps = {
     margin: 0,
@@ -49,7 +46,7 @@ export default class Admob extends Component {
     bannerSize: 'BANNER',
     backgroundColor: 'rgba(0,0,0,0)',
     alignItems: 'center',
-  }
+  };
 
   state = {
     isReceived: false,
@@ -70,7 +67,8 @@ export default class Admob extends Component {
   }
 
   componentWillUnmount() {
-    if (this.setIsReceivedFailedTimeout) clearTimeout(this.setIsReceivedFailedTimeout);
+    if (this.setIsReceivedFailedTimeout)
+      clearTimeout(this.setIsReceivedFailedTimeout);
     if (this.checkCardAdInterval) clearInterval(this.checkCardAdInterval);
   }
 

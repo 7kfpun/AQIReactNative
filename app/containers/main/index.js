@@ -20,6 +20,7 @@ import MapView from 'react-native-maps';
 import store from 'react-native-simple-store';
 
 import Marker from './components/marker';
+import Indicator from './components/indicator';
 import ClosestStation from './components/closest-station';
 
 import Admob from '../../components/admob';
@@ -150,11 +151,7 @@ export default class Main extends Component {
     title: 'Main',
     tabBarLabel: I18n.t('main'),
     tabBarIcon: ({ tintColor, focused }) => (
-      <Ionicons
-        name="ios-map"
-        size={20}
-        color={tintColor}
-      />
+      <Ionicons name="ios-map" size={20} color={tintColor} />
     ),
   };
 
@@ -169,7 +166,9 @@ export default class Main extends Component {
   }
 
   static isOutOfBound(latitude, longitude) {
-    const distance = ((latitude - LATITUDE) * (latitude - LATITUDE)) + ((longitude - LONGITUDE) * (longitude - LONGITUDE));
+    const distance =
+      (latitude - LATITUDE) * (latitude - LATITUDE) +
+      (longitude - LONGITUDE) * (longitude - LONGITUDE);
     console.log('Distance', distance);
     return distance > 0.2;
   }
@@ -245,13 +244,15 @@ export default class Main extends Component {
         console.warn(err);
       }
     }
-  }
+  };
 
   loadMapContent = async () => {
     if (Platform.OS === 'ios') {
       this.checkLocation();
     } else {
-      const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      const granted = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         this.checkLocation();
@@ -259,7 +260,7 @@ export default class Main extends Component {
         this.requestLocationPermission();
       }
     }
-  }
+  };
 
   checkLocation() {
     navigator.geolocation.getCurrentPosition(
@@ -270,7 +271,12 @@ export default class Main extends Component {
           gpsEnabled: true,
         });
 
-        const moveLocation = Main.isOutOfBound(position.coords.latitude, position.coords.longitude) ? Main.getDefaultLocation() : this.getCurrentLocation();
+        const moveLocation = Main.isOutOfBound(
+          position.coords.latitude,
+          position.coords.longitude,
+        )
+          ? Main.getDefaultLocation()
+          : this.getCurrentLocation();
         try {
           this.map.animateToRegion(moveLocation);
         } catch (err) {
@@ -287,7 +293,9 @@ export default class Main extends Component {
               console.log(error);
               this.map.animateToRegion(Main.getDefaultLocation());
             } catch (err) {
-              log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
+              log.logError(
+                `Map animateToRegion failed: ${JSON.stringify(err)}`,
+              );
             }
           }, 2000);
         }
@@ -304,10 +312,13 @@ export default class Main extends Component {
   }
 
   componentWillUnmount() {
-    if (this.watchPosition) navigator.geolocation.clearWatch(this.watchPosition);
-    if (this.reloadFetchLatestDataInterval) clearInterval(this.reloadFetchLatestDataInterval);
+    if (this.watchPosition)
+      navigator.geolocation.clearWatch(this.watchPosition);
+    if (this.reloadFetchLatestDataInterval)
+      clearInterval(this.reloadFetchLatestDataInterval);
     if (this.moveToHongKongTimeout) clearTimeout(this.moveToHongKongTimeout);
-    if (this.moveToCurrentLocationTimeout) clearTimeout(this.moveToCurrentLocationTimeout);
+    if (this.moveToCurrentLocationTimeout)
+      clearTimeout(this.moveToCurrentLocationTimeout);
 
     OneSignal.removeEventListener('received', this.onReceived);
     OneSignal.removeEventListener('opened', this.onOpened);
@@ -329,7 +340,9 @@ export default class Main extends Component {
       latitude: this.state.location.latitude,
       longitude: this.state.location.longitude,
       latitudeDelta: this.state.gpsEnabled ? 0.1 : LATITUDE_DELTA,
-      longitudeDelta: this.state.gpsEnabled ? 0.1 * ASPECT_RATIO : LONGITUDE_DELTA,
+      longitudeDelta: this.state.gpsEnabled
+        ? 0.1 * ASPECT_RATIO
+        : LONGITUDE_DELTA,
     };
   }
 
@@ -360,44 +373,48 @@ export default class Main extends Component {
   }
 
   render() {
-    const {
-      centerLocation,
-      aqiResult,
-      selectedIndex,
-    } = this.state;
+    const { centerLocation, aqiResult, selectedIndex } = this.state;
 
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: 'flex-end' }}>
         <View style={styles.container}>
           <MapView
             style={styles.map}
-            ref={(ref) => { this.map = ref; }}
+            ref={(ref) => {
+              this.map = ref;
+            }}
             initialRegion={this.getCurrentLocation()}
-            onRegionChange={region => this.onRegionChange(region)}
-            onRegionChangeComplete={region =>
+            onRegionChange={(region) => this.onRegionChange(region)}
+            onRegionChangeComplete={(region) =>
               this.onRegionChangeComplete(region)
             }
             onMapReady={this.loadMapContent}
             showsUserLocation={true}
           >
-            {aqiResult && this.state.markers.map(marker => (
-              <MapView.Marker
-                key={`${marker.latlng.latitude}${selectedIndex}`}
-                coordinate={marker.latlng}
-                onPress={() => {
-                  console.log('marker', marker);
-                  tracker.logEvent('check-main-details', marker);
-                  this.props.navigation.navigate('map-details', { item: marker });
-                }}
-              >
-                {aqiResult[marker.title] &&
-                  <Marker amount={aqiResult[marker.title][selectedIndex]} index={selectedIndex} />
-                }
-              </MapView.Marker>
-            ))}
+            {aqiResult &&
+              this.state.markers.map((marker) => (
+                <MapView.Marker
+                  key={`${marker.latlng.latitude}${selectedIndex}`}
+                  coordinate={marker.latlng}
+                  onPress={() => {
+                    console.log('marker', marker);
+                    tracker.logEvent('check-main-details', marker);
+                    this.props.navigation.navigate('map-details', {
+                      item: marker,
+                    });
+                  }}
+                >
+                  {aqiResult[marker.title] && (
+                    <Marker
+                      amount={aqiResult[marker.title][selectedIndex]}
+                      index={selectedIndex}
+                    />
+                  )}
+                </MapView.Marker>
+              ))}
           </MapView>
 
-          {aqiResult &&
+          {aqiResult && (
             <View style={styles.infomationContainer}>
               <TouchableOpacity
                 onPress={() => {
@@ -407,12 +424,24 @@ export default class Main extends Component {
                 style={styles.infomationBubble}
               >
                 <View style={styles.infomationBubbleBody}>
-                  <Text style={styles.infomationBubbleText}>{aqiResult.time}</Text>
-                  {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
-                  {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
+                  <Text style={styles.infomationBubbleText}>
+                    {aqiResult.time}
+                  </Text>
+                  {!this.state.isLoading && (
+                    <Icon
+                      name="refresh"
+                      style={{ marginLeft: 5 }}
+                      size={20}
+                      color="#616161"
+                    />
+                  )}
+                  {this.state.isLoading && (
+                    <ActivityIndicator style={{ marginLeft: 5 }} />
+                  )}
                 </View>
               </TouchableOpacity>
-            </View>}
+            </View>
+          )}
 
           <ClosestStation
             aqiResult={aqiResult}
@@ -421,7 +450,12 @@ export default class Main extends Component {
             long={centerLocation.longitude}
           />
 
-          <TouchableOpacity style={styles.help} onPress={() => this.props.navigation.navigate('map-help')}>
+          <Indicator />
+
+          <TouchableOpacity
+            style={styles.help}
+            onPress={() => this.props.navigation.navigate('map-help')}
+          >
             <Icon name="help-outline" size={30} color="gray" />
           </TouchableOpacity>
 
@@ -435,7 +469,7 @@ export default class Main extends Component {
             <Icon name="crop-free" size={26} color="#616161" />
           </TouchableOpacity>
 
-          {this.state.gpsEnabled &&
+          {this.state.gpsEnabled && (
             <TouchableOpacity
               style={styles.currentLocation}
               onPress={() => {
@@ -448,13 +482,14 @@ export default class Main extends Component {
               }}
             >
               <Icon name="near-me" size={26} color="#616161" />
-            </TouchableOpacity>}
+            </TouchableOpacity>
+          )}
 
           <Rating />
 
           <View style={styles.buttonContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {indexTypes.map(item => (
+              {indexTypes.map((item) => (
                 <TouchableOpacity
                   key={item.name}
                   onPress={() => {
@@ -462,7 +497,11 @@ export default class Main extends Component {
                     store.save('selectedIndex', item.name);
                     tracker.logEvent('select-index', { label: item.name });
                   }}
-                  style={[styles.bubble, styles.button, selectedIndex === item.name ? styles.selectedBubble : {}]}
+                  style={[
+                    styles.bubble,
+                    styles.button,
+                    selectedIndex === item.name ? styles.selectedBubble : {},
+                  ]}
                 >
                   <Text style={styles.text}>{item.name}</Text>
                 </TouchableOpacity>
