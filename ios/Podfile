@@ -41,7 +41,6 @@ target 'HKAQI' do
   pod 'Firebase/Core'
   pod 'Firebase/AdMob'
   pod 'Firebase/Analytics'
-  pod 'Firebase/Crash'
   pod 'Firebase/Performance'
   pod 'Firebase/RemoteConfig'
 

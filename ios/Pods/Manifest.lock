@@ -14,9 +14,6 @@ PODS:
     - FirebaseAnalytics (= 5.7.0)
   - Firebase/CoreOnly (5.18.0):
     - FirebaseCore (= 5.3.1)
-  - Firebase/Crash (5.18.0):
-    - Firebase/Core
-    - FirebaseCrash (= 3.1.1)
   - Firebase/Performance (5.18.0):
     - Firebase/Core
     - FirebasePerformance (= 2.2.3)
@@ -37,12 +34,6 @@ PODS:
     - nanopb (~> 0.3)
   - FirebaseCore (5.3.1):
     - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseCrash (3.1.1):
-    - FirebaseAnalytics (~> 5.1)
-    - FirebaseInstanceID (~> 3.2)
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - Protobuf (~> 3.5)
   - FirebaseInstanceID (3.7.0):
     - FirebaseCore (~> 5.2)
     - GoogleUtilities/Environment (~> 5.2)
@@ -112,7 +103,7 @@ PODS:
   - Protobuf (3.7.0)
   - React (0.57.0):
     - React/Core (= 0.57.0)
-  - react-native-maps (0.21.0):
+  - react-native-maps (0.23.0):
     - React
   - react-native-onesignal (3.2.12):
     - OneSignal (= 2.9.4)
@@ -168,9 +159,9 @@ PODS:
     - Crashlytics
     - Fabric
     - React
-  - RNDeviceInfo (0.21.5):
+  - RNDeviceInfo (1.0.0):
     - React
-  - RNFirebase (5.0.0-rc1):
+  - RNFirebase (5.2.3):
     - Firebase/Core
     - React
   - RNI18n (2.0.15):
@@ -188,7 +179,6 @@ DEPENDENCIES:
   - Firebase/AdMob
   - Firebase/Analytics
   - Firebase/Core
-  - Firebase/Crash
   - Firebase/Performance
   - Firebase/RemoteConfig
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
@@ -225,7 +215,6 @@ SPEC REPOS:
     - FirebaseABTesting
     - FirebaseAnalytics
     - FirebaseCore
-    - FirebaseCrash
     - FirebaseInstanceID
     - FirebasePerformance
     - FirebaseRemoteConfig
@@ -276,7 +265,6 @@ SPEC CHECKSUMS:
   FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
   FirebaseAnalytics: 23851fe602c872130a2c5c55040b302120346cc2
   FirebaseCore: 52f851b30e11360f1e67cf04b1edfebf0a47a2d3
-  FirebaseCrash: 011365f2c0dfac64315109103ed350bacfcdc03f
   FirebaseInstanceID: bd6fc5a258884e206fd5c474ebe4f5b00e21770e
   FirebasePerformance: b97b1c301790b4fddc9fe675bca05b71c04e24a6
   FirebaseRemoteConfig: 7e11c65f0769c09bff6947997c209515058c5318
@@ -291,17 +279,17 @@ SPEC CHECKSUMS:
   OneSignal: a41f5a896177275662da07e23d6a809c0e105a89
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   React: ef44b3f4b252394b661ff6d93adb5acd5b451d37
-  react-native-maps: fb06a43ce6884256097eec1dd69d23957b71df88
+  react-native-maps: 9469741f77f270c605cafec603ce47327dc5b5f8
   react-native-onesignal: fa2b1e784076b8e8a1e5d86789fbb3f5345778fa
   react-native-safari-view: 955d7160d159241b8e9395d12d10ea0ef863dcdd
   ReactNativeFabric: d05320ff347d5c72567c115b97edeead111ac4d2
-  RNDeviceInfo: e7c5fcde13d40e161d8a27f6c5dc69c638936002
-  RNFirebase: d104abed9a191cc768fedaf2f1e465fb9b089854
+  RNDeviceInfo: 98d06534f7e68edb88b0a2313ad99a1217212688
+  RNFirebase: fb4f66d93810b53aa4d1cc50c9fb91ee3548abe2
   RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
   RNSVG: f7c318a122e24caf39a574195d7babf2efc048cd
   RNVectorIcons: f066f73bf4f25564d7ee7b1bb150e3b431f3a194
   yoga: 3185502dcd7da9c2da966d79a8c9eab730edcf1d
 
-PODFILE CHECKSUM: 20b0d7d67a49faf1a1ad7b760ff7b3779aeca365
+PODFILE CHECKSUM: 5ee0ff8fc3662295ed7dac711203cd7f567ddb78
 
 COCOAPODS: 1.6.0.beta.2
