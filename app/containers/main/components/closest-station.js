@@ -83,10 +83,8 @@ export default class ClosestStation extends Component {
 
     const { title, title_hant, title_hans } = getClosestStation(lat, long);
 
-    const amount = (aqiResult &&
-        aqiResult[title] &&
-        aqiResult[title][selectedIndex]) ||
-      '-';
+    const amount =
+      (aqiResult && aqiResult[title] && aqiResult[title][selectedIndex]) || '-';
 
     return (
       <View style={styles.container}>
@@ -98,7 +96,11 @@ export default class ClosestStation extends Component {
           </View>
 
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.statusText}>{getColor(selectedIndex, amount).status}</Text>
+            <Text
+              style={[styles.statusText, { fontSize: I18n.isZh ? 14 : 11 }]}
+            >
+              {getColor(selectedIndex, amount).status}
+            </Text>
           </View>
         </View>
         <View style={styles.aqiContainer}>

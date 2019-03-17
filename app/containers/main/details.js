@@ -139,13 +139,13 @@ export default class DetailsView extends Component {
         >
           <IndicatorHorizontal />
 
-          {/* <View style={{ paddingHorizontal: 10 }}>
+          <View style={{ paddingHorizontal: 10 }}>
             <SettingsItem
               text={I18n.t('notify_title')}
               item={item}
               tags={this.state.tags || {}}
             />
-          </View> */}
+          </View>
 
           <View
             style={{

@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -78,7 +74,7 @@ export default class AirMarker extends React.Component {
       } else if (amount >= 4 && amount <= 6) {
         color = '#F9AB1A';
         fontColor = '#424242';
-      } else if (amount === 7) {
+      } else if (amount === 7 || amount === '7') {
         color = '#ED1B24';
         fontColor = 'white';
       } else if (amount >= 8 && amount <= 10) {
@@ -94,7 +90,12 @@ export default class AirMarker extends React.Component {
     }
 
     let showAmount;
-    if (amount === '/*' || amount === '-*' || amount === '-/-' || amount === '/-') {
+    if (
+      amount === '/*' ||
+      amount === '-*' ||
+      amount === '-/-' ||
+      amount === '/-'
+    ) {
       showAmount = '-';
     } else {
       showAmount = amount;
@@ -106,8 +107,15 @@ export default class AirMarker extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={[styles.bubble, { backgroundColor: color, borderColor: 'white' }]}>
-          <Text style={[styles.amount, { fontSize, color: fontColor }]}>{showAmount}</Text>
+        <View
+          style={[
+            styles.bubble,
+            { backgroundColor: color, borderColor: 'white' },
+          ]}
+        >
+          <Text style={[styles.amount, { fontSize, color: fontColor }]}>
+            {showAmount}
+          </Text>
         </View>
       </View>
     );
